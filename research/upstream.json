@@ -1,0 +1,6 @@
+{
+  "goose": {
+    "url": "https://github.com/aardappel/goose.git",
+    "commit": "335fddc13dc74666398ffe160ec8a8f2958329d0"
+  }
+}
