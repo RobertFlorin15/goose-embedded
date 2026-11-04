@@ -28,3 +28,25 @@ pinned source; the source check cannot prove binary provenance.
 Generated C and compiler output remain ignored; copy a concise results summary
 into research/EXPERIMENTS.md after reviewing it. Do not infer target compatibility
 or allocation-free execution from these host probes.
+
+## Separate-runtime dependency probe
+
+```sh
+python3 tools/runtime_probe.py --compiler build/goose/goose
+```
+
+This additional probe requires Linux, a GCC-compatible compiler, GNU nm and a
+GNU-compatible linker supporting --wrap and --gc-sections. It does not modify
+upstream sources. At Goose/native C -O0 and -O2 it emits a separate runtime,
+records undefined symbols, and links the leaf library to an observer. It checks
+lifecycle/restart/idempotence and expects runtime failures before init, after
+exit and on checked i32 overflow. It also compiles counterexamples showing why
+zero regions and GS_MAX_STACKS=0 do not enforce the proposed profile. These
+counterexamples are accepted upstream, not passed target-profile rejection tests.
+
+Output: build/runtime-probe/{results,summary}.json; a successful run currently
+executes 32 commands (six deliberate exit-1 cases). The observer counts direct
+linker-wrapped calls to selected APIs, not allocations internal to shared libc.
+See research/RUNTIME_STARTUP.md for semantics/limitations and
+research/runtime-{results,summary}.json for the reviewed session evidence.
+No embedded runtime or scalar-v0 enforcement is implemented by this script.

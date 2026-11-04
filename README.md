@@ -8,7 +8,8 @@ and hardware execution are unverified; no HAL is implemented. The desktop
 runtime's virtual-memory model and 64-bit reference layouts need adaptation.
 
 Start with [the feasibility report](research/FEASIBILITY.md),
-[reproducible host probes](tools/README.md), and [roadmap](docs/ROADMAP.md).
+[reproducible host probes](tools/README.md), [scalar profile design](docs/SCALAR_PROFILE.md),
+and [roadmap](docs/ROADMAP.md). The profile is designed but not implemented.
 Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md),
 [handoff](docs/HANDOFF.md), and the [project skill](.agents/skills/goose-embedded/SKILL.md).
 

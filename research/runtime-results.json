@@ -1,0 +1,457 @@
+[
+  {
+    "command": [
+      "git",
+      "-C",
+      "/home/robert/Programare/goose-embedded/.cache/goose",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "335fddc13dc74666398ffe160ec8a8f2958329d0\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/home/robert/Programare/goose-embedded/.cache/goose",
+      "status",
+      "--porcelain"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "version"
+    ],
+    "returncode": 0,
+    "stdout": "goose 335fddc (runtime d22ae129d92b)\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "cc",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "nm",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "GNU nm (GNU Binutils for Ubuntu) 2.46\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "--emit-runtime",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime.c"
+    ],
+    "returncode": 0,
+    "stdout": "wrote /home/robert/Programare/goose-embedded/build/runtime-probe/runtime.c (199161 bytes)\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "-O0",
+      "-DGS_DEBUG=1",
+      "--stacks",
+      "--header",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf.h",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf.c",
+      "/home/robert/Programare/goose-embedded/examples/leaf.goose"
+    ],
+    "returncode": 0,
+    "stdout": "data stacks: 2 GB reserved per stack, 1 MB guard gap, 32 TB budget: 16376 regions, GS_MAX_STACKS 1024\nmain program: 0 data stacks + 0 global stacks = 0 regions\nthread cap: none, no workers\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O0",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-c",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf.c",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf-O0.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O0",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-c",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime.c",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime-O0.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "nm",
+      "-u",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf-O0.o"
+    ],
+    "returncode": 0,
+    "stdout": "                 U __popcountdi2\n                 U __stack_chk_fail\n                 U calloc\n                 U fmod\n                 U free\n                 U gs_asfail_f\n                 U gs_asfail_i\n                 U gs_asfail_u\n                 U gs_divfail\n                 U gs_ovf\n                 U gs_ovf_neg\n                 U gs_panic\n                 U gs_reserve_region\n                 U gs_rt_start_d22ae129d92b\n                 U gs_rt_stop\n                 U gs_scan_any\n                 U gs_scan_pair\n                 U memcmp\n                 U memcpy\n                 U memmove\n                 U sqrt\n                 U sqrtf\n                 U strlen\n                 U trunc\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "nm",
+      "-u",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime-O0.o"
+    ],
+    "returncode": 0,
+    "stdout": "                 U _Exit\n                 U _GLOBAL_OFFSET_TABLE_\n                 U __errno_location\n                 U __popcountdi2\n                 U __stack_chk_fail\n                 U _exit\n                 U _longjmp\n                 U _setjmp\n                 U calloc\n                 U clock_gettime\n                 U close\n                 U closedir\n                 U dlerror\n                 U dlopen\n                 U dlsym\n                 U fchmod\n                 U fclose\n                 U ferror\n                 U fflush\n                 U flockfile\n                 U fmod\n                 U fopen\n                 U fprintf\n                 U fputc\n                 U fputs\n                 U fread\n                 U free\n                 U fsync\n                 U funlockfile\n                 U fwrite\n                 U getc_unlocked\n                 U getenv\n                 U madvise\n                 U malloc\n                 U memchr\n                 U memcmp\n                 U memcpy\n                 U memmove\n                 U memset\n                 U mkdir\n                 U mmap\n                 U mprotect\n                 U munmap\n                 U nanosleep\n                 U open\n                 U opendir\n                 U pause\n                 U pthread_attr_destroy\n                 U pthread_attr_getstack\n                 U pthread_attr_init\n                 U pthread_attr_setdetachstate\n                 U pthread_cond_broadcast\n                 U pthread_cond_destroy\n                 U pthread_cond_init\n                 U pthread_cond_signal\n                 U pthread_cond_timedwait\n                 U pthread_cond_wait\n                 U pthread_condattr_destroy\n                 U pthread_condattr_init\n                 U pthread_condattr_setclock\n                 U pthread_create\n                 U pthread_getattr_np\n                 U pthread_mutex_destroy\n                 U pthread_mutex_init\n                 U pthread_mutex_lock\n                 U pthread_mutex_unlock\n                 U pthread_self\n                 U qsort\n                 U readdir\n                 U readlink\n                 U realloc\n                 U rename\n                 U rmdir\n                 U setvbuf\n                 U sigaction\n                 U sigaltstack\n                 U snprintf\n                 U sqrt\n                 U sqrtf\n                 U stat\n                 U stderr\n                 U stdin\n                 U stdout\n                 U strchr\n                 U strcmp\n                 U strlen\n                 U strrchr\n                 U syscall\n                 U sysconf\n                 U trunc\n                 U unlink\n                 U vsnprintf\n                 U write\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O0",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-I",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe",
+      "-I",
+      "/home/robert/Programare/goose-embedded/tests",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf-O0.o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime-O0.o",
+      "/home/robert/Programare/goose-embedded/tests/runtime_lifecycle_host.c",
+      "/home/robert/Programare/goose-embedded/tests/runtime_observer.c",
+      "-Wl,--gc-sections",
+      "-Wl,--wrap=calloc",
+      "-Wl,--wrap=malloc",
+      "-Wl,--wrap=free",
+      "-Wl,--wrap=sysconf",
+      "-Wl,--wrap=sigaction",
+      "-Wl,--wrap=sigaltstack",
+      "-Wl,--wrap=mmap",
+      "-Wl,--wrap=mprotect",
+      "-Wl,--wrap=munmap",
+      "-Wl,--wrap=pthread_getattr_np",
+      "-Wl,--wrap=pthread_attr_getstack",
+      "-Wl,--wrap=pthread_attr_destroy",
+      "-Wl,--wrap=pthread_mutex_lock",
+      "-Wl,--wrap=pthread_mutex_unlock",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O0",
+      "-lm",
+      "-pthread"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "nm",
+      "-u",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O0"
+    ],
+    "returncode": 0,
+    "stdout": "                 U _Exit@GLIBC_2.2.5\n                 w _ITM_deregisterTMCloneTable\n                 w _ITM_registerTMCloneTable\n                 w __cxa_finalize@GLIBC_2.2.5\n                 w __gmon_start__\n                 U __libc_start_main@GLIBC_2.34\n                 U __stack_chk_fail@GLIBC_2.4\n                 U _exit@GLIBC_2.2.5\n                 U _longjmp@GLIBC_2.2.5\n                 U calloc@GLIBC_2.2.5\n                 U fflush@GLIBC_2.2.5\n                 U fprintf@GLIBC_2.2.5\n                 U fputc@GLIBC_2.2.5\n                 U fputs@GLIBC_2.2.5\n                 U free@GLIBC_2.2.5\n                 U fwrite@GLIBC_2.2.5\n                 U madvise@GLIBC_2.2.5\n                 U malloc@GLIBC_2.2.5\n                 U memcpy@GLIBC_2.14\n                 U memmove@GLIBC_2.2.5\n                 U memset@GLIBC_2.2.5\n                 U mmap@GLIBC_2.2.5\n                 U mprotect@GLIBC_2.2.5\n                 U munmap@GLIBC_2.2.5\n                 U pause@GLIBC_2.2.5\n                 U printf@GLIBC_2.2.5\n                 U pthread_attr_destroy@GLIBC_2.2.5\n                 U pthread_attr_getstack@GLIBC_2.34\n                 U pthread_getattr_np@GLIBC_2.32\n                 U pthread_mutex_lock@GLIBC_2.2.5\n                 U pthread_mutex_unlock@GLIBC_2.2.5\n                 U pthread_self@GLIBC_2.2.5\n                 U puts@GLIBC_2.2.5\n                 U setvbuf@GLIBC_2.2.5\n                 U sigaction@GLIBC_2.2.5\n                 U sigaltstack@GLIBC_2.2.5\n                 U snprintf@GLIBC_2.2.5\n                 U strcmp@GLIBC_2.2.5\n                 U sysconf@GLIBC_2.2.5\n                 U vsnprintf@GLIBC_2.2.5\n                 U write@GLIBC_2.2.5\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O0"
+    ],
+    "returncode": 0,
+    "stdout": "{\"phase\":\"exit-before-init\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"init\",\"calls\":{\"calloc\":2,\"malloc\":1,\"free\":0,\"sysconf\":2,\"sigaction\":2,\"sigaltstack\":2,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":1,\"pthread_attr_getstack\":1,\"pthread_attr_destroy\":1,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"repeat-init\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"export\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":5,\"sysconf\":0,\"sigaction\":2,\"sigaltstack\":1,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":1,\"pthread_mutex_unlock\":1}}\n{\"phase\":\"repeat-exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"init\",\"calls\":{\"calloc\":2,\"malloc\":1,\"free\":0,\"sysconf\":2,\"sigaction\":2,\"sigaltstack\":2,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":1,\"pthread_attr_getstack\":1,\"pthread_attr_destroy\":1,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"repeat-init\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"export\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":5,\"sysconf\":0,\"sigaction\":2,\"sigaltstack\":1,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":1,\"pthread_mutex_unlock\":1}}\n{\"phase\":\"repeat-exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O0",
+      "before-init"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "goose runtime error: goose_init must be called before exported functions\n",
+    "expected_returncode": 1
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O0",
+      "after-exit"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "goose runtime error: goose_init must be called before exported functions\n",
+    "expected_returncode": 1
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O0",
+      "overflow"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "goose runtime error: integer overflow (debug): 2147483647 + 1 at i32 (/home/robert/Programare/goose-embedded/examples/leaf.goose:3)\n",
+    "expected_returncode": 1
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "-O2",
+      "-DGS_DEBUG=1",
+      "--stacks",
+      "--header",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf.h",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf.c",
+      "/home/robert/Programare/goose-embedded/examples/leaf.goose"
+    ],
+    "returncode": 0,
+    "stdout": "data stacks: 2 GB reserved per stack, 1 MB guard gap, 32 TB budget: 16376 regions, GS_MAX_STACKS 1024\nmain program: 0 data stacks + 0 global stacks = 0 regions\nthread cap: none, no workers\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O2",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-c",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf.c",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf-O2.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O2",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-c",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime.c",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime-O2.o"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "nm",
+      "-u",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf-O2.o"
+    ],
+    "returncode": 0,
+    "stdout": "                 U calloc\n                 U free\n                 U gs_ovf\n                 U gs_panic\n                 U gs_rt_start_d22ae129d92b\n                 U gs_rt_stop\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "nm",
+      "-u",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime-O2.o"
+    ],
+    "returncode": 0,
+    "stdout": "                 U _Exit\n                 U _GLOBAL_OFFSET_TABLE_\n                 U __errno_location\n                 U __fprintf_chk\n                 U __longjmp_chk\n                 U __memcpy_chk\n                 U __memmove_chk\n                 U __memset_chk\n                 U __snprintf_chk\n                 U __stack_chk_fail\n                 U __uflow\n                 U __vsnprintf_chk\n                 U _exit\n                 U _setjmp\n                 U calloc\n                 U clock_gettime\n                 U close\n                 U closedir\n                 U dlerror\n                 U dlopen\n                 U dlsym\n                 U fchmod\n                 U fclose\n                 U ferror\n                 U fflush\n                 U flockfile\n                 U fopen\n                 U fputc\n                 U fread\n                 U free\n                 U fsync\n                 U funlockfile\n                 U fwrite\n                 U getenv\n                 U madvise\n                 U malloc\n                 U memchr\n                 U memcpy\n                 U memmove\n                 U memset\n                 U mkdir\n                 U mmap\n                 U mprotect\n                 U munmap\n                 U nanosleep\n                 U open\n                 U opendir\n                 U pause\n                 U pthread_attr_destroy\n                 U pthread_attr_getstack\n                 U pthread_attr_init\n                 U pthread_attr_setdetachstate\n                 U pthread_cond_broadcast\n                 U pthread_cond_destroy\n                 U pthread_cond_init\n                 U pthread_cond_signal\n                 U pthread_cond_timedwait\n                 U pthread_cond_wait\n                 U pthread_condattr_destroy\n                 U pthread_condattr_init\n                 U pthread_condattr_setclock\n                 U pthread_create\n                 U pthread_getattr_np\n                 U pthread_mutex_destroy\n                 U pthread_mutex_init\n                 U pthread_mutex_lock\n                 U pthread_mutex_unlock\n                 U pthread_self\n                 U qsort\n                 U readdir\n                 U readlink\n                 U realloc\n                 U rename\n                 U rmdir\n                 U setvbuf\n                 U sigaction\n                 U sigaltstack\n                 U stat\n                 U stderr\n                 U stdin\n                 U stdout\n                 U strchr\n                 U strcmp\n                 U strlen\n                 U strrchr\n                 U syscall\n                 U sysconf\n                 U unlink\n                 U write\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "cc",
+      "-std=c11",
+      "-O2",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-I",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe",
+      "-I",
+      "/home/robert/Programare/goose-embedded/tests",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/leaf-O2.o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/runtime-O2.o",
+      "/home/robert/Programare/goose-embedded/tests/runtime_lifecycle_host.c",
+      "/home/robert/Programare/goose-embedded/tests/runtime_observer.c",
+      "-Wl,--gc-sections",
+      "-Wl,--wrap=calloc",
+      "-Wl,--wrap=malloc",
+      "-Wl,--wrap=free",
+      "-Wl,--wrap=sysconf",
+      "-Wl,--wrap=sigaction",
+      "-Wl,--wrap=sigaltstack",
+      "-Wl,--wrap=mmap",
+      "-Wl,--wrap=mprotect",
+      "-Wl,--wrap=munmap",
+      "-Wl,--wrap=pthread_getattr_np",
+      "-Wl,--wrap=pthread_attr_getstack",
+      "-Wl,--wrap=pthread_attr_destroy",
+      "-Wl,--wrap=pthread_mutex_lock",
+      "-Wl,--wrap=pthread_mutex_unlock",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O2",
+      "-lm",
+      "-pthread"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "nm",
+      "-u",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O2"
+    ],
+    "returncode": 0,
+    "stdout": "                 U _Exit@GLIBC_2.2.5\n                 w _ITM_deregisterTMCloneTable\n                 w _ITM_registerTMCloneTable\n                 w __cxa_finalize@GLIBC_2.2.5\n                 U __fprintf_chk@GLIBC_2.3.4\n                 w __gmon_start__\n                 U __libc_start_main@GLIBC_2.34\n                 U __longjmp_chk@GLIBC_2.11\n                 U __memcpy_chk@GLIBC_2.3.4\n                 U __memmove_chk@GLIBC_2.3.4\n                 U __printf_chk@GLIBC_2.3.4\n                 U __snprintf_chk@GLIBC_2.3.4\n                 U __stack_chk_fail@GLIBC_2.4\n                 U __vsnprintf_chk@GLIBC_2.3.4\n                 U _exit@GLIBC_2.2.5\n                 U calloc@GLIBC_2.2.5\n                 U fflush@GLIBC_2.2.5\n                 U fputc@GLIBC_2.2.5\n                 U free@GLIBC_2.2.5\n                 U fwrite@GLIBC_2.2.5\n                 U malloc@GLIBC_2.2.5\n                 U munmap@GLIBC_2.2.5\n                 U pause@GLIBC_2.2.5\n                 U pthread_attr_destroy@GLIBC_2.2.5\n                 U pthread_attr_getstack@GLIBC_2.34\n                 U pthread_getattr_np@GLIBC_2.32\n                 U pthread_mutex_lock@GLIBC_2.2.5\n                 U pthread_mutex_unlock@GLIBC_2.2.5\n                 U pthread_self@GLIBC_2.2.5\n                 U puts@GLIBC_2.2.5\n                 U setvbuf@GLIBC_2.2.5\n                 U sigaction@GLIBC_2.2.5\n                 U sigaltstack@GLIBC_2.2.5\n                 U strcmp@GLIBC_2.2.5\n                 U sysconf@GLIBC_2.2.5\n                 U write@GLIBC_2.2.5\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O2"
+    ],
+    "returncode": 0,
+    "stdout": "{\"phase\":\"exit-before-init\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"init\",\"calls\":{\"calloc\":2,\"malloc\":1,\"free\":0,\"sysconf\":2,\"sigaction\":2,\"sigaltstack\":2,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":1,\"pthread_attr_getstack\":1,\"pthread_attr_destroy\":1,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"repeat-init\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"export\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":5,\"sysconf\":0,\"sigaction\":2,\"sigaltstack\":1,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":1,\"pthread_mutex_unlock\":1}}\n{\"phase\":\"repeat-exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"init\",\"calls\":{\"calloc\":2,\"malloc\":1,\"free\":0,\"sysconf\":2,\"sigaction\":2,\"sigaltstack\":2,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":1,\"pthread_attr_getstack\":1,\"pthread_attr_destroy\":1,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"repeat-init\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"export\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n{\"phase\":\"exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":5,\"sysconf\":0,\"sigaction\":2,\"sigaltstack\":1,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":1,\"pthread_mutex_unlock\":1}}\n{\"phase\":\"repeat-exit\",\"calls\":{\"calloc\":0,\"malloc\":0,\"free\":0,\"sysconf\":0,\"sigaction\":0,\"sigaltstack\":0,\"mmap\":0,\"mprotect\":0,\"munmap\":0,\"pthread_getattr_np\":0,\"pthread_attr_getstack\":0,\"pthread_attr_destroy\":0,\"pthread_mutex_lock\":0,\"pthread_mutex_unlock\":0}}\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O2",
+      "before-init"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "goose runtime error: goose_init must be called before exported functions\n",
+    "expected_returncode": 1
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O2",
+      "after-exit"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "goose runtime error: goose_init must be called before exported functions\n",
+    "expected_returncode": 1
+  },
+  {
+    "command": [
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/lifecycle-O2",
+      "overflow"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "goose runtime error: integer overflow (debug): 2147483647 + 1 at i32 (/home/robert/Programare/goose-embedded/examples/leaf.goose:3)\n",
+    "expected_returncode": 1
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "-O0",
+      "--stacks",
+      "--header",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/foreign.h",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/foreign.c",
+      "/home/robert/Programare/goose-embedded/tests/profile_candidates/foreign.goose"
+    ],
+    "returncode": 0,
+    "stdout": "data stacks: 2 GB reserved per stack, 1 MB guard gap, 32 TB budget: 16376 regions, GS_MAX_STACKS 1024\nmain program: 0 data stacks + 0 global stacks = 0 regions\nthread cap: none, no workers\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "-O0",
+      "--stacks",
+      "--header",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/recursive.h",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/recursive.c",
+      "/home/robert/Programare/goose-embedded/tests/profile_candidates/recursive.goose"
+    ],
+    "returncode": 0,
+    "stdout": "data stacks: 2 GB reserved per stack, 1 MB guard gap, 32 TB budget: 16376 regions, GS_MAX_STACKS 1024\nmain program: 0 data stacks + 0 global stacks = 0 regions\nthread cap: none, no workers\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "-O0",
+      "--stacks",
+      "--header",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/reference.h",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/reference.c",
+      "/home/robert/Programare/goose-embedded/tests/profile_candidates/reference.goose"
+    ],
+    "returncode": 0,
+    "stdout": "data stacks: 2 GB reserved per stack, 1 MB guard gap, 32 TB budget: 16376 regions, GS_MAX_STACKS 1024\nmain program: 0 data stacks + 0 global stacks = 0 regions\nthread cap: none, no workers\n",
+    "stderr": "",
+    "expected_returncode": 0
+  },
+  {
+    "command": [
+      "/tmp/goose-build/goose",
+      "-DGS_MAX_STACKS=0",
+      "--stacks",
+      "-o",
+      "/home/robert/Programare/goose-embedded/build/runtime-probe/growth.c",
+      "/home/robert/Programare/goose-embedded/examples/growth.goose"
+    ],
+    "returncode": 0,
+    "stdout": "data stacks: 2 GB reserved per stack, 1 MB guard gap, 32 TB budget: 16376 regions, GS_MAX_STACKS 0\nmain program: 2 data stacks + 0 global stacks = 2 regions\nthread cap: none, no workers\nfn main: 2 own, 2 with callees\n",
+    "stderr": "",
+    "expected_returncode": 0
+  }
+]

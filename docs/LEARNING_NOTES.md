@@ -54,3 +54,30 @@ execution observation. None establishes ISR safety: interrupts can interrupt
 runtime mutation, and IRAM-safe handlers have code/data placement restrictions.
 Keep first execution in app_main's normal task context and investigate interrupts
 as a separate contract.
+
+## A configuration value of zero can mean “unlimited”
+
+The name GS_MAX_STACKS sounds suitable for setting a zero-stack requirement.
+But upstream CheckStackLimit uses `maxstacks > 0 && stacks > maxstacks`; zero
+turns that check off. Our growth fixture still reports two regions under that
+flag. Read boundary-value semantics in the implementation before using a flag
+as a safety gate. Even a real zero count would not exclude native recursion.
+
+## Static symbols and executed calls answer different questions
+
+`nm -u leaf.o` lists symbols an object needs resolved, including unused static
+helpers at -O0. Section garbage collection can discard some at link time.
+A link-time --wrap observer instead counts selected calls that run during init,
+export and exit. Our leaf export calls none of those selected functions on
+success; its initializer still calls calloc twice and installs signal handlers.
+Neither technique alone proves a language subset: an arbitrary C extern might
+have an innocuous name while doing unsafe work. Use source/type validation,
+link evidence and execution observations together, each with a stated scope.
+
+## Cold and ready are a lifecycle contract
+
+Before goose_init, calling an export fails; repeat init while ready is a no-op;
+exit restores cold, after which init can restart it. Those states need not require
+allocation. The target adaptation should preserve these observable transitions
+while replacing desktop setup, and preserve arithmetic failure through a
+platform panic hook. Tests must cover invalid transitions as well as result 42.

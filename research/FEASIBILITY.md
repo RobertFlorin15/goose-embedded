@@ -90,6 +90,14 @@ Candidate: explicitly sized integers/bools, scalar-only exports and internal sca
 5. With board details and explicit operation authorization, flash/monitor a serial check of result 42. Record board, wiring, firmware SHA, command and serial log. Only then claim M2 execution.
 6. Expand to bounded memory with overflow-before-write guarantees; postpone portable HAL until the runtime contract and hardware proof exist.
 
+## Follow-up design checkpoint
+
+The subsequent [startup inventory](RUNTIME_STARTUP.md) traces the separate
+runtime at -O0/-O2 and the [scalar-v0 specification](../docs/SCALAR_PROFILE.md)
+defines a compiler-enforced restricted profile. No target-runtime adaptation
+or profile enforcement has been implemented. These follow-up results refine
+the initial plan without changing its host-only evidence boundary.
+
 ## Reference ecosystems and license boundary
 
 [REFERENCES.md](REFERENCES.md) records the five requested projects and preliminary license observations. No Rust, ESP-IDF or Goose implementation code was copied into tracked project files; generated C remains ignored. Framework license is deliberately pending a dependency/distribution inventory, including bundled compiler third parties.

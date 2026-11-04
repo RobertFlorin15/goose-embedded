@@ -38,3 +38,22 @@ C ignored, record source links and license observations; defer project license
 until concrete dependency/distribution review. Alternative: vendor compiler or
 pick a license from the root README alone. Tradeoff: not ready for public release
 yet. Consequence: preserve attribution when future code is copied/distributed.
+
+## 005 — Enforce scalar-v0 in the compiler, not via stack flags (2026-11-04)
+
+Problem: zero-region programs can still contain C externs, references and native
+recursion, and GS_MAX_STACKS=0 disables the upstream stack limit. Separate-runtime
+startup and teardown retain allocation/signal/pthread dependencies even with no
+regions/workers, verified by direct-call observation at -O0/-O2.
+Alternatives: GS_MAX_STACKS flag only; regex scan or symbol-only acceptance;
+replacement gs_rt_start; full runtime/layout port; compiler structural/type
+allowlist plus separate count invariants and restricted lifecycle.
+Selected design: [scalar-v0](SCALAR_PROFILE.md), compiler enforcement before
+optimization, zero-region verification after codegen accounting, explicit
+allocation-free lifecycle and non-returning platform panic boundary. Initially
+restrict even loops and scalar foreign calls to bound the proof surface.
+Rationale: preserve safety without inventing bounded arenas or letting optimizer
+choices decide source acceptance. Tradeoffs: a narrow experimental subset and
+compiler/runtime patch maintenance; target ABI and stack budget remain separate
+proofs. Consequence: no profile implementation claim until rejection, lifecycle,
+failure and desktop regression tests pass. This session commits design/probes only.

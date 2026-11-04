@@ -1,47 +1,58 @@
 # Handoff
 
-2026-11-04. Objective: move from completed M1 analysis to a safe minimal ESP32-S3
-cross-build; no HAL yet. Read AGENTS.md, PROJECT_STATE.md and the project skill.
+2026-11-04. M1 analysis is complete; M2a design/probing is in progress.
+Current result: separate-runtime startup inventoried; scalar-v0 contract written.
+**No target profile/runtime adaptation, Xtensa build, HAL or hardware run exists.**
 
-Last verified result: Release Goose host compiler built; 19 probe commands pass,
-including scalar/growth apps, C-host lifecycle/restart, zero-region scalar leaf
-and 32-bit packed-layout witness. Skill syntax and local doc links pass.
-No Xtensa compile, simulator or hardware execution. No flash/hardware operation.
+Recovery: AGENTS.md -> PROJECT_STATE.md -> project SKILL.md -> Git/source check.
+Git branch main; previous verified checkpoint 757a6d8; M1 foundation a5d7f67.
+This design/probe checkpoint is the commit containing this handoff: get exact ID
+with `git log -1 --oneline`. Clean on recovery; task changes are intended to be
+committed together, leaving no uncommitted changes. Check `git status --short`.
+No remote; ignored caches/generated files are disposable, not source history.
 
-Git: main. Verified implementation commit:
-`a5d7f672a90a73ce92c30d2eb9d6f45af180dc1c`. A subsequent docs-only checkpoint
-updates this handoff/state; resolve its hash with `git log -1 --oneline`.
-Foundation commit and clean status were verified; no pre-existing user changes
-or remote. After this checkpoint there should be no uncommitted changes;
-verify `git status --short` when resuming. Ignored .cache/goose, build/host-probe and /tmp/goose-build are
-local conveniences, not portable prerequisites; tracked logs survive cache loss.
+Last verification: new runtime_probe.py PASS, 32 commands at Goose/native -O0
+and -O2; six expected failures (pre-init, post-exit, checked overflow at each
+level) and remaining exit-0 commands. C observer/host are warning-free under
+-Wall -Wextra -Werror syntax checks. Archived logs and doc links checked.
+Earlier M1 19-command probe passed; not rerun since no baseline source changed.
 
-Discoveries: desktop VM-backed stacks and C heap metadata; hard-coded 64-bit
-reference/slice layouts; leaf exports report zero regions but still run desktop
-startup; --header provides C exports and goose_init/goose_exit. Grapify absent.
-Evidence and source permalinks: [feasibility](../research/FEASIBILITY.md),
-[experiments](../research/EXPERIMENTS.md), [architecture](ARCHITECTURE.md).
-
-Blockers: no pinned ESP-IDF/toolchain installed for this project; no board details;
-profile/runtime/32-bit ABI not adapted; license inventory not release-complete.
+Discoveries: zero-region init still allocates metadata and signal stack, installs
+signals and queries native stack; separate runtime shutdown uses pthread locking.
+Successful scalar export and idempotent calls are quiet for selected wrapped
+APIs. Zero regions do not exclude foreign calls, references or recursion;
+GS_MAX_STACKS=0 disables the limit. Full evidence/limits:
+[research/RUNTIME_STARTUP.md](../research/RUNTIME_STARTUP.md).
 
 Exact next steps:
-1. Inspect leaf output with separate runtime emission; enumerate init/exit and
-   export dependencies, especially zero-region allocations/OS setup.
-2. Specify opt-in restricted profile, feature rejection and lifecycle checks.
-   Checkpoint design before edits. Recommend Astra/high for this safety/ABI step;
-   no model switching mechanism is assumed.
-3. Implement smallest reviewed adaptation with host/rejection tests, then pin
-   official ESP-IDF/toolchain and prove its baseline build before Goose integration.
-4. Only after target build and authorized board operations, verify serial result 42.
+1. Read [SCALAR_PROFILE.md](SCALAR_PROFILE.md) and decision 005. Add a tracked
+   upstream patch (not an undocumented cache edit) implementing the proposed
+   opt-in scalar-v0 mode and structural/type validation before optimization.
+2. Add rejection tests including uncalled and dead unsupported code, both -O0
+   and -O2; keep normal desktop behavior unchanged. Checkpoint that change.
+3. Separately adapt inline init/generated exit and the panic boundary. Replacing
+   only gs_rt_start misses inline calloc/free. Test no selected allocator/VM/
+   signal/pthread calls, lifecycle guards and arithmetic failures.
+4. Only then pin official ESP-IDF/toolchain and establish its baseline build,
+   then compile the generated leaf component. Board/flash work needs explicit
+   authorization and recorded board details; no hardware operation authorized.
 
-Commands:
+Blockers: profile not implemented; no target SDK selected; 32-bit layouts and
+alignment unverified beyond scalar hypothesis; no target stack budget or board;
+license/distribution inventory incomplete. Grapify unavailable in prior check.
+Recommend Astra/high for next validation/safety implementation; no automatic
+model switch is assumed.
+
+Commands (from project root):
 ```sh
 git status --short --branch
-git log -5 --oneline
-python3 tools/host_probe.py --compiler /tmp/goose-build/goose
-# If temporary compiler is gone, use the build commands in tools/README.md.
+git log -3 --oneline
+git -C .cache/goose rev-parse HEAD
+git -C .cache/goose status --short
+python3 tools/runtime_probe.py --compiler /tmp/goose-build/goose
 ```
-
-[Roadmap](ROADMAP.md) has acceptance gates; [decisions](DECISIONS.md) constrains
-memory safety; [learning notes](LEARNING_NOTES.md) explains the concepts.
+Source must be clean pin 335fddc13dc74666398ffe160ec8a8f2958329d0. Compiler
+currently reports runtime d22ae129d92b. Rebuild if /tmp compiler disappears via
+[tools/README.md](../tools/README.md). Tracked runtime-results.json and
+runtime-summary.json preserve evidence if caches disappear. See
+[roadmap](ROADMAP.md), [architecture](ARCHITECTURE.md), [learning notes](LEARNING_NOTES.md).

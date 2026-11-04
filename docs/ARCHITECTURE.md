@@ -50,3 +50,19 @@ not establish the desktop VM protocol required upstream.
 No HAL, register map, allocator replacement or async executor exists. Target
 builds, simulator and hardware results are all pending. Preserve that evidence
 boundary in public descriptions.
+
+## Scalar profile design checkpoint
+
+[SCALAR_PROFILE.md](SCALAR_PROFILE.md) specifies the next opt-in compiler/runtime
+adaptation; it is not implemented. It narrows initial support to i32 C exports,
+scalar locals/expressions and acyclic direct calls/if/return, with a structural
+allowlist and checked arithmetic. All imports, foreign calls, recursion,
+references/aggregates, loops and user globals are initially rejected by design.
+A separate codegen invariant must establish zero main/global/worker regions.
+
+[Runtime startup measurements](../research/RUNTIME_STARTUP.md) establish that
+zero regions still allocate metadata, install signal facilities, query thread
+stack attributes, and acquire shutdown locks in the separate desktop runtime.
+Therefore both the inline lifecycle and emitted teardown need restricted paths;
+replacing only external gs_rt_start is insufficient. A platform panic hook must
+preserve failed-init/export-guard and overflow behavior without desktop services.
