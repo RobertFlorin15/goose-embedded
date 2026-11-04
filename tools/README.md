@@ -50,3 +50,45 @@ linker-wrapped calls to selected APIs, not allocations internal to shared libc.
 See research/RUNTIME_STARTUP.md for semantics/limitations and
 research/runtime-{results,summary}.json for the reviewed session evidence.
 No embedded runtime or scalar-v0 enforcement is implemented by this script.
+
+## Scalar-v0 validator compiler (desktop runtime)
+
+Use a fresh destination; preparation intentionally refuses to overwrite one:
+
+```sh
+python3 tools/prepare_scalar_compiler.py
+cmake -S .cache/goose-scalar -B build/goose-scalar -G Ninja -DCMAKE_BUILD_TYPE=Release -DGOOSE_VERSION=335fddc+scalar-v0-validator
+cmake --build build/goose-scalar -j 2
+python3 tools/test_scalar_validator.py --compiler build/goose-scalar/goose
+```
+
+`--upstream` selects an existing clean checkout at the project pin; no helper
+fetches sources. See patches/goose/README.md for patch provenance and maintenance.
+If .cache/goose-scalar already exists, inspect it and choose another
+`--destination`; use that path in CMake and `--source` in the test runner.
+The initial development build used the pin's normal version string; the explicit
+GOOSE_VERSION above helps distinguish future validator binaries.
+
+Example validation and C emission (not a target build):
+
+```sh
+build/goose-scalar/goose --embedded-profile=scalar-v0 --header build/leaf.h -o build/leaf.c examples/leaf.goose
+```
+
+Only explicit library C emission is accepted. GS_DEBUG=1 is forced; all user
+-D options and run/build/check/fetch/standalone/JIT modes are rejected, as are
+imports, sidecars and user headers. Read docs/SCALAR_PROFILE.md for the subset.
+The C marker GS_SCALAR_V0_VALIDATED=1 means validator revision 1, not a target
+runtime ABI. Output still needs the desktop runtime from --emit-runtime.
+
+The test runner checks accepted computation and checked overflow, source/flag
+rejections at both levels, existing/fresh output handling, aliases/staging
+failures, reproducible patch application and wrong-pin/existing-destination
+refusal. It also runs the earlier 19-command desktop host probe on the patched
+compiler. Logs live in build/scalar-validator-tests/results.json; archived
+summary and test scope are in research/SCALAR_VALIDATOR.md.
+
+Upstream CLI path tests deliberately strip GOOSE_STDLIB; when building outside
+the upstream tree, install/copy (or locally symlink) its stdlib beside the
+compiler before invoking those upstream tests. The project probes explicitly
+set GOOSE_STDLIB and do not require that layout.

@@ -9,7 +9,8 @@ runtime's virtual-memory model and 64-bit reference layouts need adaptation.
 
 Start with [the feasibility report](research/FEASIBILITY.md),
 [reproducible host probes](tools/README.md), [scalar profile design](docs/SCALAR_PROFILE.md),
-and [roadmap](docs/ROADMAP.md). The profile is designed but not implemented.
+and [roadmap](docs/ROADMAP.md). The opt-in scalar validator is host-tested; its
+embedded runtime is pending.
 Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md),
 [handoff](docs/HANDOFF.md), and the [project skill](.agents/skills/goose-embedded/SKILL.md).
 

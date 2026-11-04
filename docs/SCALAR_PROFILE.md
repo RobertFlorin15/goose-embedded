@@ -1,7 +1,8 @@
 # Scalar-v0 target profile design
 
-Status: design checkpoint, 2026-11-04. **Not implemented or enforced.** This is
-an opt-in, deliberately small M2a experiment, not general Goose embedded support.
+Status: validator implemented and host-tested, 2026-11-04. **Runtime adaptation
+is still pending.** The tracked Goose patch enforces the scalar subset and emits
+checked C using the desktop runtime. This is not MCU firmware support.
 Source baseline: 335fddc13dc74666398ffe160ec8a8f2958329d0. Supporting measurements:
 [separate-runtime investigation](../research/RUNTIME_STARTUP.md).
 
@@ -48,10 +49,11 @@ but do not prove that its native stack fits the configured RTOS task.
 
 ## Compiler integration and validation order
 
-Proposed interface (does not exist yet): `--embedded-profile=scalar-v0`, in
-explicit C emission/library mode with --header. Do not advertise a runnable
-command until implemented. The option is a host compiler feature, not a macro
-which arbitrary application C can toggle to bypass validation.
+Implemented interface: `--embedded-profile=scalar-v0`, in explicit C emission/
+library mode with --header and -o. See tools/README.md for preparation and tests.
+GS_SCALAR_V0_VALIDATED=1 marks validator revision 1, not an embedded runtime ABI.
+The option is a host compiler feature; a C macro alone does not select or prove
+validation. All user -D options are rejected and GS_DEBUG=1 is forced.
 
 1. Parse options and reject conflicting modes, native packages/includes and
    attempts to turn off required checks. Force GS_DEBUG=1; reject GS_DEBUG=0,
@@ -68,17 +70,21 @@ which arbitrary application C can toggle to bypass validation.
    globalregions == 0, workerregions == 0, no threads/queues/dynamic bindings,
    no data-stack-dependent exports and no unsupported generated state. This
    is a second invariant check, not a substitute for the source validator.
-5. Assemble the restricted runtime path and generated library only after all
-   checks pass. Commit output C/header atomically from temporary files so a
-   failed compile cannot leave apparently current target artifacts. Build
-   tooling must use a fresh output directory or remove previous outputs first;
-   never consume output from a failed command.
+5. Current validator assembles the normal separate desktop runtime declarations
+   and generated library only after all checks pass. Restricted runtime
+   assembly remains the next change. C/header writes are staged and individually
+   renamed; a pair is not a filesystem transaction. Validation failure preserves
+   prior outputs, staging failure cleans temporary files, and publication failure
+   invalidates the header. Use a fresh build directory, one writer per output
+   pair, and never consume artifacts from a failed command. Input/output aliases
+   and pre-existing staging paths are rejected.
 
-Likely upstream seams (verify while implementing): main.cpp's option parsing and
-pipeline around TypeCheckProgram/Optimizer; CodeGen::EmitProgramInit and
-EmitExports in codegen_emit.h; count/report logic in codegen_stacks.h; canonical
-src/runtime/runtime.h and generated runtime_inline.h. Store a reviewable patch
-and pin in this project rather than rely on an edited ignored source checkout.
+Implemented frontend seams: main.cpp's option parsing and
+pipeline around TypeCheckProgram/Optimizer; default-off parser policy in Ast;
+source/typed walkers in scalar_profile.h; existing CodeGen stack accounting is
+queried without changing its implementation. Runtime adaptation will later touch
+EmitProgramInit/EmitExports and canonical runtime files/embedded copy. The
+reviewable patch, digests and upstream license are in patches/goose/.
 If upstream behavior/catalogs make this validation impractical, narrow the
 allowlist further instead of weakening its checks.
 
@@ -152,7 +158,8 @@ normal desktop release behavior remains unchanged.
 
 ## Implementation acceptance tests
 
-These are requirements for the next change, not passing tests today:
+Frontend tests pass as recorded in research/SCALAR_VALIDATOR.md. The runtime
+and target obligations below remain pending:
 
 1. Leaf library succeeds with -O0/-O2 and overflow checks, with identical scalar
    results; an ordinary desktop library retains its existing behavior.
@@ -163,8 +170,9 @@ These are requirements for the next change, not passing tests today:
    negation edge cases if admitted by the implementation.
 3. Source rejection fixtures cover every forbidden category, unknown/unhandled
    AST forms, unused helpers and optimized-away false branches at both levels.
-   Existing profile_candidates are upstream acceptance counterexamples only;
-   they become rejection tests once an actual profile compiler exists.
+   The test runner now rejects their equivalent sources along with unused/dead
+   code cases. profile_candidates remain baseline acceptance fixtures for the
+   older separate-runtime probe.
 4. Reject conflicting flags, altered pins/runtime contracts and nonzero
    main/global/worker counts. Failed commands cannot supply new build artifacts.
 5. Regenerate embedded runtime text and run upstream tests appropriate to changed
@@ -182,3 +190,13 @@ inline calloc and generated free. A fixed unchecked data arena would weaken
 safety. A full 32-bit layout/runtime port is broader than needed for first scalar
 execution. Select compiler-enforced scalar-v0 plus narrow lifecycle/failure
 adaptation; retain these broader paths as future work after the first proof.
+
+## Current verification boundary
+
+The validator rejects 46 source fixtures plus a sidecar at both -O0/-O2,
+conflicting CLI actions/defines, source/output aliases and bad preparation pins.
+Typed arithmetic and stored values are scalar; representable literal arithmetic
+may fold during typechecking before the typed walk (verified with 1 + 2).
+Forced checked C executes on the host, including arithmetic failure paths.
+No runtime files were modified or regenerated. The allocation-free lifecycle,
+panic hook, target ABI and Xtensa execution described above are still requirements.

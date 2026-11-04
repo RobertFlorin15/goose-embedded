@@ -2,7 +2,9 @@
 
 Read on 2026-11-04. Goose source is pinned in upstream.json. Other URLs below
 are architectural reference snapshots of moving branches, not pinned dependencies.
-No source from these projects is vendored in tracked files. Re-audit exact files
+The tracked Goose validator patch now contains upstream diff context; its
+Apache-2.0 license is retained in patches/goose/LICENSE.upstream with modified-file
+notices and provenance. No complete upstream tree or binary is vendored. Re-audit exact files
 and transitive dependencies before selecting a project license or redistributing
 compiler binaries/generated runtime code. This inventory is not a compatibility
 clearance for future code copying.

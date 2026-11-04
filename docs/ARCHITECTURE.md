@@ -22,7 +22,7 @@ stable reserved addresses and protected gaps; C heap allocations exist in
 metadata/lifecycle/error/thread paths. Pointer layouts are modeled as 64-bit
 in parts of codegen. Zero reported regions does not bypass runtime startup.
 
-## Intended project boundaries (not implemented)
+## Project boundaries (runtime/platform/HAL implementation pending)
 
 1. Compiler adaptations: explicit target layout, restricted feature profile,
    checked memory lowering; prefer narrow upstream-compatible changes.
@@ -54,7 +54,8 @@ boundary in public descriptions.
 ## Scalar profile design checkpoint
 
 [SCALAR_PROFILE.md](SCALAR_PROFILE.md) specifies the next opt-in compiler/runtime
-adaptation; it is not implemented. It narrows initial support to i32 C exports,
+adaptation. Its compiler validator is now implemented; runtime adaptation is
+pending. It narrows initial support to i32 C exports,
 scalar locals/expressions and acyclic direct calls/if/return, with a structural
 allowlist and checked arithmetic. All imports, foreign calls, recursion,
 references/aggregates, loops and user globals are initially rejected by design.
@@ -66,3 +67,19 @@ stack attributes, and acquire shutdown locks in the separate desktop runtime.
 Therefore both the inline lifecycle and emitted teardown need restricted paths;
 replacing only external gs_rt_start is insufficient. A platform panic hook must
 preserve failed-init/export-guard and overflow behavior without desktop services.
+
+## Implemented compiler validation boundary
+
+patches/goose/0001-scalar-v0-validator.patch adds the explicit profile option,
+pre-typecheck source allowlist and acyclic-call validation, post-typecheck
+scalar/call checks before optimization, and post-codegen zero-region/unsupported
+state invariants. Ast carries a default-off parse policy so imports/namespaces/
+extern blocks are rejected before package loading; root sidecars are rejected
+before interpretation. Ordinary parsing/typechecking/codegen and runtime code
+remain unchanged when the option is absent. Profile C forces GS_DEBUG=1.
+
+The helper prepares a fresh git archive at the pin, applies the tracked patch,
+checks file digests and records provenance. Outputs are staged and individually
+renamed only after validation; consumers must honor failure status and serialize
+writers. This is frontend enforcement with desktop runtime output, not the
+allocation-free target lifecycle. See research/SCALAR_VALIDATOR.md for evidence.

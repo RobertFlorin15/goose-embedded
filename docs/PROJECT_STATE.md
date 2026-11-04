@@ -1,99 +1,110 @@
 # Project state
 
-Updated 2026-11-04. Read this against Git status/history and actual artifacts.
-Evidence: research/FEASIBILITY.md, EXPERIMENTS.md, RUNTIME_STARTUP.md,
-{host,runtime}-results.json, runtime-summary.json and upstream.json.
+Updated 2026-11-04. Reconcile with Git and source on recovery.
+Authoritative current task evidence: research/SCALAR_VALIDATOR.md,
+scalar-validator-results.json, patches/goose/{0001-scalar-v0-validator.patch,manifest.json},
+and tools/test_scalar_validator.py. Earlier M1/runtime investigations remain
+in research/FEASIBILITY.md, EXPERIMENTS.md and RUNTIME_STARTUP.md.
 
 ## Current milestone and task
 
-M1 complete as source-backed feasibility analysis; target execution remains
-conditional. M2a in progress: startup/symbol inventory and scalar-v0 design
-complete. No target profile or runtime adaptation has been implemented.
-Current task: checkpoint the verified startup investigation and profile design.
-Next task: implement a tracked, opt-in compiler validation patch for scalar-v0.
+M1 complete as source-backed feasibility analysis. M2a in progress:
+**opt-in scalar-v0 compiler validator implemented and host-tested**.
+Current task complete: tracked patch, reproducible preparation, rejection and
+desktop regression tests. Runtime startup has NOT been adapted.
+Next task: restricted zero-region lifecycle and platform panic boundary.
 
 ## Completed
 
-- Established agent recovery instructions/skill, roadmap, architecture, decision
-  log, educational notes, state/handoff, Git main and M1 foundation commits.
-- Pinned official Goose 335fddc13dc74666398ffe160ec8a8f2958329d0; clean ignored
-  copy .cache/goose, existing Release compiler /tmp/goose-build/goose, runtime
-  d22ae129d92b. Source revision/cleanliness rechecked this session.
-- M1 host probes: scalar/growth C emission and execution, C-export lifecycle/
-  restart, zero-region scalar leaf and freestanding 32-bit layout witness.
-- New separate-runtime probe: per-object/final symbol inventories, observed
-  startup/exit calls, idempotence/restart/export results, pre-init/post-exit and
-  checked-overflow failures at Goose/native -O0 and -O2.
-- New upstream counterexamples: foreign call, marked recursion and reference
-  export all report zero regions; growth accepts GS_MAX_STACKS=0 with two.
-- Specified compiler structural/type allowlist, count invariants, restricted
-  lifecycle/failure boundary and acceptance tests in docs/SCALAR_PROFILE.md.
-- Grapify unavailable in previously inspected installed roots/tool catalog;
-  no new installation or tool access; standard source inspection used.
+- Persistent agent instructions/skill, roadmap, architecture, decisions,
+  educational notes and Git checkpoints established.
+- Clean official Goose pin 335fddc13dc74666398ffe160ec8a8f2958329d0 retained in
+  .cache/goose. Development patched copy .cache/goose-scalar, compiler binary
+  build/goose-scalar/goose. No upstream runtime files changed.
+- Explicit --embedded-profile=scalar-v0 CLI mode: C library emission only;
+  forced GS_DEBUG=1; parsed source allowlist/call-cycle checks before typecheck;
+  checked-specialization validation before optimization; zero-region and
+  unsupported-codegen-state invariants before output publication.
+- Early import/namespace/extern directive and sidecar rejection; conflicting
+  options blocked before early actions. Normal arguments after -- and option
+  operands do not accidentally enable the profile.
+- Staged output writes; alias/staging/output-failure tests and source diagnostics.
+- Tracked patch/license/notices/digests; fresh pinned archive + verified patch
+  preparation refuses wrong pin or existing destination and reproduces source.
+- 46 source rejection fixtures and malformed sidecar checked at -O0/-O2;
+  accepted computation/restart and four arithmetic overflow paths verified.
+- Normal desktop probes and scoped upstream CLI/diagnostic suites pass.
+- Previous host startup trace, ABI/layout witness and reference/license research
+  remain documented. Grapify unavailable in prior installed-root/tool checks;
+  no commands invented or new installation attempted.
 
-## Verified discoveries
+## Discoveries and constraints
 
-- C++20 host compiler -> typed/specialized AST -> optimization/BCE -> C.
-- VM runtime, C heap metadata and hard-coded 64-bit reference layouts remain
-  target obstacles; actual Xtensa failure/miscompilation is not yet reproduced.
-- Zero-region leaf startup still does two direct calloc calls, one malloc,
-  signal setup, page-size and native-thread stack queries on this Linux host.
-- Separate emitted runtime is built with GS_NEED_THREADS=1 even for no-worker
-  applications; observed shutdown takes a pthread mutex and performs frees.
-- No selected VM mapping calls occurred during zero-region lifecycle; unused
-  VM symbols can still appear in objects/final link. See observer limitations.
-- GS_MAX_STACKS=0 disables count enforcement; count alone cannot exclude foreign
-  calls, reference ABI or native recursion. Profile rejection is NOT implemented.
+- Zero regions alone do not exclude references, foreign calls or native
+  recursion. GS_MAX_STACKS=0 disables the upstream limit.
+- Typechecking can fold literal arithmetic before optimization. Validator
+  distinguishes admitted constants from actual stored/runtime scalar types.
+- Profile C uses GS_SCALAR_V0_VALIDATED=1 as a validation marker, **not** an
+  embedded runtime ABI. It still links the existing desktop runtime.
+- That runtime allocates metadata, installs signal/alternate-stack facilities,
+  queries native stack attributes and locks shutdown bookkeeping, even when the
+  application has zero regions/workers. Both inline init and generated exit
+  need explicit restricted paths in the next task.
+- Pointer layouts and packing remain unverified on Xtensa; no aggregate or
+  reference support is claimed. No MCU footprint or task stack budget known.
 
 ## Incomplete / blockers
 
-- Compiler allowlist/option and restricted runtime need tracked patches/tests.
-- No ESP-IDF/toolchain release pinned or installed for this project; no target
-  C build, ELF/assembly/map review, simulator or physical hardware verification.
-- idf.py and xtensa-esp32s3-elf-gcc previously absent from PATH; no board/serial
-  details or authorized hardware operation. No flashing occurred.
-- 32-bit aggregate/reference layouts, packed alignment, native task stack budget,
-  concurrency and interrupts remain unsupported/unverified.
-- Upstream Release warnings remain documented; full upstream suite not run.
-- Project license/distribution inventory incomplete; not ready for public release.
+- Allocation-free lifecycle, failure hook and corresponding no-OS/heap evidence.
+- Pinned official ESP-IDF/toolchain installation/baseline and actual target build.
+- Board/serial details and explicit hardware-operation authorization; no flashing.
+- Target ABI/alignment/ELF/map/stack review, simulator or physical execution.
+- Interrupts, concurrency, HAL and peripherals are not implemented.
+- Full upstream compiler/LSP/sanitizer suites not run; scoped tests only.
+- Previously recorded upstream Release warnings remain unresolved.
+- Overall project license/distribution inventory remains incomplete; patch
+  retains Goose Apache-2.0 license/context and modified-file notices.
 
-## Files modified this task
+## Files changed this task
 
-New: docs/SCALAR_PROFILE.md, research/RUNTIME_STARTUP.md,
-research/runtime-{results,summary}.json, tools/runtime_probe.py,
-tests/runtime_{observer.c,observer.h,lifecycle_host.c},
-tests/profile_candidates/{foreign,recursive,reference}.goose.
-Updated: README.md, tools/README.md, research/FEASIBILITY.md,
-docs/{ARCHITECTURE,DECISIONS,LEARNING_NOTES,ROADMAP,PROJECT_STATE,HANDOFF}.md.
-No upstream source or original host probe changed; generated artifacts ignored.
+New: .gitattributes (literal patch context whitespace), patches/goose/{0001-scalar-v0-validator.patch,manifest.json,LICENSE.upstream,README.md},
+tools/{prepare_scalar_compiler,test_scalar_validator}.py,
+tests/scalar_v0/{accepted.goose,host.c,rejections.json},
+research/{SCALAR_VALIDATOR.md,scalar-validator-results.json}.
+Updated: README.md, tools/README.md, research/{FEASIBILITY,REFERENCES}.md and
+state/handoff/architecture/roadmap/decisions/learning/profile documentation.
+Ignored development source/build artifacts are not the durable implementation;
+the tracked patch and manifest are authoritative.
 
 ## Verification
 
-- Existing M1 evidence: Release build and 19-command host probe passed in prior
-  task, with upstream warnings. Not rerun: no relevant baseline code changed.
-- `python3 tools/runtime_probe.py --compiler /tmp/goose-build/goose`: PASS,
-  32 commands; six deliberate exit-1 failures matched expected diagnostics;
-  all other commands exit 0. Traces at both levels include two restart cycles.
-- Both new C observer/host sources pass -std=c11 -Wall -Wextra -Werror
-  -fsyntax-only; Python AST parse and archived-log consistency checks pass.
-- Local Markdown links resolve; Git whitespace check passes before checkpoint.
-- Initial probe stream assertion and recursion fixture syntax errors corrected;
-  root causes recorded in research/RUNTIME_STARTUP.md.
-- Scalar-v0 rejection/target build/simulator/hardware: NOT RUN, not implemented.
+- Patched Release CMake build: PASS; existing upstream warnings documented.
+- `python3 tools/test_scalar_validator.py --compiler build/goose-scalar/goose`:
+  PASS, 237 top-level commands: 209 expected exit-1 cases and 28 exit-0 commands.
+  Includes -O0/-O2 positive/negative/profile/CLI/output/preparation checks.
+- Nested original desktop host probe: PASS, 19 commands on the patched compiler.
+- Scoped pinned upstream check_cli_paths(exe, None, base) and
+  check_diagnostics_json(exe, base): PASS after final CLI correction.
+- Clean archive+patch source reproduction, patch/file digests and runtime byte
+  comparison: PASS; no runtime files or runtime_inline.h changed.
+- Python syntax, strict C host syntax, documentation links, Git whitespace: PASS.
+- Corrected initial LSP signature ambiguity, a draft fixture, preparation Git
+  discovery, upstream harness layout and opt-in argument scanning; evidence and
+  final tested behavior recorded in research/SCALAR_VALIDATOR.md.
+- Restricted runtime/target compilation/simulator/hardware: NOT RUN / pending.
 
 ## Git and next action
 
-Branch main; no remote. Previous verified checkpoint: 757a6d8 (M1 handoff);
-verified M1 implementation: a5d7f672a90a73ce92c30d2eb9d6f45af180dc1c.
-This task's design/probe checkpoint is the commit containing this state update;
-resolve its exact hash with `git rev-parse HEAD` after commit. Working tree was
-clean on recovery; all listed task changes are intended to be committed.
-Check actual dirty state when resuming; .cache/ and build/ remain ignored.
+Branch main; no remote. Prior verified commit fcc2689 (startup/design checkpoint).
+This implementation checkpoint is the commit containing this state; use
+`git rev-parse HEAD` for its exact hash after commit. Working tree was clean on
+recovery; all task changes are intended to be committed, then verify git status.
+Original reference checkout remains clean; generated artifacts/caches ignored.
 
-Next: add tracked Goose patch/build instructions for explicit scalar-v0 option
-and pre-optimization source/type validation. Cover unsupported and unused/dead
-constructs with negative tests at -O0/-O2; preserve desktop behavior. Then add
-the restricted lifecycle/runtime in a separate verified change. Use
-SCALAR_PROFILE.md as the acceptance contract, not a claim of current support.
-Recommend Astra/high for compiler validation/runtime safety design; Sol/medium
-for routine setup after the safety gates. No automatic model switch or paid API.
+Next: using the tracked patch preparation workflow, add restricted lifecycle
+branches so admitted zero-region code avoids inline calloc, desktop gs_rt_start,
+thread/signal setup and generated free. Preserve cold/ready/idempotence/restart
+and checked arithmetic through a non-returning platform panic boundary. Test
+selected calls and final symbols at -O0/-O2 before any ESP-IDF integration.
+Recommend Astra/high for this runtime safety/ABI work; Sol/medium for routine
+SDK setup afterward. No automatic model switch, paid API or hardware operation.

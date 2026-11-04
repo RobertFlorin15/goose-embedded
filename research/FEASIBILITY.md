@@ -2,7 +2,7 @@
 
 Date: 2026-11-04. M1 analysis complete; embedded execution unverified.
 
-## Conclusion and evidence boundary
+## Initial M1 conclusion and evidence boundary (historical)
 
 A restricted Goose program appears technically plausible on ESP32-S3 through generated C and ESP-IDF. This is a hypothesis supported by source inspection and successful Linux host experiments, not a target build or hardware result. The full desktop runtime cannot be assumed portable. Two primary obstacles are guarded virtual-memory data stacks and fixed 64-bit layout assumptions. No compiler patch, embedded runtime, HAL, flash operation, or hardware execution has been performed.
 
@@ -94,8 +94,8 @@ Candidate: explicitly sized integers/bools, scalar-only exports and internal sca
 
 The subsequent [startup inventory](RUNTIME_STARTUP.md) traces the separate
 runtime at -O0/-O2 and the [scalar-v0 specification](../docs/SCALAR_PROFILE.md)
-defines a compiler-enforced restricted profile. No target-runtime adaptation
-or profile enforcement has been implemented. These follow-up results refine
+defines a compiler-enforced restricted profile. The later [validator checkpoint](SCALAR_VALIDATOR.md) implements profile
+enforcement and host rejection tests. Target-runtime adaptation remains pending. These follow-up results refine
 the initial plan without changing its host-only evidence boundary.
 
 ## Reference ecosystems and license boundary

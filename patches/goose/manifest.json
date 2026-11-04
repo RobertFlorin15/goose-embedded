@@ -1,0 +1,10 @@
+{
+  "upstream_commit": "335fddc13dc74666398ffe160ec8a8f2958329d0",
+  "patch_sha256": "b0f7ef84576b3497ff179a82c1b0b28e7311328c7f52ebce1632c8ae9e63e504",
+  "files": {
+    "src/ast.h": "d76bfe813973e6ed4ba58a2be71a126cde82c2d12f12628a102b14f6ad95b157",
+    "src/main.cpp": "f1c3599c4dbe9c3f5b96d1c7c2dfaec0ead7685acc1eb4a39a9a728446820190",
+    "src/parser.h": "6041dcac84d204ec7fc473db869fed9014f4685c75e65b027dc61e700fe51845",
+    "src/scalar_profile.h": "c22b6c4dc9c2d8c3dd89174ea4a6e3fe7f90abe268f20bcd9d4bc95568174b80"
+  }
+}

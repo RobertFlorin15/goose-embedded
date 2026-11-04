@@ -1,0 +1,417 @@
+diff --git a/src/ast.h b/src/ast.h
+index caffe48..b6f44e2 100644
+--- a/src/ast.h
++++ b/src/ast.h
+@@ -1,3 +1,4 @@
++// Goose Embedded modification, 2026-11-04: opt-in parser policy flag.
+ // Goose compiler — parsed program data: type expressions, AST nodes, and symbols.
+ // All objects are owned centrally by Ast (append-only tables of pointers); the
+ // trees just point at each other, so no per-node destructors are needed.
+@@ -2477,6 +2478,7 @@ struct Ast {
+     // server, lsp_workspace.h): the parser polls it at each top-level
+     // declaration and the checker at each body and statement, and throw
+     // Cancelled when it is set.
++    bool scalarv0_validation = false; // Reject imports/directives before package loading.
+     const atomic<bool> *cancel = nullptr;
+     void CheckCancel() const {
+         if (cancel && cancel->load(memory_order_relaxed)) throw Cancelled {};
+diff --git a/src/main.cpp b/src/main.cpp
+index fe80ca8..c06941a 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -1,3 +1,4 @@
++// Goose Embedded modification, 2026-11-04: scalar-v0 validator integration.
+ // Goose compiler — driver. Includes establish the project-wide header order.
+ 
+ #include "includes.h"
+@@ -38,6 +39,7 @@
+ #include "codegen_emit.h"
+ #include "codegen_stacks.h"
+ #include "codegen_nodes.h"
++#include "scalar_profile.h"
+ #include "runtime_inline.h"
+ #include "process.h"
+ #include "jit.h"
+@@ -192,10 +194,13 @@ static Diagnostic ImportDiagnostic(const string &file, const Import &imp, const
+ // they are used.
+ void ParseProgram(Ast &ast, const string &rootpath, const vector<string> &stdlibdirs,
+                   const string &exedir, const SourceProvider &sources = {}) {
++    const bool scalarv0 = ast.scalarv0_validation;
+     // The program is package 0; a standard library directory becomes a
+     // package the first time a module in it is reached.
+     auto rootdir = DirOf(rootpath);
+     ast.packages.push_back(Package { PathStem(rootpath), rootdir, false });
++    if (scalarv0 && PathExists(cat(rootdir, PathStem(rootpath), ".build")))
++        throw CompileError { "scalar-v0: build sidecars are unsupported" };
+     LoadSidecar(ast.packages[0], true);
+     auto stdlibpkg = [&](const string &dir) {
+         for (size_t i = 0; i < ast.packages.size(); i++)
+@@ -277,6 +282,12 @@ void ParseProgram(Ast &ast, const string &rootpath, const vector<string> &stdlib
+         auto &[filename, source] = ast.sources.back();
+         Parser parser(ast, filename, source->c_str(), fileidx);
+         parser.ParseTop();
++        if (scalarv0) {
++            if (!parser.imports.empty())
++                ImportError(filename, parser.imports[0], "scalar-v0: imports are unsupported");
++            if (!parser.filens.empty())
++                throw CompileError { "scalar-v0: namespaces are unsupported" };
++        }
+         for (auto &imp : parser.imports) {
+             // The package this import declares or loads, where it does.
+             string pkgname;
+@@ -869,6 +880,7 @@ the program at hand.
+ Options:
+   -o out.c              Write the program's C rather than run it.
+   --standalone          Write C that holds the whole runtime and builds alone.
++  --embedded-profile=scalar-v0  Validate a restricted scalar library (desktop runtime).
+   --header out.h        Also write a header for a C host, which supplies main,
+                         starts the program through goose_init and may end it
+                         through goose_exit.
+@@ -1284,6 +1296,43 @@ int Main(int argc, char **argv) {
+                 firstarg = 2;
+             }
+     }
++    bool scalarv0 = false;
++    const set<string> valuedoptions = { "-o", "-D", "--header", "--stdlib", "--cc",
++        "--include", "--color", "--diagnostics", "--stack-reserve", "--dump-file",
++        "--emit-runtime", "--compile-shader", "--shader-source" };
++    for (int i = firstarg; i < argc; ++i) {
++        string arg = argv[i];
++        if (arg == "--") break; // Subsequent words are program arguments.
++        if (valuedoptions.count(arg) ||
++            (arg.size() > 7 && arg.rfind("--", 0) == 0 &&
++             arg.compare(arg.size() - 5, 5, "-link") == 0)) {
++            ++i; // An option's operand is not an opt-in flag.
++            continue;
++        }
++        if (arg.rfind("--embedded-profile", 0) != 0) continue;
++        if (arg != "--embedded-profile=scalar-v0") {
++            fprintf(stderr, "scalar-v0: unknown embedded profile option: %s\n", arg.c_str());
++            return 1;
++        }
++        scalarv0 = true;
++    }
++    if (scalarv0) {
++        if (!verb.empty()) {
++            fprintf(stderr, "scalar-v0: use explicit C emission, not a command verb\n");
++            return 1;
++        }
++        for (int i = firstarg; i < argc; ++i) {
++            string arg = argv[i];
++            if (arg == "--embedded-profile=scalar-v0" || arg == "-O0" || arg == "-O1" ||
++                arg == "-O2" || arg == "--stacks" || arg == "--stats") continue;
++            if (arg == "-o" || arg == "--header" || arg == "--stdlib" ||
++                arg == "--diagnostics" || arg == "--color") {
++                if (++i < argc) continue;
++            } else if (!arg.empty() && arg[0] != '-') continue;
++            fprintf(stderr, "scalar-v0: incompatible option: %s\n", arg.c_str());
++            return 1;
++        }
++    }
+     // Errors and warnings in color on a terminal (--color changes it).
+     stderrcolor = StderrColor(false);
+     // --help anywhere before a `--` is the help on the command given, or on
+@@ -1363,7 +1412,8 @@ int Main(int argc, char **argv) {
+             for (int j = i + 1; j < argc; j++) progargs.push_back(argv[j]);
+             break;
+         }
+-        if (arg == "--dump") dump = true;
++        if (arg == "--embedded-profile=scalar-v0") {} // handled by preflight
++        else if (arg == "--dump") dump = true;
+         else if (arg == "--tokens") tokens = true;
+         else if (arg == "--parse") parseonly = true;
+         else if (arg == "--roundtrip") roundtrip = true;
+@@ -1476,6 +1526,21 @@ int Main(int argc, char **argv) {
+         }
+         else files.push_back(arg);
+     }
++    auto canonical = [](const string &p) {
++        return filesystem::weakly_canonical(filesystem::path(p));
++    };
++    if (scalarv0) {
++        if (outname.empty() || headername.empty() || files.size() != 1 ||
++            outname.find('%') != string::npos || outname == headername ||
++            canonical(outname) == canonical(files[0]) ||
++            canonical(headername) == canonical(files[0]) ||
++            canonical(outname) == canonical(headername)) {
++            fprintf(stderr, "scalar-v0: distinct C/header outputs and one library input are required\n");
++            return 1;
++        }
++        cdefines.push_back("GS_DEBUG=1");
++        cdefines.push_back("GS_SCALAR_V0_VALIDATED=1"); // Validation only, not an embedded runtime.
++    }
+     if (verbose || dryrun) ProgressPlain();
+     if (verb == "toolchain") {
+         try {
+@@ -1582,6 +1647,7 @@ int Main(int argc, char **argv) {
+         auto &ast = *astp;
+         if (jsondiag) ast.sink = [&](const Diagnostic &d) { found.push_back(d); };
+         auto stdlibdirs = StdlibDirs(stdlibdir, exe);
++        ast.scalarv0_validation = scalarv0;
+         ParseProgram(ast, filename, stdlibdirs, DirOf(exe));
+         // The parser reported what it recovered from as it went; nothing
+         // further is asked of a program with a syntax error.
+@@ -1610,6 +1676,8 @@ int Main(int argc, char **argv) {
+             fwrite(dumped.data(), 1, dumped.size(), f);
+             fclose(f);
+         }
++        ScalarV0 scalar { ast };
++        if (scalarv0) scalar.Source();
+         ResolveTypeNames(ast);
+         // As after the parse, which an unknown type name is part of.
+         if (!ast.errors.empty()) return 1;
+@@ -1629,6 +1697,7 @@ int Main(int argc, char **argv) {
+         TypeCheckProgram(ast, library, nocgen);
+         // The checker reported the errors it went on past, root by root.
+         if (!ast.errors.empty()) return 1;
++        if (scalarv0) scalar.Checked();
+         Optimizer opt(ast, optlevel);
+         if (specs) {
+             string s;
+@@ -1693,6 +1762,12 @@ int Main(int argc, char **argv) {
+             if (string_view(rf.name) == "runtime_ext.h") runtime_ext_text = rf.text;
+         auto stackcfg = StackConfigOf(cdefines);
+         CodeGen cg(ast, runtime_ext_text, includes, norfcheck, library, stackcfg.maxstacks);
++        if (scalarv0 && (cg.ProgramStacks(cg.MainRoots()) != 0 || cg.globalregions != 0 ||
++                         cg.usesthreads || !cg.WorkerEntries().empty() ||
++                         !cg.queues.empty() || !cg.usedexterns.empty() || cg.dlbinds != 0 ||
++                         !cg.fromids.empty() || !cg.poolglobals.empty() ||
++                         !cg.gblock.empty() || !ast.shaders.empty()))
++            scalar.Fail(Line {}, "codegen violated zero-region scalar invariants");
+         if (stacks) cg.StackReport(msgs, stackcfg);
+         // The packages whose native parts the program needs, which a JIT
+         // run takes functions from and a build links: its own, when it has
+@@ -1738,6 +1813,37 @@ int Main(int argc, char **argv) {
+                             "gs_nstks = 0; }\n");
+             return out;
+         };
++        if (scalarv0) {
++            // Fresh temporary paths; no valid profile artifact until both are staged.
++            // A pair is not a filesystem transaction: callers must honor exit status.
++            auto ctmp = outfile + ".scalar-v0.tmp";
++            auto htmp = headername + ".scalar-v0.tmp";
++            if (canonical(ctmp) == canonical(filename) || canonical(htmp) == canonical(filename) ||
++                canonical(ctmp) == canonical(headername) || canonical(htmp) == canonical(outfile) ||
++                PathExists(ctmp) || PathExists(htmp))
++                scalar.Fail(Line {}, "staging paths already exist or alias an input/output");
++            auto clean = [&] { remove(ctmp.c_str()); remove(htmp.c_str()); };
++            auto stage = [](const string &path, const string &text) {
++                std::error_code ec;
++                filesystem::create_directories(filesystem::path(path).parent_path(), ec);
++                if (ec) return false;
++                auto f = fopen(path.c_str(), "wb");
++                if (!f) return false;
++                bool ok = fwrite(text.data(), 1, text.size(), f) == text.size();
++                return fclose(f) == 0 && ok;
++            };
++            if (!stage(ctmp, assemble(true)) || !stage(htmp, cg.ExportHeader())) {
++                clean();
++                scalar.Fail(Line {}, "cannot stage C/header outputs");
++            }
++            if (RenamePath(htmp, headername) || RenamePath(ctmp, outfile)) {
++                clean();
++                // Invalidate a potentially mixed output pair; never report success.
++                remove(headername.c_str());
++                scalar.Fail(Line {}, "cannot publish C/header outputs");
++            }
++            return 0;
++        }
+         if (!outfile.empty() && !nocgen) {
+             auto out = assemble(!standalone);
+             if (!WriteFileMakingDirs(outfile, out))
+diff --git a/src/parser.h b/src/parser.h
+index c5c1b8d..9e615f3 100644
+--- a/src/parser.h
++++ b/src/parser.h
+@@ -1,3 +1,4 @@
++// Goose Embedded modification, 2026-11-04: reject profile directives before loading.
+ // Goose compiler — recursive descent parser. One function per grammar construct,
+ // mirroring the grammar sketch in the spec (Appendix D). The parser builds AST
+ // nodes and registers top-level symbols; all resolution happens in later phases.
+@@ -409,6 +410,9 @@ struct Parser {
+     }
+ 
+     void ParseTopDeclInner() {
++        if (ast.scalarv0_validation &&
++            (lex.tok == T_IMPORT || lex.tok == T_NAMESPACE || lex.tok == T_EXTERN))
++            Error("scalar-v0: imports, namespaces and extern declarations are unsupported");
+         auto line = CurLine();
+         auto doc = lex.doc;
+         curns = filens;
+diff --git a/src/scalar_profile.h b/src/scalar_profile.h
+new file mode 100644
+index 0000000..ffbefac
+--- /dev/null
++++ b/src/scalar_profile.h
+@@ -0,0 +1,171 @@
++// Goose Embedded modification, 2026-11-04: opt-in scalar-v0 validation.
++// Original project code; desktop runtime selection is deliberately unchanged.
++#pragma once
++
++namespace goose {
++
++struct ScalarV0 {
++    Ast &ast;
++    map<string_view, SFunction *> functions;
++    map<SFunction *, vector<SFunction *>> calls;
++
++    [[noreturn]] void Fail(Line line, const string &message) {
++        Diagnostic d;
++        d.where = LocOf(line);
++        d.message = "scalar-v0: " + message;
++        d.text = ast.DiagnosticText(d, true);
++        throw CompileError { d.text, { d } };
++    }
++    bool Scalar(TypeExpr *t, bool boolean = true) {
++        return t && !t->cq && !t->ix && !t->aliasuse &&
++               ((t->kind == TY_INT && t->intstorage == IS_I32) ||
++                (boolean && t->kind == TY_BOOL));
++    }
++    void Type(TypeExpr *t, Line line, bool boolean = true) {
++        if (!Scalar(t, boolean)) Fail(line, boolean ? "expected plain i32 or bool type"
++                                                                  : "function ABI requires plain i32");
++    }
++    void Walk(Node *n, SFunction *owner, bool typed, bool min_magnitude = false) {
++        if (!n) return;
++        bool literal = false;
++        switch (n->nkind) {
++            case NK_IntLit: {
++                auto i = Is<IntLit>(n);
++                if (i->uns || i->val < INT32_MIN ||
++                    i->val > (int64_t)INT32_MAX + (min_magnitude ? 1 : 0))
++                    Fail(n->line, "integer literal is outside i32");
++                if (i->fixedtype) Type(i->fixedtype, n->line, false);
++                literal = true;  // Adaptable literals have an upstream i64 annotation.
++                break;
++            }
++            case NK_BoolLit: break;
++            case NK_Ident:
++                if (typed) {
++                    auto i = Is<Ident>(n);
++                    if (!i->vdef || i->vdef->isglobal || i->fnref)
++                        Fail(n->line, "only local scalar value identifiers are supported");
++                    Type(i->vdef->type, n->line);
++                }
++                break;
++            case NK_Unary: {
++                auto u = Is<Unary>(n);
++                if (u->op != T_MINUS && u->op != T_NOT)
++                    Fail(n->line, "unsupported unary operator");
++                if (u->op == T_MINUS && Is<IntLit>(u->child)) {
++                    Walk(u->child, owner, typed, true);
++                    // A negative adaptable literal is compile-time data, not i64 storage.
++                    return;
++                }
++                break;
++            }
++            case NK_Binary: {
++                auto op = Is<Binary>(n)->op;
++                if (op != T_PLUS && op != T_MINUS && op != T_MUL && op != T_EQ &&
++                    op != T_NEQ && op != T_LT && op != T_GT && op != T_LTEQ &&
++                    op != T_GTEQ && op != T_ANDAND && op != T_OROR)
++                    Fail(n->line, "unsupported binary operator");
++                break;
++            }
++            case NK_Block: break;
++            case NK_IfExpr: break;
++            case NK_Return: {
++                auto r = Is<Return>(n);
++                if (!r->from.empty() || r->vals.size() != 1)
++                    Fail(n->line, "only ordinary single-value returns are supported");
++                if (typed && r->target != owner) Fail(n->line, "nonlocal return is unsupported");
++                break;
++            }
++            case NK_VarDecl: {
++                auto v = Is<VarDecl>(n);
++                if (v->isglobal || v->isconst || v->reusable || v->byref || v->results ||
++                    v->names.size() != 1 || v->inits.size() != 1)
++                    Fail(n->line, "only initialized single scalar locals are supported");
++                if (v->type) Type(v->type, n->line);
++                if (typed) {
++                    if (v->defs.size() != 1) Fail(n->line, "missing checked local");
++                    Type(v->defs[0]->type, n->line);
++                }
++                break;
++            }
++            case NK_Assign: {
++                auto a = Is<Assign>(n);
++                if (a->op != T_ASSIGN || !Is<Ident>(a->lval) || a->pointee)
++                    Fail(n->line, "only ordinary local assignment is supported");
++                break;
++            }
++            case NK_Call: {
++                auto c = Is<Call>(n);
++                auto id = Is<Ident>(c->callee);
++                if (!id || !c->tyargs.empty() || c->trailing || !functions.count(id->name))
++                    Fail(n->line, "only direct calls to admitted scalar functions are supported");
++                auto target = functions.at(id->name);
++                if (typed && (!c->spec || c->spec->sf != target || c->builtin >= 0 ||
++                              !c->dispatch.empty() || c->fvbody || c->defaultinit || c->ndefaults))
++                    Fail(n->line, "unsupported checked call resolution");
++                if (!typed) calls[owner].push_back(target);
++                if (typed) Type(n->exprtype, n->line, false);
++                // The callee identifier denotes a function, not stored user data.
++                for (auto arg : c->args) Walk(arg, owner, typed);
++                return;
++            }
++            default: Fail(n->line, "unsupported AST construct");
++        }
++        if (typed && !literal && n->exprtype && n->exprtype->kind != TY_VOID)
++            Type(n->exprtype, n->line);
++        // Statements may have no exprtype; value-producing leaves may not.
++        if (typed && !literal && (Is<Ident>(n) || Is<Unary>(n) || Is<Binary>(n) ||
++                                Is<BoolLit>(n)) && !n->exprtype)
++            Fail(n->line, "missing checked scalar expression");
++        n->Children([&](Node *child) { Walk(child, owner, typed); });
++    }
++    void Source() {
++        for (auto n : ast.topdecls) {
++            auto f = Is<FnDecl>(n);
++            if (!f) Fail(n->line, "only top-level scalar function declarations are supported");
++            auto sf = f->sf;
++            if (!sf->ns.empty() || sf->name == "main" || sf->IsGeneric() || sf->isrec ||
++                sf->isinline || sf->issimd || sf->checkfree || sf->isthread || sf->isextern ||
++                sf->isnested || sf->outer || !sf->body || !sf->dylib.empty() ||
++                sf->readsalltops || sf->takesloc)
++                Fail(sf->line, "unsupported function form or modifier");
++            if (!functions.emplace(sf->name, sf).second)
++                Fail(sf->line, "function overloading is unsupported");
++            if (!sf->has_rets || sf->rets.size() != 1)
++                Fail(sf->line, "explicit single i32 result is required");
++            Type(sf->rets[0], sf->line, false);
++            for (auto &param : sf->params) {
++                Type(param.type, param.line, false);
++                if (param.defaultval) Fail(param.line, "default arguments are unsupported");
++            }
++        }
++        bool exported = false;
++        for (auto &[name, sf] : functions) {
++            exported |= sf->isexport;
++            Walk(sf->body, sf, false);
++        }
++        if (!exported) Fail(Line {}, "at least one scalar export is required");
++        map<SFunction *, int> state;
++        function<void(SFunction *)> visit = [&](SFunction *sf) {
++            if (state[sf] == 1) Fail(sf->line, "recursive call graph is unsupported");
++            if (state[sf] == 2) return;
++            state[sf] = 1;
++            for (auto target : calls[sf]) visit(target);
++            state[sf] = 2;
++        };
++        for (auto &[name, sf] : functions) visit(sf);
++    }
++    void Checked() {
++        for (auto &[name, sf] : functions) {
++            if (sf->specs.empty()) Fail(sf->line, "function has no checked specialization");
++            for (auto sp : sf->specs) {
++                if (sp->incycle || sp->failed || sp->isfunval || sp->rets.size() != 1)
++                    Fail(sf->line, "unsupported checked specialization");
++                Type(sp->rets[0], sf->line, false);
++                for (auto t : sp->argtypes) Type(t, sf->line, false);
++                Walk(sp->body, sf, true);
++            }
++        }
++    }
++};
++
++} // namespace goose

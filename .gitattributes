@@ -1,0 +1,2 @@
+# Unified diff context preserves blank-line prefixes; validate patch additions with git apply.
+patches/goose/*.patch -whitespace

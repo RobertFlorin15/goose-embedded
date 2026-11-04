@@ -3,7 +3,9 @@
 2026-11-04; Linux x86-64 host only. Goose pin:
 335fddc13dc74666398ffe160ec8a8f2958329d0, runtime d22ae129d92b.
 No upstream source modifications, target build, simulator or hardware access.
-Design outcome: [scalar-v0 profile](../docs/SCALAR_PROFILE.md), not implemented.
+Historical design outcome: [scalar-v0 profile](../docs/SCALAR_PROFILE.md). The
+subsequent [validator checkpoint](SCALAR_VALIDATOR.md) implements frontend
+enforcement; runtime adaptation remains pending.
 
 ## Reproduce
 

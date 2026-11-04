@@ -57,3 +57,26 @@ choices decide source acceptance. Tradeoffs: a narrow experimental subset and
 compiler/runtime patch maintenance; target ABI and stack budget remain separate
 proofs. Consequence: no profile implementation claim until rejection, lifecycle,
 failure and desktop regression tests pass. This session commits design/probes only.
+
+## 006 — Ship validation before runtime adaptation (2026-11-04)
+
+Problem: a source profile must be enforceable independently of a replacement
+runtime, without allowing optimization or parser package-loading side effects
+to choose acceptance. Selected: an opt-in compiler patch with parsed AST and
+pre-optimization checked-specialization walks, a source call-graph cycle check,
+and existing codegen count/state invariants. Reject imports/directives during
+parsing, sidecars before interpretation, and CLI conflicts before early-return
+actions. Default-off Ast policy preserves the existing ParseProgram API used
+by LSP and roundtrip callers. Ordinary compiler behavior remains available.
+
+Alternatives: change ParseProgram's public signature; post-emission filtering;
+combine runtime work into the same patch. The signature change caused ambiguity
+with its LSP declaration in an initial build; preserving the API removes that
+regression surface. Literal arithmetic can fold during typechecking; retain
+source structural checks while allowing checked representable literal results.
+
+Consequences: profile output deliberately uses the unmodified desktop runtime
+and a validation-only version marker. No target or allocation-free claim.
+Per-file staged output replacement cannot atomically publish a two-file snapshot;
+callers must use fresh outputs, serialize writers and honor exit status. Reject
+source/output aliases and avoid publishing output before profile checks pass.

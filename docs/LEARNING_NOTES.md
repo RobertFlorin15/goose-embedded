@@ -81,3 +81,29 @@ exit restores cold, after which init can restart it. Those states need not requi
 allocation. The target adaptation should preserve these observable transitions
 while replacing desktop setup, and preserve arithmetic failure through a
 platform panic hook. Tests must cover invalid transitions as well as result 42.
+
+## Validate before a transformation can erase evidence
+
+An optimizer may discard `if false { print("hidden"); }`. A target profile that
+forbids I/O must still reject that source when selected. Our first walk visits
+all parsed function bodies, including unused code; the second checks resolved
+specializations before optimization. A third check verifies backend stack/state
+invariants. Each stage establishes a different fact; none is replaced by a regex
+or a successful linker run.
+
+## Typechecking can transform an AST too
+
+Goose checks `return 1 + 2` into a representable literal before its Optimizer
+runs. Adaptable integer literals may carry an i64 annotation even when they are
+used as i32 constants. Rejecting every such annotation would reject valid scalar
+code. The validator distinguishes these constants from stored or runtime values,
+whose concrete types must be i32/bool. The tests also reject inferred i64 locals,
+including inside dead branches.
+
+## API compatibility matters inside a compiler
+
+ParseProgram is declared by the language-server code as well as defined in the
+driver. Adding a defaulted parameter only to the definition created an ambiguous
+overload for existing calls. Keeping that signature and adding a default-off
+policy field to its existing Ast argument preserves those callers. Scoped CLI
+and diagnostic regression tests verify ordinary behavior after the patch.
