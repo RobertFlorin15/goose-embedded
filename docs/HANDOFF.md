@@ -8,10 +8,12 @@ including scalar/growth apps, C-host lifecycle/restart, zero-region scalar leaf
 and 32-bit packed-layout witness. Skill syntax and local doc links pass.
 No Xtensa compile, simulator or hardware execution. No flash/hardware operation.
 
-Git: main; M1 foundation is the commit containing this handoff (resolve with
-`git log -1 --oneline`). No pre-existing user changes or configured remote.
-All foundation changes are intended to be committed; verify `git status --short`
-when resuming. Ignored .cache/goose, build/host-probe and /tmp/goose-build are
+Git: main. Verified implementation commit:
+`a5d7f672a90a73ce92c30d2eb9d6f45af180dc1c`. A subsequent docs-only checkpoint
+updates this handoff/state; resolve its hash with `git log -1 --oneline`.
+Foundation commit and clean status were verified; no pre-existing user changes
+or remote. After this checkpoint there should be no uncommitted changes;
+verify `git status --short` when resuming. Ignored .cache/goose, build/host-probe and /tmp/goose-build are
 local conveniences, not portable prerequisites; tracked logs survive cache loss.
 
 Discoveries: desktop VM-backed stacks and C heap metadata; hard-coded 64-bit

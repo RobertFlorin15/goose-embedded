@@ -8,7 +8,7 @@ EXPERIMENTS.md, host-results.json, upstream.json; regenerate via tools/README.md
 M1 **complete as feasibility analysis**: pinned compiler architecture, runtime,
 memory/ABI investigation, host experiments, blockers and minimal plan delivered.
 Embedded feasibility is conditional, not proven. M2 has not started.
-Current task: checkpoint reviewed M1 findings; next design zero-region target profile.
+Current task: M1 checkpoint committed; next design zero-region target profile.
 
 ## Completed
 
@@ -56,15 +56,17 @@ tests/{c_host,layout_witness}.c, src/README.md. Build/cache are ignored.
 - `python3 tools/host_probe.py --compiler /tmp/goose-build/goose`: PASS, 19 commands.
 - Skill quick_validate.py: PASS.
 - Local Markdown link existence check: PASS; archived JSON has 19 exit-0 records.
-- Git whitespace check: PASS before checkpoint; commit verification in handoff.
+- Staged Git whitespace check: PASS; foundation commit created and clean status verified.
 - Target compilation / simulator / physical hardware: NOT RUN.
 
 ## Git and next action
 
-Latest verified implementation: the M1 foundation commit containing this file;
-resolve its exact hash with `git log --oneline` (a file cannot contain its own
-commit hash). Branch main; no remote configured. Final checkpoint/dirty-state
-status is recorded in HANDOFF.md and must be checked with git status.
+Latest verified implementation commit: `a5d7f672a90a73ce92c30d2eb9d6f45af180dc1c`
+(M1 foundation, including all 19 passing command records). This file is updated
+in a subsequent documentation checkpoint; resolve that checkpoint with
+`git rev-parse HEAD`. Branch main; no remote configured. Working tree was clean
+after the foundation commit; this checkpoint updates only state/handoff and is
+intended to leave no uncommitted changes. Always verify with git status.
 
 Next actionable task: inventory initialization and required symbols of
 examples/leaf.goose in separate-runtime mode; design an opt-in zero-region target
