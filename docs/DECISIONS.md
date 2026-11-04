@@ -100,3 +100,25 @@ Verification for decision 007: 560 runtime commands, 235 current validator
 commands plus nested desktop probes, and the 32-command desktop runtime probe
 pass. Exact source/object/observation limits are in research/SCALAR_RUNTIME.md.
 Target toolchain and physical measurements remain separate gates.
+
+## 008 — Pin ESP-IDF and build a control application first (2026-11-05)
+
+Problem: host scalar tests do not establish an ESP32-S3 build environment, and a
+first build containing both new runtime and new SDK integration would confound
+failures. Selected: ESP-IDF v6.0.2 at commit 7101770dc6db2667b3c477cc31365dd1acd6db4e,
+its pinned tools.json (Xtensa GCC 15.2.0), and unchanged official hello_world as
+the control build. It is an officially documented stable bugfix release, selected
+explicitly rather than following a moving release branch.
+
+Alternatives: an older 5.x SDK, moving master, system SDK, or immediately linking
+Goose. None gives this project a stronger verified baseline yet. A project-local
+legacy install.sh/export.sh workflow avoids changing the host configuration or
+adding EIM as another installation dependency; the official v6 guide continues
+to document that method. Tradeoffs: larger cached SDK/tools and manual release
+upgrades; Python dependencies need their own recorded versions because upstream
+constraints can refresh independently of the SDK commit. Check hashes and retain
+logs; do not promise byte-identical builds from just a Git revision.
+
+Acceptance/results: research/ESP_IDF_BASELINE.md. After the control build passes,
+add only the scalar leaf component and app_main/panic bridge. No physical result,
+HAL support or target runtime safety follows from the control application alone.

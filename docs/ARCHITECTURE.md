@@ -47,8 +47,9 @@ semantics must be checked with the target compiler. Reducing reserve macros
 alone does not satisfy these conditions. ESP32-S3 flash MMU/cache features do
 not establish the desktop VM protocol required upstream.
 
-No HAL, register map, allocator replacement or async executor exists. Target
-builds, simulator and hardware results are all pending. Preserve that evidence
+No HAL, register map, allocator replacement or async executor exists. The
+unchanged official ESP32-S3 SDK control build passes; Goose target compilation,
+simulator and hardware results remain pending. Preserve that evidence
 boundary in public descriptions.
 
 ## Scalar profile design checkpoint
@@ -102,3 +103,16 @@ objects have only the hook unresolved at both -O0/-O2, with no LTO/section GC;
 selected lifecycle API counters remain zero. Desktop output is byte-identical
 and its behavioral regressions pass. See research/SCALAR_RUNTIME.md for bounds
 on those observations; Xtensa and hardware verification remain open.
+
+## Verified SDK control build
+
+ESP-IDF v6.0.2 at 7101770dc6db2667b3c477cc31365dd1acd6db4e and its 25 recursive
+submodules are pinned; tools.json selects Xtensa GCC 15.2.0. Official tools are
+project-local; the Python package list has a separate lock because upstream
+constraints update independently. tools/esp_idf_baseline.py builds an unchanged
+hello_world in a fresh ignored output tree and records source/artifact hashes,
+configuration, versions, ELF header and size. The control ELF links as 32-bit
+little-endian Xtensa; no Goose code is in it. Defaults include a 3584-byte main
+task stack, whose sufficiency for the upcoming scalar adapter remains unknown.
+See research/ESP_IDF_BASELINE.md. The platform boundary is still pending; no SDK
+fatal-error binding or generated scalar component has been added yet.

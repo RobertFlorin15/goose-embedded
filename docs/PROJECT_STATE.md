@@ -1,117 +1,113 @@
 # Project state
 
-Updated 2026-11-05 (runtime work began 2026-11-04). Reconcile with Git/source.
-Current evidence: research/SCALAR_RUNTIME.md, scalar-runtime-results.json,
-patches/goose/{0002-scalar-v0-runtime.patch,runtime-manifest.json}, and runtime
-and validator test tools. Earlier M1 and validator evidence remains in research/.
+Updated 2026-11-05. Reconcile with Git/source. Current evidence:
+[ESP_IDF_BASELINE.md](../research/ESP_IDF_BASELINE.md),
+[esp-idf-baseline-results.json](../research/esp-idf-baseline-results.json).
+Earlier compiler/runtime evidence remains in research/SCALAR_{VALIDATOR,RUNTIME}.md.
 
 ## Current milestone and task
 
-M1 complete as feasibility analysis. M2a in progress: **scalar-v0 validator and
-isolated runtime ABI 1 pass host gates**. Current task complete: zero-region
-lifecycle, versioned panic boundary, dependency/observer/arithmetic/regression
-verification and reproducible patch preparation. No actual Xtensa build yet.
-Next: pin/install the official ESP-IDF/toolchain and build its unchanged baseline.
+M1 complete as feasibility analysis. M2a in progress: scalar-v0 validator and
+isolated runtime ABI 1 pass host gates; **the unchanged official ESP-IDF
+hello_world now builds/links for ESP32-S3**. Current SDK baseline task complete.
+Goose-generated code has NOT been built for Xtensa or executed on hardware.
+Next: add the scalar leaf component and narrow app_main/panic adapter, then
+inspect target ABI/symbols/maps/assembly and native stack assumptions.
 
-## Completed
+## Completed tasks
 
-- Agent recovery/skill, roadmap, architecture, decisions, learning notes and Git
-  checkpoints established. Grapify unavailable in prior installed-root/tool
-  checks; standard source tools used, no invented Grapify command.
-- Official reference pin 335fddc13dc74666398ffe160ec8a8f2958329d0 remains clean
-  in .cache/goose. Tracked patch 0001 and manifest remain unchanged.
-- Patch 0002 selects canonical runtime_scalar.h, bypasses desktop init/stack
-  block/teardown, and emits zero-region assertions plus cold/ready transitions.
-  Only argc=0/argv=NULL is supported, including repeated init calls.
-- Same widened checked i32 add/sub/mul/neg rules; lifecycle/overflow/unreachable
-  errors call required non-returning ge_scalar_v0_panic_v1. ABI marker 1 and
-  reserved export prefix prevent accidental hook collisions; no fallback stub.
-- Runtime text regenerated with upstream generator; final regeneration is
-  byte-idempotent. Desktop runtime sections/hash/output are unchanged.
-- Two-stage preparation checks patch dependency and all final file digests;
-  --validator-only mode retains/retests the historical first stage.
-- Native and generic i386 freestanding generated objects for two libraries at
-  -O0/-O2 have exactly the panic hook unresolved, without LTO/section GC.
-- Selected heap/VM/signal/pthread lifecycle counters are zero; cold/ready,
-  idempotence/restart, invalid calls and arithmetic failure paths are verified.
-- 496 deterministic arithmetic cases agree with Python values/overflow outcomes.
-  Desktop probes and scoped upstream frontend regressions also pass.
+- Persistent agent instructions/skill, architecture, decisions, roadmap and
+  educational notes established. Grapify unavailable in prior installed-root/tool
+  checks; standard source tools used. No model router or billed API usage.
+- Clean official Goose pin 335fddc13dc74666398ffe160ec8a8f2958329d0 and reproducible
+  compiler patch chain/manifests. Opt-in scalar-v0 structural/type/codegen checks
+  reject unsupported code before emission; desktop behavior remains default.
+- Scalar runtime patch isolates checked i32 helpers, zero-region lifecycle and
+  required noreturn ge_scalar_v0_panic_v1, ABI 1. Host/dependency/arithmetic gates
+  pass; no desktop runtime sections selected for profile output.
+- Official ESP-IDF v6.0.2 at 7101770dc6db2667b3c477cc31365dd1acd6db4e plus all
+  25 recursive submodules installed/verified clean in .cache/esp-idf-v6.0.2.
+- Official project-local tools installed in .cache/espressif. Pinned tools.json
+  selects Xtensa GCC 15.2.0 / esp-15.2.0_20251204. All six downloaded archives
+  independently match official hashes. No system installs/profile changes.
+- 58 Python packages recorded in tools/esp-idf-python.lock; helper enforces exact
+  installed list. Locked official installer replay succeeds in the existing
+  environment; package equality remains verified afterward.
+- New baseline helper copies unchanged official hello_world, checks source/pins,
+  configures esp32s3, builds with two jobs, records logs/versions/artifact hashes,
+  checks ELF and SDK cleanliness. No device/flash/serial command exists in it.
+- Official baseline linked: ELF32 little-endian Xtensa; app 145424 bytes,
+  bootloader 21056, partition table 3072. All six original example files retain
+  their hashes. SDK and Goose reference checkouts remain clean.
 
-## Discoveries and constraints
+## Technical discoveries and constraints
 
-- Zero regions alone are insufficient; source/type checks and codegen invariants
-  remain enforced. GS_MAX_STACKS=0 still disables the ordinary upstream limit.
-- Codegen emits checked GS_UNREACHABLE guards at -O0; scalar runtime must handle
-  those too. They now forward to the same panic boundary with source location.
-- A small isolated section avoids unused desktop helpers even at -O0. The only
-  tested generated-object external symbol is ge_scalar_v0_panic_v1.
-- The platform owns the non-returning/no-allocation hook contract. Linux test
-  binding uses write/_Exit; it is not an ESP-IDF binding. Host libc/startup and
-  observer internals are outside the generated-code no-heap/OS claim.
-- Scalar runtime has independent ABI version 1; unchanged desktop sections retain
-  hash d22ae129d92b and byte-identical emitted runtime C. Existing canonical
-  desktop runtime files remain byte-identical to the source pin.
-- Generic i386 compile evidence is not Xtensa execution or aggregate/reference
-  portability. Native task stack, target memory placement and footprint unknown.
+- SDK Git pins do not fix Python package versions; upstream constraints refresh
+  independently. Package lock and observed constraints hash are retained.
+- Host Ubuntu 26.04 x86_64/Python 3.14.4/CMake 4.2.3/Ninja 1.13.2 succeeds for this
+  minimal build. flex/bison/ccache absent on PATH; no general prerequisite claim.
+- ESP32-S3 example defaults: DIO/2 MB, single-app partition, 100 Hz tick,
+  3584-byte main-task stack. These are build settings, not measured board/stack
+  properties. Baseline includes ordinary ESP-IDF/FreeRTOS heaps and services;
+  no firmware-wide no-allocation claim.
+- Source hash/lock/versions support repeatability, not hermetic or byte-identical
+  builds. New hosts/package availability/changed official constraints may need
+  an explicit reviewed upgrade. Locked replay was not a fresh second install.
+- Scalar runtime native/generic i386 objects require only its panic hook at
+  -O0/-O2; generic 32-bit evidence is not Xtensa evidence. Platform hook must
+  uphold noreturn/no-allocation requirements; current Linux hook is test-only.
+- Profile remains single serial normal-task caller only. No ISR, concurrency,
+  aggregates/references, arenas, HAL or peripheral support.
 
-## Incomplete / blockers
+## Incomplete tasks / blockers
 
-- No ESP-IDF release/toolchain pinned or installed for this project; no unchanged
-  baseline target build or generated Goose component built/linked for ESP32-S3.
-- ESP-IDF panic adapter, target ABI/alignment/ELF/map/assembly/stack review.
-- Board/serial details and explicit hardware authorization; no flashing occurred.
-- No simulator/physical result, interrupts, concurrency, HAL or peripherals.
+- Goose leaf target compile/link; ESP-IDF panic adapter, target ABI/alignment,
+  ELF/map/assembly and native stack budget review. No target runtime claim yet.
+- Board identity/serial settings and explicit hardware authorization; no flashing,
+  simulator or physical execution. M2b and all HAL work remain unverified.
 - Full upstream compiler/LSP/sanitizer suites not run; scoped regressions only.
-- Existing upstream Release warnings remain documented (unused items and GCC
-  Roots/small_vector maybe-uninitialized); no new runtime compile warning needed
-  suppression to pass the tests.
-- Overall project license/distribution inventory pending; Goose Apache-2.0 text,
-  adapted-code provenance and modified-file notices retained with patches.
+- Release license/distribution inventory and project license remain pending.
+  SDK root Apache-2.0, example C CC0-1.0; component/tool licenses vary. Downloads
+  and binaries ignored, not redistributed. Goose notices remain with patches.
 
-## Files changed this task
+## Files modified this task
 
-New: patches/goose/{0002-scalar-v0-runtime.patch,runtime-manifest.json},
-tools/test_scalar_runtime.py, tests/scalar_v0/{panic_host.c,lifecycle_host.c,
-arithmetic_host.c,arithmetic.goose}, research/{SCALAR_RUNTIME.md,
-scalar-runtime-results.json}.
-Updated: preparation/validator tools, test host message, tools/patch READMEs,
-src/README.md, project README, architecture/profile/roadmap/decisions/learning,
-state and handoff, reference inventory. Ignored sources/builds are disposable;
-tracked patch chain/manifests are the durable implementation.
+New: tools/{esp_idf_baseline.py,esp-idf-pin.json,esp-idf-python.lock},
+research/{ESP_IDF_BASELINE.md,esp-idf-baseline-results.json}.
+Updated: tools/README.md, root README, AGENTS.md build pointer, architecture,
+roadmap, decisions (008), learning notes, reference inventory, state and handoff.
+No compiler/runtime patches or HAL implementation changes.
 
-## Verification
+## Tests executed and results
 
-- Bootstrap Release build, upstream runtime regeneration and final rebuild: PASS.
-- `python3 tools/test_scalar_runtime.py --compiler build/goose-scalar-runtime/goose`:
-  PASS, 560 commands (179 expected failures), including 496 arithmetic cases.
-- Current validator suite: PASS, 235 commands (209 expected failures), plus nested
-  original 19-command desktop host probe. Historical --validator-only workflow:
-  PASS, 237 commands on build/goose-scalar/goose. Logs restored to current mode.
-- `python3 tools/runtime_probe.py --compiler build/goose-scalar-runtime/goose`:
-  PASS, 32 normal desktop runtime commands (six expected failures).
-- Scoped upstream CLI-path and JSON diagnostic suites: PASS. Desktop emitted
-  runtime C byte equality, canonical desktop files and hash: PASS.
-- Fresh patch-chain/file digest reproduction and generator idempotence: PASS.
-- Strict C host syntax, Python syntax, local doc links and Git whitespace checks
-  recorded at final checkpoint; source/runtime behavior changes tested above.
-- Initial missing GS_UNREACHABLE and second-patch new-file metadata were corrected
-  with new hypotheses before final successful runs; see SCALAR_RUNTIME.md.
-- Xtensa build / simulator / hardware / SDK panic adapter: NOT RUN / not implemented.
+- Official SDK clone/recursive pin and cleanliness checks: PASS, 25 submodules.
+- install.sh esp32s3: PASS; exact-lock replay on existing installation: PASS.
+- Official archive digest verification: PASS, six archives.
+- python3 tools/esp_idf_baseline.py: PASS, activation and five recorded commands
+  (package inventory, set-target, build, readelf, size); 543 top-level Ninja build
+  steps plus bootloader. No warnings/errors detected in build/config logs.
+- Source hash preservation, ELF identity, config/artifact checks, post-replay
+  package equality: PASS. Five helper refusal paths: PASS. Python syntax and Git
+  whitespace/local Markdown checks performed at final checkpoint.
+- Earlier runtime checkpoint a66006f: 560 runtime commands incl. 496 arithmetic
+  cases; validator 235 plus nested 19 host; historical validator-only 237;
+  desktop runtime 32; scoped upstream CLI/JSON tests all PASS. Not rerun for
+  SDK-only work because no Goose implementation changed.
+- Goose Xtensa build / simulator / hardware / SDK panic adapter: NOT RUN / absent.
 
-## Git and next action
+## Git and next actionable task
 
-Branch main; no remote. Previous verified implementation: 6250b4a (validator).
-The runtime checkpoint is the commit containing this file; resolve exact hash
-with `git rev-parse HEAD` after commit. Clean on recovery; all task changes are
-intended to be committed, then git status verified. Reference checkout stays clean.
-Development source .cache/goose-scalar-runtime, binary build/goose-scalar-runtime/goose;
-rebuild from patches if absent. Compiler reports 335fddc+scalar-v0-runtime,
-desktop runtime d22ae129d92b. No source edit is durable unless in the patches.
+Branch main, no remote. Latest prior verified implementation:
+a66006f33fea11078472a168c2037096f5c559ed (scalar runtime host gate).
+The SDK checkpoint is the commit containing this file; resolve with git log -1
+and verify status. Task changes intended to be committed together, leaving clean.
+Ignored build/esp-idf-baseline contains full logs, ELF/map/images; tracked reviewed
+results preserve hashes/versions even if cache is lost. Setup/build reproduction
+is in tools/README.md. Fresh output required; helper refuses existing paths.
 
-Next: inspect installed SDK tools, browse official current release/toolchain
-requirements, pin an ESP-IDF commit and tools in a project-local reproducible
-setup, then build the unchanged official ESP32-S3 baseline. Only afterward add
-a narrow app_main/panic adapter for the generated leaf library and inspect target
-symbols/maps/assembly. Do not flash or start HAL work yet.
-Recommend Sol/medium for routine SDK setup; Astra/high for target ABI/toolchain
-blockers. No model switch, paid API or hardware operation was initiated.
+Next: inspect pinned ESP-IDF fatal-error API/startup/task ABI source, implement
+minimal generated scalar leaf component and app_main/panic C bridge, cross-build
+with this SDK, inspect symbols/map/assembly/native stack use. Keep codegen and
+platform binding separate. Do not flash or begin HAL work.
+Sol/medium for narrow component integration; Astra/high if panic/ABI/stack-safety
+questions require deeper design. No model switch or hardware operation initiated.

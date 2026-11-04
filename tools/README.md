@@ -133,3 +133,46 @@ cmake --build build/goose-scalar-runtime -j 2
 The committed second patch already includes regenerated runtime text, so a fresh
 preparation needs one build. The initial development bootstrap needed a build,
 regeneration and rebuild. See research/SCALAR_RUNTIME.md for verified outcomes.
+
+## Pinned ESP-IDF baseline (no hardware access)
+
+Linux x86_64 setup used for the initial experiment: Git, Python 3.14.4 with venv,
+CMake 4.2.3 and Ninja 1.13.2. ESP-IDF requires Python >=3.10; other host versions
+are not yet verified by this project. Downloads need network access and several
+GB of disk space. Keep all caches inside the project:
+
+```sh
+git clone --branch v6.0.2 --depth 1 --recursive --shallow-submodules https://github.com/espressif/esp-idf.git .cache/esp-idf-v6.0.2
+git -C .cache/esp-idf-v6.0.2 rev-parse HEAD
+mkdir -p build/esp-idf-setup
+IDF_TOOLS_PATH="$PWD/.cache/espressif" PIP_CACHE_DIR="$PWD/.cache/pip" PIP_CONSTRAINT="$PWD/tools/esp-idf-python.lock" bash .cache/esp-idf-v6.0.2/install.sh esp32s3 > build/esp-idf-setup/install.log 2>&1
+python3 tools/esp_idf_baseline.py
+```
+
+Expected SDK commit: 7101770dc6db2667b3c477cc31365dd1acd6db4e. Do not reclone over
+an existing checkout; verify its commit/status/submodules first.
+esp-idf-python.lock records the Python 3.14/Linux
+environment verified here, including transitive packages, pip and setuptools.
+PIP_CONSTRAINT applies those exact versions during setup; the helper rejects
+installed-package drift. Upstream constraints are still honored. If they later
+conflict with this lock, review and checkpoint an explicit upgrade; do not bypass
+the checks. Package/archive availability and other hosts remain external limits;
+this is not a hermetic or bit-for-bit build promise. The original installation
+resolved upstream constraints first and generated the lock; a replay with the
+lock is recorded separately in the report.
+
+Installation is separate from the build helper, which does not install tools or
+fetch SDK sources. It
+activates upstream export.sh in a child shell, checks the source/tool pin, copies
+hello_world unchanged, configures esp32s3 with idf.py set-target, then builds via
+`cmake --build ... --parallel 2`. CMake's build interface bounds parallelism;
+idf.py v6.0.2 has no -j option. No menuconfig changes are applied.
+
+Output defaults to build/esp-idf-baseline/{hello_world,firmware,results.json,*.log}.
+It must not exist; use --output build/esp-idf-baseline-2 for a fresh run. Failed
+commands retain logs and failed status. The helper verifies original file hashes,
+target identity, artifact presence and Xtensa ELF header, records versions,
+installed Python packages, constraints digest, map and size, and rechecks SDK
+cleanliness. It prevents enclosing project Git discovery from supplying a
+changing application version. See [the report](../research/ESP_IDF_BASELINE.md)
+for results and evidence limits. No command opens a device, flashes or monitors.

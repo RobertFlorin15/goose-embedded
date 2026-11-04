@@ -1,0 +1,294 @@
+{
+  "status": "pass",
+  "evidence": "target compilation only; no execution",
+  "pin": {
+    "release": "v6.0.2",
+    "repository": "https://github.com/espressif/esp-idf.git",
+    "commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+    "tag_object": "b0d7ee8723d5cd90c1aa2c54729aa7c92f2bf187",
+    "tools_json_sha256": "b403c25dc0c841dece4ac45abfa0a131f55ccae72db6be86ee36e3e69557f0e4",
+    "xtensa_toolchain": "esp-15.2.0_20251204",
+    "gcc_version": "15.2.0",
+    "linux_amd64_xtensa_archive_sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8"
+  },
+  "submodules": [
+    " 24c60e243580c7868f4334a1ba3123481fe1aa48 components/bootloader/subproject/components/micro-ecc/micro-ecc (24c60e2)",
+    " b4b7c54b1eab6a844789b69e56322ef5736eddc8 components/bt/controller/lib_esp32 (b4b7c54)",
+    " 6a5c0b8bfca1a2e984e89431b8ebf9b521dad5ea components/bt/controller/lib_esp32c2/esp32c2-bt-lib (6a5c0b8)",
+    " 0a08c4b32f3666003080b662a1a61794da24ff0f components/bt/controller/lib_esp32c3_family (heads/master)",
+    " c328228f53fe167cc9fbd05b5bef37158f64956d components/bt/controller/lib_esp32c5/esp32c5-bt-lib (c328228)",
+    " e7be018522c85e67c298effc8ffa7f5b84887a7b components/bt/controller/lib_esp32c6/esp32c6-bt-lib (e7be018)",
+    " b2b8fd009c31816497d55726af297761147beb07 components/bt/controller/lib_esp32h2/esp32h2-bt-lib (b2b8fd0)",
+    " e44762384ed104a0ebc78f134eeba5f3ab648ddc components/bt/esp_ble_mesh/lib/lib (e447623)",
+    " 5d8b70207a6324f45d9f548ff57ec3b154afccdd components/bt/host/nimble/nimble (5d8b702)",
+    " eeecc49ce8af123cf8ad40efdb9673e37b56230f components/cmock/CMock (eeecc49)",
+    " 71b47be7c950f1bf5f7e5303779fa99a16224bb6 components/cmock/CMock/vendor/c_exception (71b47be)",
+    " cf949f45ca6d172a177b00da21310607b97bc7a7 components/cmock/CMock/vendor/unity (cf949f4)",
+    " 79e618f033e926d134decc6d95bb1b1850bd032c components/esp_coex/lib (79e618f)",
+    " 59c1234e929212aec0fdda75769b759951235536 components/esp_phy/lib (59c1234)",
+    " bb69e7e609c9a9a909ddd1ed175f36df2bd13801 components/esp_wifi/lib (bb69e7e)",
+    " 2867f6883a12920b1969ff9624c0ab0e4185c2ce components/heap/tlsf (2867f68)",
+    " fd432e4ee2cfb7f7f1c7eb7227e0173412e7b84e components/lwip/lwip (fd432e4)",
+    " 6cc42afad309e861f4c07e6f106e2ab14a9cb8e5 components/mbedtls/mbedtls (6cc42af)",
+    " 9467fb320782855dff84add294039bfa0bcbbf4b components/openthread/lib (9467fb3)",
+    " a98813b30ae58f9a95ece680b9cc46c3874de6ea components/openthread/openthread (a98813b)",
+    " e185d7fd85499c8ce5ca2a54f5cf8fe7dbe3f8df components/openthread/openthread/third_party/mbedtls/repo (e185d7f)",
+    " 457996474728cb8e968ed21953b72f74d2f536b2 components/openthread/openthread/third_party/mbedtls/repo/framework (4579964)",
+    " abc67a11c6db271bedbb9f58be85d6f4e2ea8389 components/protobuf-c/protobuf-c (abc67a1)",
+    " ad902cadceb39d0825a97e25ecb5867641f606ba components/spiffs/spiffs (ad902ca)",
+    " bf560290f6020737eafaa8b5cbd2177c3956c03f components/unity/unity (bf56029)"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/python_env/idf6.0_py3.14_env/bin/python",
+        "-m",
+        "pip",
+        "freeze",
+        "--all"
+      ],
+      "log": "python-packages.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/python_env/idf6.0_py3.14_env/bin/python",
+        "/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/tools/idf.py",
+        "-B",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-baseline/firmware",
+        "set-target",
+        "esp32s3"
+      ],
+      "log": "set-target.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-baseline/firmware",
+        "--parallel",
+        "2"
+      ],
+      "log": "build.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-readelf",
+        "-h",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-baseline/firmware/hello_world.elf"
+      ],
+      "log": "elf-header.log",
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/python_env/idf6.0_py3.14_env/bin/python",
+        "/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/tools/idf.py",
+        "-B",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-baseline/firmware",
+        "size"
+      ],
+      "log": "size.log",
+      "exit_code": 0
+    }
+  ],
+  "versions": {
+    "gcc": "xtensa-esp-elf-gcc (crosstool-NG esp-15.2.0_20251204) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+    "python": "Python 3.14.4",
+    "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+    "ninja": "1.13.2"
+  },
+  "python_packages_sha256": "2375856b5d2e02a63abfd959b3d79ab694d190cbdf62cc308bcbb4942544e08f",
+  "python_constraints": {
+    "espidf.constraints.v6.0.txt": "ad714e9daa20c7a4945d616a950a7f59a6c5552dc336287ee5894f1c8553ef1b"
+  },
+  "original_files": {
+    "CMakeLists.txt": "5df271e4d0dd84f1d4765b274c6d53179cf33ca3f9c5eb5d21de69d88310d721",
+    "README.md": "ff3d88ffac063e7e90e6cca9acaef101da29b2c22a60687b1af87b3d4cf8342b",
+    "main/CMakeLists.txt": "116b04da44200b6ddeee8aed45c9fbfb5e487d727c7d29b028e79807e76137cc",
+    "main/hello_world_main.c": "b2d1c8573307e010d276d2d0df537f1fe752416f8422e267aa8b1661c1744595",
+    "pytest_hello_world.py": "2f7eb8e66534c38107095b0bf9e0ad4c40097c22a590212cbaf07a6d9693e76a",
+    "sdkconfig.ci": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "artifacts": {
+    "hello_world.elf": {
+      "sha256": "f8986291ede1b5dc7b393ef58a225589edd387c0b1f1d57988f0be85271a84d2",
+      "bytes": 3164440
+    },
+    "hello_world.bin": {
+      "sha256": "db477bef67697e21eb45bb2514dcd27c85494f8db3854d50b5ff66c81ad5978c",
+      "bytes": 145424
+    },
+    "hello_world.map": {
+      "sha256": "4c7181191eb66263e9a5d1760550cb0c510a12befb491f2e8ec558e620bad318",
+      "bytes": 2898991
+    },
+    "bootloader/bootloader.bin": {
+      "sha256": "c8ba501bfe448fb25047b3acd43089d096b246e8f6070bc3aa3d25b021dc48d6",
+      "bytes": 21056
+    },
+    "partition_table/partition-table.bin": {
+      "sha256": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820",
+      "bytes": 3072
+    },
+    "project_description.json": {
+      "sha256": "15a28f81a1d94fbad1c09956f1365138d93559ede380f202d3b9bcfe4ac0dd73",
+      "bytes": 158610
+    },
+    "compile_commands.json": {
+      "sha256": "0a582419ac558cacf718054403b921ac1af7c81bb27cd291066b0bc16cd5cf4a",
+      "bytes": 4241543
+    },
+    "flasher_args.json": {
+      "sha256": "391efb3c912ef4cc6f219e89284c661c289497e364a67a1a39aefc8a669b22b1",
+      "bytes": 913
+    }
+  },
+  "sdkconfig_sha256": "c715552a1aeda4bde51f71ac3e07fa48bbd45a440972e7a4b004d699bfe2456c",
+  "date": "2026-11-05",
+  "scope": "Unchanged official ESP-IDF control build, no Goose target build or execution",
+  "archives_verified": [
+    {
+      "name": "xtensa-esp-elf-gdb",
+      "version": "17.1_20260402",
+      "archive": "xtensa-esp-elf-gdb-17.1_20260402-x86_64-linux-gnu.tar.gz",
+      "sha256": "73bc6c4e50b06dceb60e94b53aded61b7769be3cf563572269d9c8d643db8e95"
+    },
+    {
+      "name": "xtensa-esp-elf",
+      "version": "esp-15.2.0_20251204",
+      "archive": "xtensa-esp-elf-15.2.0_20251204-x86_64-linux-gnu.tar.xz",
+      "sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8"
+    },
+    {
+      "name": "riscv32-esp-elf",
+      "version": "esp-15.2.0_20251204",
+      "archive": "riscv32-esp-elf-15.2.0_20251204-x86_64-linux-gnu.tar.xz",
+      "sha256": "ace5aae6afe98f754947be043d40173e2e22ace57754b11a394b7238eefa01cf"
+    },
+    {
+      "name": "esp32ulp-elf",
+      "version": "2.38_20240113",
+      "archive": "esp32ulp-elf-2.38_20240113-linux-amd64.tar.gz",
+      "sha256": "d13a808365b78465fa6591636dfbbb9604d9d15a397c3d9cd22626d54828ac2c"
+    },
+    {
+      "name": "openocd-esp32",
+      "version": "v0.12.0-esp32-20260424",
+      "archive": "openocd-esp32-linux-amd64-0.12.0-esp32-20260424.tar.gz",
+      "sha256": "0c875beb0e8d89cee4335968e8a27c7d151f05b91f636263c81ab01e098d390d"
+    },
+    {
+      "name": "esp-rom-elfs",
+      "version": "20241011",
+      "archive": "esp-rom-elfs-20241011.tar.gz",
+      "sha256": "921f000164a421c7628fbfee55b173384aafaa51883adc65cd27bf9b0af9e9a9"
+    }
+  ],
+  "refusal_checks": [
+    {
+      "argv": [
+        "python3",
+        "tools/esp_idf_baseline.py",
+        "--output",
+        "build"
+      ],
+      "exit_code": 2,
+      "stderr": "usage: esp_idf_baseline.py [-h] [--sdk SDK] [--tools TOOLS] [--output OUTPUT]\n                           [--jobs JOBS]\nesp_idf_baseline.py: error: --output must not exist; use a fresh path to preserve evidence"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/esp_idf_baseline.py",
+        "--jobs",
+        "0"
+      ],
+      "exit_code": 2,
+      "stderr": "usage: esp_idf_baseline.py [-h] [--sdk SDK] [--tools TOOLS] [--output OUTPUT]\n                           [--jobs JOBS]\nesp_idf_baseline.py: error: --jobs must be positive"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/esp_idf_baseline.py",
+        "--sdk",
+        ".cache/goose",
+        "--output",
+        "build/baseline-wrong-sdk"
+      ],
+      "exit_code": 1,
+      "stderr": "ESP-IDF is not at the pinned commit"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/esp_idf_baseline.py",
+        "--output",
+        "build/bad path"
+      ],
+      "exit_code": 2,
+      "stderr": "usage: esp_idf_baseline.py [-h] [--sdk SDK] [--tools TOOLS] [--output OUTPUT]\n                           [--jobs JOBS]\nesp_idf_baseline.py: error: ESP-IDF does not support spaces in these paths"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/esp_idf_baseline.py",
+        "--output",
+        ".cache/esp-idf-v6.0.2/new-output"
+      ],
+      "exit_code": 2,
+      "stderr": "usage: esp_idf_baseline.py [-h] [--sdk SDK] [--tools TOOLS] [--output OUTPUT]\n                           [--jobs JOBS]\nesp_idf_baseline.py: error: output must be separate from SDK and tools"
+    }
+  ],
+  "setup": {
+    "initial_install": "pass",
+    "locked_replay_existing_environment": "pass",
+    "recursive_submodules": 25
+  },
+  "selected_configuration": [
+    "CONFIG_IDF_TARGET=\"esp32s3\"",
+    "CONFIG_ESPTOOLPY_FLASHMODE=\"dio\"",
+    "CONFIG_ESPTOOLPY_FLASHSIZE=\"2MB\"",
+    "CONFIG_PARTITION_TABLE_SINGLE_APP=y",
+    "CONFIG_COMPILER_OPTIMIZATION_DEBUG=y",
+    "CONFIG_COMPILER_OPTIMIZATION_ASSERTIONS_ENABLE=y",
+    "CONFIG_COMPILER_OPTIMIZATION_ASSERTION_LEVEL=2",
+    "CONFIG_ESP_MAIN_TASK_STACK_SIZE=3584",
+    "CONFIG_FREERTOS_HZ=100",
+    "CONFIG_COMPILER_OPTIMIZATION_LEVEL_DEBUG=y",
+    "CONFIG_COMPILER_OPTIMIZATION_DEFAULT=y"
+  ],
+  "elf_header": [
+    "ELF Header:",
+    "  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 ",
+    "  Class:                             ELF32",
+    "  Data:                              2's complement, little endian",
+    "  Version:                           1 (current)",
+    "  OS/ABI:                            UNIX - System V",
+    "  ABI Version:                       0",
+    "  Type:                              EXEC (Executable file)",
+    "  Machine:                           Tensilica Xtensa Processor",
+    "  Version:                           0x1",
+    "  Entry point address:               0x403755d0",
+    "  Start of program headers:          52 (bytes into file)",
+    "  Start of section headers:          3162880 (bytes into file)",
+    "  Flags:                             0x300",
+    "  Size of this header:               52 (bytes)",
+    "  Size of program headers:           32 (bytes)",
+    "  Number of program headers:         9",
+    "  Size of section headers:           40 (bytes)",
+    "  Number of section headers:         39",
+    "  Section header string table index: 38"
+  ],
+  "logs_sha256": {
+    "build/esp-idf-baseline/activation.log": "5d50dbc8ff763c1aac44c6a902e30c0b640dc056dfa3f23c3034a9db18ea3a74",
+    "build/esp-idf-baseline/build.log": "15331cb74cdb4d3f34efe362663ce72c93fd26416f73673c2a3798125a67455d",
+    "build/esp-idf-baseline/elf-header.log": "37cf713c7912b14054d4bc4dab35dad9770614bf3bfe6028e73cee216b497248",
+    "build/esp-idf-baseline/python-packages.log": "2375856b5d2e02a63abfd959b3d79ab694d190cbdf62cc308bcbb4942544e08f",
+    "build/esp-idf-baseline/set-target.log": "6bb1d187e88d79cdd5994c95cb43380566ef947c1d70e088ff68b1091e980997",
+    "build/esp-idf-baseline/size.log": "cfa4b4e9bafd727faf83386713b208301270c21fd5c63e58e382f8b2c6ba34bf",
+    "build/esp-idf-setup/install.log": "b43380e9b751f771f31742513dab2cf99ff4f0a5855e93a409957e63831de1e2",
+    "build/esp-idf-setup/locked-replay.log": "07068bed09df443a1c77ed0b882b747d721e7e6d457d8ab8f1d2e8f175194342"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "release": "v6.0.2",
+  "repository": "https://github.com/espressif/esp-idf.git",
+  "commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+  "tag_object": "b0d7ee8723d5cd90c1aa2c54729aa7c92f2bf187",
+  "tools_json_sha256": "b403c25dc0c841dece4ac45abfa0a131f55ccae72db6be86ee36e3e69557f0e4",
+  "xtensa_toolchain": "esp-15.2.0_20251204",
+  "gcc_version": "15.2.0",
+  "linux_amd64_xtensa_archive_sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8"
+}

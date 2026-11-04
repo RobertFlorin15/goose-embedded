@@ -20,7 +20,7 @@ Determine whether aardappel/Goose can run on ESP32-S3, then progressively build 
 ## Workflow and standards
 Investigate, define acceptance criteria, make the smallest reversible change, compile/test, inspect results, update memory, and commit coherent work. Use source permalinks and revision pins for upstream claims. Keep compiler adaptations separate from runtime, platforms, HAL, and drivers. Do not vendor external code without its license. Project license is pending dependency review.
 
-Commands: `python3 tools/host_probe.py --compiler /path/to/pinned/goose`; read tools/README.md for pinned setup and experiment semantics. No target build command is verified yet. Host probe success is host evidence only.
+Commands: `python3 tools/host_probe.py --compiler /path/to/pinned/goose`; read tools/README.md for pinned setup and experiment semantics. Pinned official ESP32-S3 control build: `python3 tools/esp_idf_baseline.py --output build/esp-idf-baseline-new` (requires SDK setup in tools/README.md and a fresh output). Goose target integration remains unverified. Host probe success is host evidence only.
 
 After significant work update PROJECT_STATE and HANDOFF, record exact commands/results and unresolved failures, and update architecture/decisions/learning notes where relevant. A commit cannot contain its own hash: state documents may identify their containing commit with `git rev-parse HEAD`, and must clearly label prior explicit hashes.
 

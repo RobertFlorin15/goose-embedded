@@ -135,3 +135,27 @@ with only the panic hook unresolved. That demonstrates 32-bit freestanding C
 compilation for these scalar inputs. It does not verify Xtensa instruction
 selection, ESP-IDF linking, memory placement or hardware behavior. Never promote
 a host architecture check into a microcontroller execution claim.
+
+## A control build separates environment failures from integration failures
+
+Before adding Goose, compile ESP-IDF's unchanged hello_world for ESP32-S3. If
+that fails, the SDK, Python dependencies or build tools need attention before
+the Goose runtime is involved. Once it links, adding the scalar component gives
+us a small, attributable change to inspect. Keeping the control source unchanged
+and hashing it makes that comparison reviewable.
+
+The build produces an ELF (sections, addresses and symbols), a map (what the
+linker placed and retained), and flash images. These are evidence that a target
+program linked. They do not show that a board booted, serial output was observed,
+or an RTOS task has enough stack for Goose. Compilation and execution are
+separate verification levels.
+
+## A source commit is only one layer of a build pin
+
+ESP-IDF gitlinks select submodule commits; tools.json selects tool archives with
+hashes. Python packages come from a separately downloaded constraints file and
+can change without an SDK commit change. Record installed versions and the
+constraints digest as well as the SDK/toolchain. Host Python, CMake, Ninja and
+configuration also affect a build. These records support reproducing an
+experiment; deterministic binary identity requires additional controls such as
+paths, timestamps and compiler settings.

@@ -36,3 +36,11 @@ The second Goose patch adapts the checked i32 helper rules from runtime.h into
 canonical runtime_scalar.h (with Goose Apache-2.0 provenance in its header).
 The desktop runtime itself is not copied into the new generated scalar artifact.
 Both patch stages retain the upstream license and modified-file notices.
+
+The initial target SDK is now pinned to
+[ESP-IDF v6.0.2 / 7101770](https://github.com/espressif/esp-idf/tree/7101770dc6db2667b3c477cc31365dd1acd6db4e).
+Inspected its LICENSE, tools.json/idf_tools.py, install/export scripts, build
+actions and unchanged examples/get-started/hello_world. Root Apache-2.0;
+hello_world_main.c explicitly CC0-1.0. Tool/component licenses differ, including
+GPL toolchain/debug tools. SDK/tool sources and built binaries remain ignored,
+not vendored. Evidence/setup: [ESP_IDF_BASELINE.md](ESP_IDF_BASELINE.md).
