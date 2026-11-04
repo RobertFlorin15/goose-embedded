@@ -122,3 +122,28 @@ logs; do not promise byte-identical builds from just a Git revision.
 Acceptance/results: research/ESP_IDF_BASELINE.md. After the control build passes,
 add only the scalar leaf component and app_main/panic bridge. No physical result,
 HAL support or target runtime safety follows from the control application alone.
+
+## 009 — Use the SDK fatal boundary and keep board settings separate (2026-11-05)
+
+Problem: the generated library requires a non-returning panic hook and a C ABI
+caller; host behavior alone cannot establish the Xtensa integration. Selected:
+separate generated and main components using ESP-IDF startup; a tiny platform
+hook records borrowed static diagnostics and calls esp_system_abort directly.
+Select print-and-halt, forbid enabled tracing/GDB-stub/core-dump/debugger-aware
+policies with a compile guard, and retain source location for debugger inspection.
+The minimal build lacks the optional components, so do not assign unknown Kconfig
+symbols as if they enforced a policy. No formatting or heap use in our hook.
+
+Alternatives: custom assembly trap (bypasses supported SDK diagnostics), formatted
+abort message (adds formatting/storage obligations), ROM print before abort
+(adds another panic-path service), or silently ignoring failure (violates runtime
+safety). The direct supported API has the smallest source-backed boundary.
+Tradeoffs: console prints the message but our file/line record needs a debugger;
+the SDK's full exception handling and actual physical halt/stack usage still need
+verification. Keep cache-disabled/ISR/concurrent entry unsupported.
+
+The user wants future coverage across multiple ESP32-S3 board types. Separate
+chip/runtime logic from board-specific flash/PSRAM/console/pin configurations;
+require per-configuration build/execution evidence, not a universal binary claim.
+No guessed board definitions. Proof: cross-build/ABI/object/map/assembly and host
+SDK-double tests in research/ESP32S3_SCALAR.md; physical execution remains open.

@@ -1,0 +1,4 @@
+# Minimal build omits trace/GDB-stub/core-dump components; the adapter checks this.
+# Explicit failure policy; no debugger-dependent return.
+CONFIG_ESP_SYSTEM_PANIC_PRINT_HALT=y
+CONFIG_ESP_DEBUG_OCDAWARE=n

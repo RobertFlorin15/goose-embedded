@@ -5,7 +5,7 @@ Progress labels apply only to the acceptance criteria below.
 | Milestone | Acceptance criteria | State |
 |---|---|---|
 | M1 — feasibility analysis | Pinned source-backed compiler/runtime/memory/ABI report; reproducible host probes; blockers; minimal target plan | Complete as analysis: research/FEASIBILITY.md, EXPERIMENTS.md and host-results.json. Target feasibility remains conditional. |
-| M2a — target contract and cross-build | Restricted feature contract enforced; startup/runtime adaptation; pinned ESP-IDF/toolchain; minimal generated C linked for esp32s3; map and ABI review | In progress: scalar host gates and pinned official ESP32-S3 control build pass; Goose target integration/review pending |
+| M2a — target contract and cross-build | Restricted feature contract enforced; startup/runtime adaptation; pinned ESP-IDF/toolchain; minimal generated C linked for esp32s3; map and ABI review | Complete for scalar leaf at -O0/-O2; full task stack/hardware evidence still required before execution claims |
 | M2b — minimal hardware execution | Authorized known board; app_main invokes Goose; serial/measured output demonstrates expected result; firmware/source/toolchain identity and log retained | Not started; gate for M3 |
 | M3 — basic peripherals | GPIO, UART, timers, PWM, ADC separately implemented and verified with board-specific wiring, error cases and measurements; bounded memory use | Blocked on M2 |
 | M4 — portable HAL | Small GPIO/SPI/I2C contracts, initialization/errors/resource policy; adapters and driver contract tests; portability demonstrated or explicitly unverified | Blocked on M3 |
@@ -15,9 +15,12 @@ Progress labels apply only to the acceptance criteria below.
 M2a design checkpoint: startup/symbol inventory and scalar-v0 contract are
 complete (SCALAR_PROFILE.md, research/RUNTIME_STARTUP.md). Compiler allowlist,
 rejection tests, restricted lifecycle/failure and desktop regressions now pass.
-The official ESP-IDF v6.0.2 control build passes with its pinned toolchain
-(research/ESP_IDF_BASELINE.md). Next: integrate the generated leaf library and
-inspect target ABI/maps/assembly/native stack use.
+Official ESP-IDF v6.0.2 control and scalar leaf builds pass with the pinned
+toolchain. research/ESP32S3_SCALAR.md records ABI/map/assembly review and partial
+compiler frame sums, not a whole-task stack guarantee. Next: audit remaining
+SDK/ROM stack paths and prepare stack measurement plus per-board execution
+records (HARDWARE_VALIDATION.md). User has multiple board variants; no exact
+board configuration is identified and no hardware action is authorized.
 Do not start unbounded arenas, HAL or an async framework as a shortcut around the runtime gate.
 
 Automatic model orchestration is a possible future tooling improvement, outside

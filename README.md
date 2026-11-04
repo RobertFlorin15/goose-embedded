@@ -4,15 +4,16 @@ An early investigation into an embedded ecosystem for
 [aardappel/Goose](https://github.com/aardappel/goose), initially targeting ESP32-S3.
 
 **Status:** feasibility analysis, Linux scalar runtime probes, and the unchanged
-official ESP-IDF ESP32-S3 baseline build pass. Goose target integration and
-hardware execution remain unverified; no HAL is implemented. The desktop
+official ESP-IDF ESP32-S3 baseline build pass. Scalar Goose C also links for
+ESP32-S3 at -O0/-O2; hardware execution remains unverified and no HAL exists. The desktop
 runtime's virtual-memory model and 64-bit reference layouts need adaptation.
 
 Start with [the feasibility report](research/FEASIBILITY.md),
 [reproducible host probes](tools/README.md), [scalar profile design](docs/SCALAR_PROFILE.md),
 and [roadmap](docs/ROADMAP.md). The opt-in scalar validator and isolated runtime are host-tested;
-The [pinned SDK baseline](research/ESP_IDF_BASELINE.md) passes; the next step is
-cross-building Goose-generated scalar C with a small platform adapter.
+The [scalar target report](research/ESP32S3_SCALAR.md) records the platform
+adapter, dependency/ABI/stack inspection and limits. Board-specific flash/PSRAM/
+console configurations need [separate validation](docs/HARDWARE_VALIDATION.md).
 Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md),
 [handoff](docs/HANDOFF.md), and the [project skill](.agents/skills/goose-embedded/SKILL.md).
 

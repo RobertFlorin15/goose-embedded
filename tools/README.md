@@ -176,3 +176,29 @@ installed Python packages, constraints digest, map and size, and rechecks SDK
 cleanliness. It prevents enclosing project Git discovery from supplying a
 changing application version. See [the report](../research/ESP_IDF_BASELINE.md)
 for results and evidence limits. No command opens a device, flashes or monitors.
+
+## ESP32-S3 scalar leaf component
+
+After the compiler/runtime and official SDK baseline gates, run:
+
+```sh
+python3 tools/test_esp_idf_scalar.py --output build/esp-idf-scalar-new
+```
+
+Requires the prepared .cache/goose-scalar-runtime source and
+build/goose-scalar-runtime/goose, clean SDK and tools from the preceding sections,
+Linux host cc and the exact Python package lock. The helper verifies source
+digests/version and records the compiler binary hash; it cannot prove that an
+arbitrary binary was built from those sources. No download or hardware operation.
+Output must be fresh; --compiler/--sdk/--tools/--jobs may select existing paths.
+
+The tracked examples/esp32s3_scalar project generates leaf C/header through the
+host compiler, builds the scalar/platform/main components at -O0 and -O2 without
+LTO, records target object/final symbols and assembly plus stack-usage reports,
+and compiles an arithmetic fixture as target C11. It verifies panic configuration
+and C ABI assertions and runs Linux tests of the real panic adapter with a
+terminating SDK double, including ABI/panic-policy compile refusals. Logs and
+full results remain under the chosen output; research/ESP32S3_SCALAR.md and its
+reviewed JSON describe the verified 53-command run and partial stack evidence.
+Physical execution, whole-task stack budget and per-board settings are separate
+gates; read docs/HARDWARE_VALIDATION.md. No claim that one image fits all modules.

@@ -12,7 +12,8 @@ traced path. Full source evidence: [feasibility report](../research/FEASIBILITY.
 The target boundary is generated C plus runtime. Internal ABI includes hidden
 data-stack indices/destination parameters. Export wrappers and --header provide
 a C ABI and goose_init/goose_exit lifecycle. Host lifecycle/restart is tested;
-Xtensa lifecycle/ABI is unverified.
+Xtensa scalar leaf ABI is compile-checked and assembly-reviewed; physical
+lifecycle execution is unverified.
 
 Upstream runtime comprises runtime.h (configuration/types/inlines),
 runtime_impl.h (memory/errors/printing), runtime_threads.h, runtime_ext.h
@@ -22,7 +23,7 @@ stable reserved addresses and protected gaps; C heap allocations exist in
 metadata/lifecycle/error/thread paths. Pointer layouts are modeled as 64-bit
 in parts of codegen. Zero reported regions does not bypass runtime startup.
 
-## Project boundaries (runtime/platform/HAL implementation pending)
+## Project boundaries
 
 1. Compiler adaptations: explicit target layout, restricted feature profile,
    checked memory lowering; prefer narrow upstream-compatible changes.
@@ -39,7 +40,8 @@ Initial target hypothesis: export leaf i32 addition from Goose, call via C
 app_main in one ESP-IDF RTOS task, print result using C SDK console facilities.
 No direct Goose ISR entry, Goose worker threads, reentrant runtime, dynamic
 libraries, or growable values in this first proposed subset. The scalar-only runtime now has a versioned panic interface, verified on hosts;
-no data-stack arena or ESP32-S3 platform binding exists.
+no data-stack arena exists. The minimal ESP-IDF panic binding is target-linked
+and host-stub tested; physical execution remains unverified.
 
 Static data must fit measured DRAM/IRAM budgets; native call-stack use must fit
 configured RTOS task space; generated C packing/alignment and scalar helper
@@ -48,15 +50,15 @@ alone does not satisfy these conditions. ESP32-S3 flash MMU/cache features do
 not establish the desktop VM protocol required upstream.
 
 No HAL, register map, allocator replacement or async executor exists. The
-unchanged official ESP32-S3 SDK control build passes; Goose target compilation,
-simulator and hardware results remain pending. Preserve that evidence
+unchanged official ESP32-S3 control and scalar leaf builds pass; simulator and
+hardware results remain pending. Preserve that evidence
 boundary in public descriptions.
 
 ## Scalar profile design checkpoint
 
 [SCALAR_PROFILE.md](SCALAR_PROFILE.md) specifies the next opt-in compiler/runtime
 adaptation. Its compiler validator and isolated scalar runtime are implemented
-and host-tested; target compilation is pending. It narrows initial support to i32 C exports,
+and host-tested; leaf target compilation/linking now passes. It narrows initial support to i32 C exports,
 scalar locals/expressions and acyclic direct calls/if/return, with a structural
 allowlist and checked arithmetic. All imports, foreign calls, recursion,
 references/aggregates, loops and user globals are initially rejected by design.
@@ -94,7 +96,8 @@ than 0/NULL. Checked arithmetic uses the same widened i32 rules; failures,
 including codegen unreachable guards, call ge_scalar_v0_panic_v1. The platform
 supplies this non-returning hook. GE_SCALAR_V0_ABI_VERSION=1 identifies it; export
 symbols starting ge_scalar_v0_ are reserved. No heap, VM, signal or thread setup
-is selected. The host hook is test code, not an ESP-IDF adapter.
+is selected. The Linux host hook remains test code; the ESP-IDF example uses its own SDK
+binding in src/platform/esp_idf/scalar_panic.c.
 
 The scalar section is included in runtime_inline.h by upstream regeneration,
 with a separate ABI version domain so the unchanged desktop sections retain
@@ -102,7 +105,8 @@ their d22ae129d92b hash. Native/generated objects and generic i386 freestanding
 objects have only the hook unresolved at both -O0/-O2, with no LTO/section GC;
 selected lifecycle API counters remain zero. Desktop output is byte-identical
 and its behavioral regressions pass. See research/SCALAR_RUNTIME.md for bounds
-on those observations; Xtensa and hardware verification remain open.
+on those host observations. The leaf target evidence is below; hardware
+verification remains open.
 
 ## Verified SDK control build
 
@@ -114,5 +118,33 @@ hello_world in a fresh ignored output tree and records source/artifact hashes,
 configuration, versions, ELF header and size. The control ELF links as 32-bit
 little-endian Xtensa; no Goose code is in it. Defaults include a 3584-byte main
 task stack, whose sufficiency for the upcoming scalar adapter remains unknown.
-See research/ESP_IDF_BASELINE.md. The platform boundary is still pending; no SDK
-fatal-error binding or generated scalar component has been added yet.
+See research/ESP_IDF_BASELINE.md. The platform boundary is now implemented for
+the scalar leaf as described below.
+
+## ESP-IDF scalar integration (cross-built, not physically verified)
+
+examples/esp32s3_scalar/components/goose_scalar generates profile C/header through
+the host compiler into the CMake build tree, then compiles it with the platform
+panic binding. The separate main component checks the scalar C prototype/layout,
+initializes, calls ge_add, checks 42, exits, prints through the SDK ROM API and
+returns to the SDK main task. No replacement startup or extra Goose task exists.
+
+src/platform/esp_idf/scalar_panic.c owns ge_scalar_v0_panic_v1: store the static
+diagnostic pointers/line in a 12-byte volatile target record, then directly call
+the SDK's noreturn esp_system_abort. Compile-time guards require ABI 1 and the
+reviewed minimal print-and-halt policy. No formatting/recovery/allocator in the
+adapter. This record is not a concurrent crash log; the contract is one normal
+task with caches available. The SDK owns exception/console/boot services.
+
+At -O0/-O2 generated leaf/arithmetic objects require only the hook; adapter
+requires only esp_system_abort. No LTO or section GC is needed for that object
+evidence. Final ELF/map/assembly and static ABI assertions pass. Compiler frame
+sums cover only partial paths, not the full 3584-byte main-task stack budget or
+actual high-water use. Physical success/fatal behavior remains unverified.
+See research/ESP32S3_SCALAR.md for warnings, sizes and source-backed limits.
+
+User has several ESP32-S3 board variants. Keep flash/PSRAM/console settings in
+explicit SDK configurations and future board/pin mappings outside the portable
+runtime. No exact board inventory is supplied; the current DIO/2 MB/no-PSRAM
+control build is not a universal image. docs/HARDWARE_VALIDATION.md defines the
+per-configuration evidence record. No HAL or physical action follows this build.

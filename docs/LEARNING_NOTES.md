@@ -159,3 +159,30 @@ constraints digest as well as the SDK/toolchain. Host Python, CMake, Ninja and
 configuration also affect a build. These records support reproducing an
 experiment; deterministic binary identity requires additional controls such as
 paths, timestamps and compiler settings.
+
+## C ABI checks need compiler evidence as well as matching names
+
+The generated ge_add takes two byte-aligned gs_i32 aliases and returns gs_i32.
+app_main checks that its function pointer type is compatible with an int32_t
+signature. Xtensa assembly then shows scalar register arguments, a normal
+windowed call/return, and natural aligned stack spills; there is no hidden Goose
+data-stack argument at that boundary. This checks the leaf's public ABI, not
+packed aggregate/reference layout or arbitrary unaligned memory access.
+
+## Static frame sizes are not a whole-task stack budget
+
+The leaf's normal call-path frame sum is 224 bytes at -O0 and 80 at -O2. Those
+compiler numbers omit other paths: SDK task entry, ROM console, exception and
+panic diagnostics, interrupt/register-window behavior. A 3584-byte configured
+task stack is not proven safe merely because a partial sum is smaller. Keep the
+partial report, audit the missing paths and measure high-water use during actual
+board tests. Host panic tests only check forwarding to a terminating SDK double;
+they never execute Xtensa exceptions or prove a physical halt.
+
+## Chip target and board configuration are different boundaries
+
+Several boards can share an ESP32-S3 while differing in flash bus mode, PSRAM,
+console wiring and pin availability. The scalar Goose library can stay unchanged
+while ESP-IDF configurations vary. Build and validate each configuration; do not
+describe one default DIO/2 MB image as supporting every module. That separation
+also leaves a clear place for board pin mappings once HAL work is justified.

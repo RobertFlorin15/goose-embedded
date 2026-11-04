@@ -2,7 +2,8 @@
 
 Status: validator and scalar runtime ABI 1 implemented and host-tested,
 2026-11-05. Profile C now embeds the isolated runtime and requires a versioned
-platform panic hook. Xtensa and hardware verification remain pending.
+platform panic hook. Leaf/arithmetic fixtures compile for Xtensa at -O0/-O2
+and the leaf links with ESP-IDF; physical verification remains pending.
 Source baseline: 335fddc13dc74666398ffe160ec8a8f2958329d0. Supporting measurements:
 [separate-runtime investigation](../research/RUNTIME_STARTUP.md).
 
@@ -12,7 +13,8 @@ Compile a C-callable i32 Goose library for ESP32-S3 with zero data regions,
 no Goose runtime heap allocation, and no desktop OS services. Start with
 examples/leaf.goose. Keep upstream desktop behavior unchanged unless the new
 profile is explicitly selected. The first implementation is host-tested;
-Xtensa build and hardware execution are later independent gates.
+Xtensa evidence is now in research/ESP32S3_SCALAR.md; hardware execution
+remains an independent gate.
 
 A zero stack count is necessary and insufficient. Foreign calls, reference
 parameters and recursion all pass that metric in upstream; GS_MAX_STACKS=0
@@ -126,8 +128,10 @@ runtime_threads.h or runtime_os.h in the target runtime artifact. The isolated
 section avoids emitting the full runtime.h static helpers at -O0; its canonical source and embedded copy are maintained together. Linker
 garbage collection does not enforce the source subset.
 
-Host tests use a deterministic, allocation-free write/_Exit hook; a later
-ESP-IDF adapter must select and verify its supported non-returning panic/abort mechanism. No error recovery
+Host tests use a deterministic, allocation-free write/_Exit hook. The
+ESP-IDF adapter binds to esp_system_abort with a minimal halt-policy guard;
+target assembly and host SDK-double tests pass. Physical panic handling is
+unverified. No error recovery
 or re-entry after panic is promised. Profile v0 always keeps checked arithmetic;
 normal desktop release behavior remains unchanged.
 
@@ -158,8 +162,8 @@ normal desktop release behavior remains unchanged.
 ## Implementation acceptance tests
 
 Frontend and runtime host gates pass as recorded in research/SCALAR_VALIDATOR.md
-and research/SCALAR_RUNTIME.md. The target toolchain/hardware obligations remain
-pending; the list below records the staged acceptance contract:
+and research/SCALAR_RUNTIME.md. Leaf target build/ABI inspection also passes;
+full task-stack and hardware obligations remain pending; the list below records the staged acceptance contract:
 
 1. Leaf library succeeds with -O0/-O2 and overflow checks, with identical scalar
    results; an ordinary desktop library retains its existing behavior.
@@ -201,5 +205,8 @@ Forced checked C executes on the host, including arithmetic failure paths.
 Scalar runtime C and its embedded text are now added; the desktop sections and
 ABI hash are unchanged. At -O0/-O2 the tested native and generic i386 objects
 reference only the panic hook; selected heap/VM/signal/pthread lifecycle counters
-are zero. A platform hook remains the caller's responsibility. Xtensa ABI, native
-stack budget, firmware linkage and hardware execution are still unverified.
+are zero. The ESP-IDF example now supplies that hook. Leaf/arithmetic Xtensa
+objects also reference only the hook; the leaf links at both levels with static
+C ABI assertions and reviewed assembly/map. Frame sums cover partial call paths;
+full task stack budget and hardware execution remain unverified. Results are
+specific to fixtures/configuration in research/ESP32S3_SCALAR.md.
