@@ -1,0 +1,515 @@
+{
+  "date": "2026-11-05",
+  "upstream_commit": "335fddc13dc74666398ffe160ec8a8f2958329d0",
+  "runtime_patch_sha256": "c37a2ef2d47e0311ef9ccfe2fd7861c3c0b01f2a59a22e8ed27fdbb69814bace",
+  "scalar_abi_version": 1,
+  "runtime_commands": 560,
+  "runtime_expected_failures": 179,
+  "validator_commands": 235,
+  "validator_expected_failures": 209,
+  "nested_desktop_probe_commands": 19,
+  "desktop_runtime_commands": 32,
+  "compiler": "goose 335fddc+scalar-v0-runtime (runtime d22ae129d92b)",
+  "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "clang": "Ubuntu clang version 21.1.8 (6ubuntu1)",
+  "evidence": {
+    "O0": {
+      "objects": [
+        {
+          "name": "accepted",
+          "undefined": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "i386_undefined": [
+            "ge_scalar_v0_panic_v1"
+          ]
+        },
+        {
+          "name": "arithmetic",
+          "undefined": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "i386_undefined": [
+            "ge_scalar_v0_panic_v1"
+          ]
+        }
+      ],
+      "phases": [
+        {
+          "phase": "exit-before-init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "export",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "export",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        }
+      ],
+      "clean_host_undefined": [
+        "                 U _Exit@GLIBC_2.2.5",
+        "                 w _ITM_deregisterTMCloneTable",
+        "                 w _ITM_registerTMCloneTable",
+        "                 w __cxa_finalize@GLIBC_2.2.5",
+        "                 w __gmon_start__",
+        "                 U __libc_start_main@GLIBC_2.34",
+        "                 U __stack_chk_fail@GLIBC_2.4",
+        "                 U fwrite@GLIBC_2.2.5",
+        "                 U puts@GLIBC_2.2.5",
+        "                 U strcmp@GLIBC_2.2.5",
+        "                 U write@GLIBC_2.2.5"
+      ],
+      "arithmetic_cases": 248
+    },
+    "O2": {
+      "objects": [
+        {
+          "name": "accepted",
+          "undefined": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "i386_undefined": [
+            "ge_scalar_v0_panic_v1"
+          ]
+        },
+        {
+          "name": "arithmetic",
+          "undefined": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "i386_undefined": [
+            "ge_scalar_v0_panic_v1"
+          ]
+        }
+      ],
+      "phases": [
+        {
+          "phase": "exit-before-init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "export",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-init",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "export",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        },
+        {
+          "phase": "repeat-exit",
+          "calls": {
+            "calloc": 0,
+            "malloc": 0,
+            "free": 0,
+            "sysconf": 0,
+            "sigaction": 0,
+            "sigaltstack": 0,
+            "mmap": 0,
+            "mprotect": 0,
+            "munmap": 0,
+            "pthread_getattr_np": 0,
+            "pthread_attr_getstack": 0,
+            "pthread_attr_destroy": 0,
+            "pthread_mutex_lock": 0,
+            "pthread_mutex_unlock": 0
+          }
+        }
+      ],
+      "clean_host_undefined": [
+        "                 U _Exit@GLIBC_2.2.5",
+        "                 w _ITM_deregisterTMCloneTable",
+        "                 w _ITM_registerTMCloneTable",
+        "                 w __cxa_finalize@GLIBC_2.2.5",
+        "                 w __gmon_start__",
+        "                 U __libc_start_main@GLIBC_2.34",
+        "                 U __stack_chk_fail@GLIBC_2.4",
+        "                 U puts@GLIBC_2.2.5",
+        "                 U strcmp@GLIBC_2.2.5",
+        "                 U strlen@GLIBC_2.2.5",
+        "                 U write@GLIBC_2.2.5"
+      ],
+      "arithmetic_cases": 248
+    }
+  },
+  "desktop_runtime_byte_identical": true,
+  "runtime_embedding_byte_idempotent": true,
+  "scope": "Host execution and generic i386 compile only; no Xtensa or hardware",
+  "validator_only_compatibility_commands": 237
+}

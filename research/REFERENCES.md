@@ -31,3 +31,8 @@ must account for that provenance even when users supply their own compiler.
 
 No project LICENSE chosen in this session. This is a foundation for a public
 open-source project, not yet a release with a completed distribution inventory.
+
+The second Goose patch adapts the checked i32 helper rules from runtime.h into
+canonical runtime_scalar.h (with Goose Apache-2.0 provenance in its header).
+The desktop runtime itself is not copied into the new generated scalar artifact.
+Both patch stages retain the upstream license and modified-file notices.

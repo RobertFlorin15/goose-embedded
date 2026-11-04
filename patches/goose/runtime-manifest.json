@@ -1,0 +1,15 @@
+{
+  "upstream_commit": "335fddc13dc74666398ffe160ec8a8f2958329d0",
+  "validator_patch_sha256": "b0f7ef84576b3497ff179a82c1b0b28e7311328c7f52ebce1632c8ae9e63e504",
+  "patch_sha256": "c37a2ef2d47e0311ef9ccfe2fd7861c3c0b01f2a59a22e8ed27fdbb69814bace",
+  "scalar_abi_version": 1,
+  "files": {
+    "src/ast.h": "d76bfe813973e6ed4ba58a2be71a126cde82c2d12f12628a102b14f6ad95b157",
+    "src/codegen_emit.h": "ce1f798936ded3e26db8ab1ae231a6a484e8532cf0fa6deab616e9d9a95edc5a",
+    "src/main.cpp": "361c8790c601dfb1fc3b221c1a364d8d79dfbe6955c5bc79fa5a1a01c6cb0e48",
+    "src/parser.h": "6041dcac84d204ec7fc473db869fed9014f4685c75e65b027dc61e700fe51845",
+    "src/runtime/runtime_scalar.h": "3675a4294c2e1429d6043bbf72568e362ca4008747fe962fad8b2eb4f1da3ff1",
+    "src/runtime_inline.h": "80c9dc91da6757ad90f8e33af1e136f9911eda032134e3b34471e4d33ad1b190",
+    "src/scalar_profile.h": "5c0eb2b39b86b66def0213d1f929768ecfb560b276a0d812230b62ac3a5b1a13"
+  }
+}

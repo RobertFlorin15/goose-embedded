@@ -56,10 +56,10 @@ No embedded runtime or scalar-v0 enforcement is implemented by this script.
 Use a fresh destination; preparation intentionally refuses to overwrite one:
 
 ```sh
-python3 tools/prepare_scalar_compiler.py
+python3 tools/prepare_scalar_compiler.py --validator-only
 cmake -S .cache/goose-scalar -B build/goose-scalar -G Ninja -DCMAKE_BUILD_TYPE=Release -DGOOSE_VERSION=335fddc+scalar-v0-validator
 cmake --build build/goose-scalar -j 2
-python3 tools/test_scalar_validator.py --compiler build/goose-scalar/goose
+python3 tools/test_scalar_validator.py --validator-only --compiler build/goose-scalar/goose
 ```
 
 `--upstream` selects an existing clean checkout at the project pin; no helper
@@ -75,7 +75,7 @@ Example validation and C emission (not a target build):
 build/goose-scalar/goose --embedded-profile=scalar-v0 --header build/leaf.h -o build/leaf.c examples/leaf.goose
 ```
 
-Only explicit library C emission is accepted. GS_DEBUG=1 is forced; all user
+For the historical validator-only compiler, only explicit library C emission is accepted. GS_DEBUG=1 is forced; all user
 -D options and run/build/check/fetch/standalone/JIT modes are rejected, as are
 imports, sidecars and user headers. Read docs/SCALAR_PROFILE.md for the subset.
 The C marker GS_SCALAR_V0_VALIDATED=1 means validator revision 1, not a target
@@ -92,3 +92,44 @@ Upstream CLI path tests deliberately strip GOOSE_STDLIB; when building outside
 the upstream tree, install/copy (or locally symlink) its stdlib beside the
 compiler before invoking those upstream tests. The project probes explicitly
 set GOOSE_STDLIB and do not require that layout.
+
+## Scalar runtime ABI 1
+
+Current default preparation applies both tracked patches. Use a fresh destination:
+
+```sh
+python3 tools/prepare_scalar_compiler.py --destination .cache/goose-scalar-runtime
+cmake -S .cache/goose-scalar-runtime -B build/goose-scalar-runtime -G Ninja -DCMAKE_BUILD_TYPE=Release -DGOOSE_VERSION=335fddc+scalar-v0-runtime
+cmake --build build/goose-scalar-runtime -j 2
+python3 tools/test_scalar_runtime.py --compiler build/goose-scalar-runtime/goose
+python3 tools/test_scalar_validator.py --compiler build/goose-scalar-runtime/goose
+```
+
+For historical validator-only behavior use --validator-only in preparation and
+in test_scalar_validator.py, with the matching source tree/binary. The older
+validator instructions above require that flag now. Both modes keep .cache/goose
+clean. Current profile output embeds a small C11 runtime; it does not link the
+desktop --emit-runtime object. The C host must implement the generated header's
+non-returning ge_scalar_v0_panic_v1(message, file, line) prototype. No ready-made
+ESP-IDF binding is implemented. tests/scalar_v0/panic_host.c is Linux host test
+code using write/_Exit, not a firmware platform adapter.
+
+The runtime probe needs GCC, Clang's i386 backend, GNU nm and a GNU --wrap-capable
+linker. It inspects native objects without LTO or section garbage collection,
+compiles generic 32-bit freestanding objects (not Xtensa), observes selected heap/
+VM/signal/pthread calls, tests lifecycle and panic guards, tests missing/wrong
+panic ABI linkage and checked arithmetic against Python integer results.
+The clean host link uses no -lm/-pthread or desktop runtime object; its separate
+observed version includes the host-only observer. Host startup/libc internals
+are outside the claim about profile-generated code.
+
+If modifying a canonical runtime file, regenerate and rebuild before probing:
+
+```sh
+GOOSE_RUNTIME="$PWD/.cache/goose-scalar-runtime/src/runtime" build/goose-scalar-runtime/goose --gen-runtime-header
+cmake --build build/goose-scalar-runtime -j 2
+```
+
+The committed second patch already includes regenerated runtime text, so a fresh
+preparation needs one build. The initial development bootstrap needed a build,
+regeneration and rebuild. See research/SCALAR_RUNTIME.md for verified outcomes.

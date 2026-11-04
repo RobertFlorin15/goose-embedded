@@ -107,3 +107,31 @@ driver. Adding a defaulted parameter only to the definition created an ambiguous
 overload for existing calls. Keeping that signature and adding a default-off
 policy field to its existing Ast argument preserves those callers. Scoped CLI
 and diagnostic regression tests verify ordinary behavior after the patch.
+
+
+## An isolated runtime needs an explicit failure boundary
+
+The scalar object no longer needs mmap, calloc, signal or thread startup; it
+needs exactly ge_scalar_v0_panic_v1 on the tested builds. This required symbol
+is deliberate: the platform must define what a fatal failure means. Our Linux
+hook writes a diagnostic and exits. ESP-IDF must get its own reviewed binding;
+a default no-op panic would violate overflow/initialization safety.
+
+## Widen before checking a narrow operation
+
+For i32 multiplication, computing in i32 can overflow before a later test.
+The runtime computes `(int64_t)a * (int64_t)b`, checks INT32_MIN/MAX, then narrows.
+The largest magnitude product is 2^62, which fits int64_t. The same principle
+covers add/sub/negation. Boundary pairs and seeded cases matched Python's
+arbitrary-precision results or expected overflow at both optimization levels.
+This preserves the upstream checked narrow-integer rules without its full OS
+runtime. On a 32-bit target the C compiler may need libgcc helpers; that is a
+separate symbol/ABI question from introducing a Goose heap allocator.
+
+## Freestanding compilation is another evidence level
+
+Clang compiled the scalar libraries for generic i386 using only compiler headers,
+with only the panic hook unresolved. That demonstrates 32-bit freestanding C
+compilation for these scalar inputs. It does not verify Xtensa instruction
+selection, ESP-IDF linking, memory placement or hardware behavior. Never promote
+a host architecture check into a microcontroller execution claim.

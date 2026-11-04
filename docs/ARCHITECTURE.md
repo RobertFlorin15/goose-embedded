@@ -38,8 +38,8 @@ in parts of codegen. Zero reported regions does not bypass runtime startup.
 Initial target hypothesis: export leaf i32 addition from Goose, call via C
 app_main in one ESP-IDF RTOS task, print result using C SDK console facilities.
 No direct Goose ISR entry, Goose worker threads, reentrant runtime, dynamic
-libraries, or growable values in this first proposed subset. No arena strategy
-or target-runtime interface is implemented or finalized yet.
+libraries, or growable values in this first proposed subset. The scalar-only runtime now has a versioned panic interface, verified on hosts;
+no data-stack arena or ESP32-S3 platform binding exists.
 
 Static data must fit measured DRAM/IRAM budgets; native call-stack use must fit
 configured RTOS task space; generated C packing/alignment and scalar helper
@@ -54,8 +54,8 @@ boundary in public descriptions.
 ## Scalar profile design checkpoint
 
 [SCALAR_PROFILE.md](SCALAR_PROFILE.md) specifies the next opt-in compiler/runtime
-adaptation. Its compiler validator is now implemented; runtime adaptation is
-pending. It narrows initial support to i32 C exports,
+adaptation. Its compiler validator and isolated scalar runtime are implemented
+and host-tested; target compilation is pending. It narrows initial support to i32 C exports,
 scalar locals/expressions and acyclic direct calls/if/return, with a structural
 allowlist and checked arithmetic. All imports, foreign calls, recursion,
 references/aggregates, loops and user globals are initially rejected by design.
@@ -64,8 +64,8 @@ A separate codegen invariant must establish zero main/global/worker regions.
 [Runtime startup measurements](../research/RUNTIME_STARTUP.md) establish that
 zero regions still allocate metadata, install signal facilities, query thread
 stack attributes, and acquire shutdown locks in the separate desktop runtime.
-Therefore both the inline lifecycle and emitted teardown need restricted paths;
-replacing only external gs_rt_start is insufficient. A platform panic hook must
+The scalar path now bypasses both inline lifecycle and emitted desktop teardown;
+replacing only external gs_rt_start would have been insufficient. A platform panic hook must
 preserve failed-init/export-guard and overflow behavior without desktop services.
 
 ## Implemented compiler validation boundary
@@ -81,5 +81,24 @@ remain unchanged when the option is absent. Profile C forces GS_DEBUG=1.
 The helper prepares a fresh git archive at the pin, applies the tracked patch,
 checks file digests and records provenance. Outputs are staged and individually
 renamed only after validation; consumers must honor failure status and serialize
-writers. This is frontend enforcement with desktop runtime output, not the
-allocation-free target lifecycle. See research/SCALAR_VALIDATOR.md for evidence.
+writers. This first patch remains independently reproducible with --validator-only;
+current preparation also applies the second runtime patch. See research/SCALAR_VALIDATOR.md for evidence.
+
+## Isolated scalar runtime ABI 1
+
+Patch 0002 selects canonical runtime_scalar.h only for validated scalar programs,
+without runtime_ext/desktop headers. It emits cold/ready state transitions with
+zero-region compile-time assertions and rejects all argc/argv combinations other
+than 0/NULL. Checked arithmetic uses the same widened i32 rules; failures,
+including codegen unreachable guards, call ge_scalar_v0_panic_v1. The platform
+supplies this non-returning hook. GE_SCALAR_V0_ABI_VERSION=1 identifies it; export
+symbols starting ge_scalar_v0_ are reserved. No heap, VM, signal or thread setup
+is selected. The host hook is test code, not an ESP-IDF adapter.
+
+The scalar section is included in runtime_inline.h by upstream regeneration,
+with a separate ABI version domain so the unchanged desktop sections retain
+their d22ae129d92b hash. Native/generated objects and generic i386 freestanding
+objects have only the hook unresolved at both -O0/-O2, with no LTO/section GC;
+selected lifecycle API counters remain zero. Desktop output is byte-identical
+and its behavioral regressions pass. See research/SCALAR_RUNTIME.md for bounds
+on those observations; Xtensa and hardware verification remain open.

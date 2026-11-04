@@ -1,8 +1,8 @@
 # Scalar-v0 target profile design
 
-Status: validator implemented and host-tested, 2026-11-04. **Runtime adaptation
-is still pending.** The tracked Goose patch enforces the scalar subset and emits
-checked C using the desktop runtime. This is not MCU firmware support.
+Status: validator and scalar runtime ABI 1 implemented and host-tested,
+2026-11-05. Profile C now embeds the isolated runtime and requires a versioned
+platform panic hook. Xtensa and hardware verification remain pending.
 Source baseline: 335fddc13dc74666398ffe160ec8a8f2958329d0. Supporting measurements:
 [separate-runtime investigation](../research/RUNTIME_STARTUP.md).
 
@@ -51,7 +51,8 @@ but do not prove that its native stack fits the configured RTOS task.
 
 Implemented interface: `--embedded-profile=scalar-v0`, in explicit C emission/
 library mode with --header and -o. See tools/README.md for preparation and tests.
-GS_SCALAR_V0_VALIDATED=1 marks validator revision 1, not an embedded runtime ABI.
+GS_SCALAR_V0_VALIDATED=1 marks validator revision 1. GE_SCALAR_V0_ABI_VERSION=1
+and ge_scalar_v0_panic_v1 identify the separately versioned runtime ABI.
 The option is a host compiler feature; a C macro alone does not select or prove
 validation. All user -D options are rejected and GS_DEBUG=1 is forced.
 
@@ -70,9 +71,8 @@ validation. All user -D options are rejected and GS_DEBUG=1 is forced.
    globalregions == 0, workerregions == 0, no threads/queues/dynamic bindings,
    no data-stack-dependent exports and no unsupported generated state. This
    is a second invariant check, not a substitute for the source validator.
-5. Current validator assembles the normal separate desktop runtime declarations
-   and generated library only after all checks pass. Restricted runtime
-   assembly remains the next change. C/header writes are staged and individually
+5. The current compiler assembles runtime_scalar.h and the generated library
+   only after all checks pass. It does not select desktop runtime sections. C/header writes are staged and individually
    renamed; a pair is not a filesystem transaction. Validation failure preserves
    prior outputs, staging failure cleans temporary files, and publication failure
    invalidates the header. Use a fresh build directory, one writer per output
@@ -82,8 +82,9 @@ validation. All user -D options are rejected and GS_DEBUG=1 is forced.
 Implemented frontend seams: main.cpp's option parsing and
 pipeline around TypeCheckProgram/Optimizer; default-off parser policy in Ast;
 source/typed walkers in scalar_profile.h; existing CodeGen stack accounting is
-queried without changing its implementation. Runtime adaptation will later touch
-EmitProgramInit/EmitExports and canonical runtime files/embedded copy. The
+queried without changing its accounting implementation. Patch 0002 adds
+EmitProgramInit/ExportHeader branches, the canonical scalar section and its
+regenerated embedded text; existing desktop runtime files remain unchanged. The
 reviewable patch, digests and upstream license are in patches/goose/.
 If upstream behavior/catalogs make this validation impractical, narrow the
 allowlist further instead of weakening its checks.
@@ -111,24 +112,22 @@ through the panic boundary because this subset has no argument/OS API. Guard
 against impossible nonzero region/thread counts with a compiler invariant and
 compile-time evidence in emitted C; never silently allocate or ignore them.
 
-The static gs_rt_init currently calls both gs_rt_start and gs_stack_block;
-replacing only external gs_rt_start cannot remove calloc. Likewise generated
-goose_exit currently frees gs_stks. Both emitted/inlined paths need explicit
-restricted branches. Do not fake a valid gs_stack with a null top or allocate
-a token arena. No data-stack access is legitimate in this profile.
+Desktop gs_rt_init still calls gs_rt_start/gs_stack_block, and its generated
+goose_exit still frees gs_stks. Profile mode bypasses these entire paths: its
+init only checks arguments and marks ready; exit marks cold. It selects no
+stack metadata or arena. No data-stack access is legitimate in this profile.
 
-Retain upstream scalar arithmetic helpers and debug overflow semantics.
-Provide the exact reachable failure functions (currently gs_panic, gs_ovf for
-leaf addition; gs_ovf_neg for permitted negation must be verified), forwarding
-to one original, small non-returning platform panic hook with constant category
-and source location. The hook must not depend on heap formatting, signals,
+The isolated runtime retains upstream widened checked i32 add/sub/mul/neg
+rules. It forwards lifecycle/overflow/unreachable failures to the required
+non-returning ge_scalar_v0_panic_v1(message, file, line) hook with constant
+category and source location. The hook must not depend on heap formatting, signals,
 longjmp, workers or dynamic libraries. Do not include runtime_impl.h,
-runtime_threads.h or runtime_os.h in the target runtime artifact. Reuse of
-runtime.h requires reviewing/branching its static lifecycle code, not pretending
-that a linker flag disables unsupported language features.
+runtime_threads.h or runtime_os.h in the target runtime artifact. The isolated
+section avoids emitting the full runtime.h static helpers at -O0; its canonical source and embedded copy are maintained together. Linker
+garbage collection does not enforce the source subset.
 
-Host tests use a deterministic exit hook; a later ESP-IDF adapter must select
-and verify its supported non-returning panic/abort mechanism. No error recovery
+Host tests use a deterministic, allocation-free write/_Exit hook; a later
+ESP-IDF adapter must select and verify its supported non-returning panic/abort mechanism. No error recovery
 or re-entry after panic is promised. Profile v0 always keeps checked arithmetic;
 normal desktop release behavior remains unchanged.
 
@@ -158,8 +157,9 @@ normal desktop release behavior remains unchanged.
 
 ## Implementation acceptance tests
 
-Frontend tests pass as recorded in research/SCALAR_VALIDATOR.md. The runtime
-and target obligations below remain pending:
+Frontend and runtime host gates pass as recorded in research/SCALAR_VALIDATOR.md
+and research/SCALAR_RUNTIME.md. The target toolchain/hardware obligations remain
+pending; the list below records the staged acceptance contract:
 
 1. Leaf library succeeds with -O0/-O2 and overflow checks, with identical scalar
    results; an ordinary desktop library retains its existing behavior.
@@ -198,5 +198,8 @@ conflicting CLI actions/defines, source/output aliases and bad preparation pins.
 Typed arithmetic and stored values are scalar; representable literal arithmetic
 may fold during typechecking before the typed walk (verified with 1 + 2).
 Forced checked C executes on the host, including arithmetic failure paths.
-No runtime files were modified or regenerated. The allocation-free lifecycle,
-panic hook, target ABI and Xtensa execution described above are still requirements.
+Scalar runtime C and its embedded text are now added; the desktop sections and
+ABI hash are unchanged. At -O0/-O2 the tested native and generic i386 objects
+reference only the panic hook; selected heap/VM/signal/pthread lifecycle counters
+are zero. A platform hook remains the caller's responsibility. Xtensa ABI, native
+stack budget, firmware linkage and hardware execution are still unverified.

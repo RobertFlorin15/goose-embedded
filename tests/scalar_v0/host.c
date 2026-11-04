@@ -14,6 +14,6 @@ int main(int argc, char **argv) {
     goose_init(0, NULL);
     if (ge_compute(9, 2) != 23) return 2;
     goose_exit();
-    puts("scalar-v0 validator: host semantics pass (desktop runtime)");
+    puts("scalar-v0 validator: host semantics pass");
     return 0;
 }

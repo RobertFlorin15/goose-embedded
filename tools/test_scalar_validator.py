@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the patched scalar-v0 frontend; emitted code still uses desktop runtime."""
+"""Validate the patched scalar-v0 frontend; checks both frontend stages and host behavior."""
 import argparse
 import json
 import os
@@ -12,11 +12,12 @@ import hashlib
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--compiler', type=Path, required=True)
-p.add_argument('--source', type=Path, default=ROOT / '.cache/goose-scalar')
+p.add_argument('--source', type=Path)
+p.add_argument('--validator-only', action='store_true')
 p.add_argument('--cc', default='cc')
 a = p.parse_args()
 a.compiler = a.compiler.resolve()
-a.source = a.source.resolve()
+a.source = (a.source or ROOT / ('.cache/goose-scalar' if a.validator_only else '.cache/goose-scalar-runtime')).resolve()
 out = ROOT / 'build/scalar-validator-tests'
 out.mkdir(parents=True, exist_ok=True)
 env = dict(os.environ, GOOSE_STDLIB=str(a.source / 'stdlib'), GOOSE_HOME=str(out / 'home'))
@@ -50,9 +51,12 @@ for level in (0, 2):
     flags = ['--embedded-profile=scalar-v0', f'-O{level}']
     run([a.compiler, *flags, '--stacks', '--header', h, '-o', c,
          ROOT / 'tests/scalar_v0/accepted.goose'])
-    run([a.compiler, '--emit-runtime', work / 'runtime.c'])
+    runtime_sources = [ROOT / 'tests/scalar_v0/panic_host.c']
+    if a.validator_only:
+        run([a.compiler, '--emit-runtime', work / 'runtime.c'])
+        runtime_sources = [work / 'runtime.c']
     exe = work / 'host'
-    run([a.cc, '-std=c11', f'-O{level}', '-I', work, c, work / 'runtime.c',
+    run([a.cc, '-std=c11', f'-O{level}', '-I', work, c, *runtime_sources,
          ROOT / 'tests/scalar_v0/host.c', '-o', exe, '-lm', '-pthread'])
     r = run([exe])
     require('host semantics pass' in r.stdout, 'accepted scalar semantics')
@@ -126,13 +130,16 @@ require(not list(work.glob('*.tmp')), 'staging failure leaked temporary file')
 # A fresh archive + patch must reproduce the files used for this build exactly.
 with tempfile.TemporaryDirectory(prefix='prepare-', dir=out) as temp:
     prepared = Path(temp) / 'source'
-    run([sys.executable, ROOT / 'tools/prepare_scalar_compiler.py', '--destination', prepared])
+    run([sys.executable, ROOT / 'tools/prepare_scalar_compiler.py', '--destination', prepared,
+         *(['--validator-only'] if a.validator_only else [])])
     metadata = json.loads((prepared / 'scalar-v0-provenance.json').read_text())
     require(metadata['patch_sha256'] == hashlib.sha256(
         (ROOT / 'patches/goose/0001-scalar-v0-validator.patch').read_bytes()).hexdigest(),
         'prepared patch fingerprint')
-    for name in ('main.cpp', 'ast.h', 'parser.h', 'scalar_profile.h'):
-        require((prepared / 'src' / name).read_bytes() == (a.source / 'src' / name).read_bytes(),
+    selected = 'manifest.json' if a.validator_only else 'runtime-manifest.json'
+    names = json.loads((ROOT / 'patches/goose' / selected).read_text())['files']
+    for name in names:
+        require((prepared / name).read_bytes() == (a.source / name).read_bytes(),
                 f'patch did not reproduce {name}')
     run([sys.executable, ROOT / 'tools/prepare_scalar_compiler.py', '--destination', prepared], 1)
 bad_pin = out / 'bad-pin-source'

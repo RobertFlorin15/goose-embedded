@@ -35,3 +35,24 @@ as LICENSE.upstream. Existing upstream comments/context remain in the diff.
 No root NOTICE file was present at this pin. Compiler third-party sources and
 binaries are not vendored/distributed here. This does not select a license for
 all original Goose Embedded project files or clear a future binary distribution.
+
+## Scalar runtime patch (ABI 1)
+
+0002-scalar-v0-runtime.patch applies after 0001. runtime-manifest.json records
+its dependency on the first patch and the final seven compiler/runtime file
+hashes. Preparation now selects both patches by default into
+.cache/goose-scalar-runtime; --validator-only retains the historical first stage.
+No existing destination or clean reference checkout is overwritten.
+
+The new canonical src/runtime/runtime_scalar.h is embedded through upstream
+--gen-runtime-header. Scalar codegen chooses that section alone and emits a
+zero-region lifecycle. Checked i32 rules match the upstream widened arithmetic
+rules; failures require ge_scalar_v0_panic_v1. Export symbols beginning with
+ge_scalar_v0_ are reserved in profile mode. No default platform hook is supplied.
+
+The desktop runtime sections and their hash are deliberately unchanged: the
+independent scalar section is excluded from RuntimeVersion's desktop hash and
+uses its own ABI marker/versioned hook. Matching desktop programs/runtime
+objects therefore retain their original version contract. When editing the
+canonical scalar header, regenerate runtime_inline.h with the patched compiler,
+rebuild, refresh patch 0002 and its manifest, and verify generator idempotence.

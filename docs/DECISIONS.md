@@ -80,3 +80,23 @@ and a validation-only version marker. No target or allocation-free claim.
 Per-file staged output replacement cannot atomically publish a two-file snapshot;
 callers must use fresh outputs, serialize writers and honor exit status. Reject
 source/output aliases and avoid publishing output before profile checks pass.
+
+## 007 — Isolate the scalar runtime section (2026-11-04–05; host-verified)
+
+Problem: even unused static helpers in full runtime.h emit heap/VM/math references
+at -O0; replacing gs_rt_start alone leaves inline calloc and generated free.
+Selected: add a canonical runtime_scalar.h section for the enforced subset,
+containing the same widened checked i32 add/sub/mul/neg rules and a required
+versioned non-returning panic hook; profile codegen emits its own cold/ready
+lifecycle and never selects desktop runtime sections. Normal codegen/runtime
+remain the default. No arena, dummy stack or silently successful OS stubs.
+Tradeoff: a small subset of upstream arithmetic rules must be kept in parity;
+verify boundary behavior at both optimization levels. Use an independent scalar
+ABI marker/hook version; keep the desktop runtime hash tied to its unchanged
+sections. Regenerate the compiler's embedded runtime text from canonical files.
+Target and hardware verification remain separate gates.
+
+Verification for decision 007: 560 runtime commands, 235 current validator
+commands plus nested desktop probes, and the 32-command desktop runtime probe
+pass. Exact source/object/observation limits are in research/SCALAR_RUNTIME.md.
+Target toolchain and physical measurements remain separate gates.
