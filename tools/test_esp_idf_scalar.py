@@ -129,7 +129,9 @@ def main():
             if bridge_symbols != ['esp_system_abort']:
                 raise RuntimeError(f'Unexpected bridge dependencies: {bridge_symbols}')
             run([prefix + 'objdump', '-dr', bridge_obj], f'{name}/bridge-assembly', target_env)
-            for own in (entry, bridge_entry, next(x for x in commands if x['file'].endswith('/app_main.c'))):
+            abi_entry = next(x for x in commands if x['file'].endswith('/abi_checks.c'))
+            for own in (entry, bridge_entry, abi_entry,
+                        next(x for x in commands if x['file'].endswith('/app_main.c'))):
                 flags = shlex.split(own['command'])
                 if [x for x in flags if x.startswith('-O')][-1] != f'-O{level}' or '-fno-lto' not in flags:
                     raise RuntimeError('Component optimization/LTO settings were not honored')
@@ -140,10 +142,16 @@ def main():
             final = run([prefix + 'nm', '--defined-only', elf], f'{name}/symbols', target_env)
             final_names = {x.split()[-1] for x in final.splitlines() if x.strip()}
             if not {'ge_add', 'goose_init', 'goose_exit', 'ge_scalar_v0_panic_v1',
-                    'ge_scalar_v0_last_panic', 'app_main'} <= final_names:
+                    'ge_scalar_v0_last_panic', 'app_main', 'ge_stack_samples',
+                    'uxTaskGetStackHighWaterMark'} <= final_names:
                 raise RuntimeError('Required leaf/bridge symbols missing')
             run([prefix + 'objdump', '-d', elf], f'{name}/firmware-assembly', target_env)
-            for symbol in ('app_main', 'esp_system_abort', 'panic_abort'):
+            audited = ('app_main', 'esp_system_abort', 'panic_abort', 'main_task',
+                       'vPortTaskWrapper', 'uxTaskGetStackHighWaterMark', '_xt_user_exc',
+                       'xt_unhandled_exception', 'esp_panic_handler')
+            for symbol in audited:
+                if symbol not in final_names:
+                    raise RuntimeError(f'Expected SDK audit symbol: {symbol}')
                 run([prefix + 'objdump', '-d', f'--disassemble={symbol}', elf],
                     f'{name}/{symbol}-assembly', target_env)
             run([*idf, 'size'], f'{name}/size', target_env)
@@ -181,6 +189,19 @@ def main():
                          f'{name}/reject-panic-policy', goose_env, expected=1)
             if 'requires minimal halt panic policy' not in policy:
                 raise RuntimeError('Expected the adapter panic-policy diagnostic')
+            # Execute real application sequencing/reporting, not target-only ABI
+            # assertions, with deterministic SDK/Goose doubles. No RTOS execution.
+            app = ROOT / 'examples/esp32s3_scalar/main'
+            app_host = work / 'app-host'
+            app_flags = [*hostflags, '-I', app, '-Wall', '-Wextra', '-Werror']
+            run(['cc', *app_flags, app / 'app_main.c', ROOT / 'tests/esp_idf/stack_samples_host.c',
+                 '-o', app_host], f'{name}/app-host-link', goose_env)
+            run([app_host, 'success'], f'{name}/app-host-success', goose_env)
+            run([app_host, 'wrong-result'], f'{name}/app-host-wrong-result', goose_env, expected=1)
+            units = run(['cc', *app_flags, '-DGE_TEST_WIDE_STACK', '-c', app / 'app_main.c',
+                         '-o', bad / 'units.o'], f'{name}/reject-stack-units', goose_env, expected=1)
+            if 'review stack watermark byte units on new ports' not in units:
+                raise RuntimeError('Expected explicit watermark units guard')
             # Additional accepted operators compile independently, without SDK headers.
             arithmetic = work / 'arithmetic.c'
             run([compiler, '--embedded-profile=scalar-v0', f'-O{level}', '--header',

@@ -1,0 +1,779 @@
+{
+  "status": "pass",
+  "scope": "target compilation/static inspection + host stub execution only",
+  "sdk_pin": {
+    "release": "v6.0.2",
+    "repository": "https://github.com/espressif/esp-idf.git",
+    "commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+    "tag_object": "b0d7ee8723d5cd90c1aa2c54729aa7c92f2bf187",
+    "tools_json_sha256": "b403c25dc0c841dece4ac45abfa0a131f55ccae72db6be86ee36e3e69557f0e4",
+    "xtensa_toolchain": "esp-15.2.0_20251204",
+    "gcc_version": "15.2.0",
+    "linux_amd64_xtensa_archive_sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8"
+  },
+  "submodules": [
+    " 24c60e243580c7868f4334a1ba3123481fe1aa48 components/bootloader/subproject/components/micro-ecc/micro-ecc (24c60e2)",
+    " b4b7c54b1eab6a844789b69e56322ef5736eddc8 components/bt/controller/lib_esp32 (b4b7c54)",
+    " 6a5c0b8bfca1a2e984e89431b8ebf9b521dad5ea components/bt/controller/lib_esp32c2/esp32c2-bt-lib (6a5c0b8)",
+    " 0a08c4b32f3666003080b662a1a61794da24ff0f components/bt/controller/lib_esp32c3_family (heads/master)",
+    " c328228f53fe167cc9fbd05b5bef37158f64956d components/bt/controller/lib_esp32c5/esp32c5-bt-lib (c328228)",
+    " e7be018522c85e67c298effc8ffa7f5b84887a7b components/bt/controller/lib_esp32c6/esp32c6-bt-lib (e7be018)",
+    " b2b8fd009c31816497d55726af297761147beb07 components/bt/controller/lib_esp32h2/esp32h2-bt-lib (b2b8fd0)",
+    " e44762384ed104a0ebc78f134eeba5f3ab648ddc components/bt/esp_ble_mesh/lib/lib (e447623)",
+    " 5d8b70207a6324f45d9f548ff57ec3b154afccdd components/bt/host/nimble/nimble (5d8b702)",
+    " eeecc49ce8af123cf8ad40efdb9673e37b56230f components/cmock/CMock (eeecc49)",
+    " 71b47be7c950f1bf5f7e5303779fa99a16224bb6 components/cmock/CMock/vendor/c_exception (71b47be)",
+    " cf949f45ca6d172a177b00da21310607b97bc7a7 components/cmock/CMock/vendor/unity (cf949f4)",
+    " 79e618f033e926d134decc6d95bb1b1850bd032c components/esp_coex/lib (79e618f)",
+    " 59c1234e929212aec0fdda75769b759951235536 components/esp_phy/lib (59c1234)",
+    " bb69e7e609c9a9a909ddd1ed175f36df2bd13801 components/esp_wifi/lib (bb69e7e)",
+    " 2867f6883a12920b1969ff9624c0ab0e4185c2ce components/heap/tlsf (2867f68)",
+    " fd432e4ee2cfb7f7f1c7eb7227e0173412e7b84e components/lwip/lwip (fd432e4)",
+    " 6cc42afad309e861f4c07e6f106e2ab14a9cb8e5 components/mbedtls/mbedtls (6cc42af)",
+    " 9467fb320782855dff84add294039bfa0bcbbf4b components/openthread/lib (9467fb3)",
+    " a98813b30ae58f9a95ece680b9cc46c3874de6ea components/openthread/openthread (a98813b)",
+    " e185d7fd85499c8ce5ca2a54f5cf8fe7dbe3f8df components/openthread/openthread/third_party/mbedtls/repo (e185d7f)",
+    " 457996474728cb8e968ed21953b72f74d2f536b2 components/openthread/openthread/third_party/mbedtls/repo/framework (4579964)",
+    " abc67a11c6db271bedbb9f58be85d6f4e2ea8389 components/protobuf-c/protobuf-c (abc67a1)",
+    " ad902cadceb39d0825a97e25ecb5867641f606ba components/spiffs/spiffs (ad902ca)",
+    " bf560290f6020737eafaa8b5cbd2177c3956c03f components/unity/unity (bf56029)"
+  ],
+  "compiler_sha256": "39498abe793a2174bc4472841b93bd3a485f6515d0396c6941b16858dde0a02b",
+  "compiler_version": "goose 335fddc+scalar-v0-runtime (runtime d22ae129d92b)",
+  "runtime_patch_sha256": "c37a2ef2d47e0311ef9ccfe2fd7861c3c0b01f2a59a22e8ed27fdbb69814bace",
+  "baseline_app_bytes": 145424,
+  "levels": {
+    "O0": {
+      "leaf_undefined": [
+        "ge_scalar_v0_panic_v1"
+      ],
+      "bridge_undefined": [
+        "esp_system_abort"
+      ],
+      "arithmetic_undefined": [
+        "ge_scalar_v0_panic_v1"
+      ],
+      "generated_c_sha256": "5eacdb10199feaa65baf671e3f297f68a2cda1b5e62d15de6a2df5c09d660ba2",
+      "generated_header_sha256": "79a693459d8f7161010b80f2780282d5946be81525aadd76ed7b3c46fb82f85a",
+      "leaf_compile_command": {
+        "directory": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware",
+        "command": "/home/robert/Programare/goose-embedded/.cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc -DESP_PLATFORM -DIDF_VER=\\\"v6.0.2\\\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -I/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/config -I/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar -I/home/robert/Programare/goose-embedded/src/platform/esp_idf -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_libc/platform_include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/config/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/config/include/freertos -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/config/xtensa/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/FreeRTOS-Kernel/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/esp_additions/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/include/soc -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/ldo/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/debug_probe/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/etm/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/tuning_scheme_impl/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/power_supply/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/modem/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/include/soc/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/port/esp32s3/. -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/port/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/port/esp32s3/. -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/port/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/heap/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/heap/tlsf -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/log/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/esp32s3/register -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/hal/platform_port/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/hal/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/hal/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/esp32s3/include/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_common/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_system/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_system/port/soc -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_system/port/include/private -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_stdio/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/xtensa/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/xtensa/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/xtensa/deprecated_include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_gpio/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_gpio/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_usb/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_usb/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_pmu/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_pmu/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_ana_conv/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_ana_conv/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_dma/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_dma/esp32s3/include @\"/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/toolchain/cflags\" -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-error=extra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -fmacro-prefix-map=/home/robert/Programare/goose-embedded/examples/esp32s3_scalar=. -fmacro-prefix-map=/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -std=gnu23 -Wno-old-style-declaration -fzero-init-padding-bits=all -fno-malloc-dce -O0 -fno-lto -fstack-usage -o esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/ge_leaf.c.obj -c /home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c",
+        "file": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c",
+        "output": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/ge_leaf.c.obj"
+      },
+      "sdkconfig_sha256": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+      "stack_usage": {
+        "O0/firmware/esp-idf/main/CMakeFiles/__idf_main.dir/app_main.c.su": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:18:6:app_main\t48\tstatic\n",
+        "O0/firmware/esp-idf/main/CMakeFiles/__idf_main.dir/abi_checks.c.su": "",
+        "O0/firmware/esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/ge_leaf.c.su": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:48:25:gs_panic\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:51:25:gs_scalar_overflow\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:54:16:gs_add_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:59:16:gs_sub_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:64:16:gs_mul_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:69:16:gs_neg_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:98:15:add_g\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:108:13:gs_init_globals\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:112:6:goose_init\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:119:6:goose_exit\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/firmware/esp-idf/goose_scalar/ge_leaf.c:123:8:ge_add\t48\tstatic\n",
+        "O0/firmware/esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/home/robert/Programare/goose-embedded/src/platform/esp_idf/scalar_panic.c.su": "/home/robert/Programare/goose-embedded/src/platform/esp_idf/scalar_panic.c:19:6:ge_scalar_v0_panic_v1\t48\tstatic\n",
+        "O0/arithmetic.su": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:48:25:gs_panic\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:51:25:gs_scalar_overflow\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:54:16:gs_add_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:59:16:gs_sub_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:64:16:gs_mul_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:69:16:gs_neg_i32\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:101:15:add_g\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:111:15:sub_g\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:121:15:mul_g\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:131:15:neg_g\t64\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:141:13:gs_init_globals\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:145:6:goose_init\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:152:6:goose_exit\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:156:8:ge_add\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:162:8:ge_sub\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:168:8:ge_mul\t48\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O0/arithmetic.c:174:8:ge_neg\t48\tstatic\n"
+      },
+      "artifacts": {
+        "goose_scalar.elf": {
+          "bytes": 3167932,
+          "sha256": "0702abf7304a0b07663f88fb1ad4a8f3f011c00ba52e501828fec44e60b01bc9"
+        },
+        "goose_scalar.bin": {
+          "bytes": 145888,
+          "sha256": "abaa4f24537b5b15bb2471803566d2ad69b543f282d1dc37c9d101fbedd301ed"
+        },
+        "goose_scalar.map": {
+          "bytes": 2910351,
+          "sha256": "7bc99c492ca89c744588b32d54774ca520d27f295bb23a8be72db51e544a17d8"
+        },
+        "bootloader/bootloader.bin": {
+          "bytes": 21040,
+          "sha256": "866e8503a18f9562241d4f8641b0739fd8c66590afebdcf61b1583676239cf30"
+        },
+        "partition_table/partition-table.bin": {
+          "bytes": 3072,
+          "sha256": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820"
+        }
+      },
+      "sdk_visible_frames": {
+        "main_task": 48,
+        "vPortTaskWrapper": 32,
+        "uxTaskGetStackHighWaterMark": 32,
+        "xt_unhandled_exception": 32,
+        "esp_panic_handler": 32
+      },
+      "stack_record_symbol": "3fc92e48 00000014 B ge_stack_samples",
+      "sdkconfig_selected": [
+        "CONFIG_ESP_MAIN_TASK_STACK_SIZE=3584",
+        "# CONFIG_FREERTOS_CHECK_STACKOVERFLOW_NONE is not set",
+        "# CONFIG_FREERTOS_CHECK_STACKOVERFLOW_PTRVAL is not set",
+        "CONFIG_FREERTOS_CHECK_STACKOVERFLOW_CANARY=y",
+        "CONFIG_FREERTOS_TASK_FUNCTION_WRAPPER=y",
+        "# CONFIG_FREERTOS_WATCHPOINT_END_OF_STACK is not set"
+      ]
+    },
+    "O2": {
+      "leaf_undefined": [
+        "ge_scalar_v0_panic_v1"
+      ],
+      "bridge_undefined": [
+        "esp_system_abort"
+      ],
+      "arithmetic_undefined": [
+        "ge_scalar_v0_panic_v1"
+      ],
+      "generated_c_sha256": "5eacdb10199feaa65baf671e3f297f68a2cda1b5e62d15de6a2df5c09d660ba2",
+      "generated_header_sha256": "79a693459d8f7161010b80f2780282d5946be81525aadd76ed7b3c46fb82f85a",
+      "leaf_compile_command": {
+        "directory": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware",
+        "command": "/home/robert/Programare/goose-embedded/.cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc -DESP_PLATFORM -DIDF_VER=\\\"v6.0.2\\\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -I/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/config -I/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/esp-idf/goose_scalar -I/home/robert/Programare/goose-embedded/src/platform/esp_idf -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_libc/platform_include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/config/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/config/include/freertos -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/config/xtensa/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/FreeRTOS-Kernel/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/freertos/esp_additions/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/include/soc -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/ldo/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/debug_probe/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/etm/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/tuning_scheme_impl/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/power_supply/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/modem/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/include/soc/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/port/esp32s3/. -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/port/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/port/esp32s3/. -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hw_support/mspi_timing_tuning/port/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/heap/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/heap/tlsf -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/log/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/soc/esp32s3/register -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/hal/platform_port/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/hal/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/hal/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/esp32s3/include/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_rom/esp32s3 -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_common/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_system/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_system/port/soc -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_system/port/include/private -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_stdio/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/xtensa/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/xtensa/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/xtensa/deprecated_include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_gpio/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_gpio/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_usb/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_usb/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_pmu/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_pmu/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_ana_conv/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_ana_conv/esp32s3/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_dma/include -I/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2/components/esp_hal_dma/esp32s3/include @\"/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/toolchain/cflags\" -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-error=extra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -fmacro-prefix-map=/home/robert/Programare/goose-embedded/examples/esp32s3_scalar=. -fmacro-prefix-map=/home/robert/Programare/goose-embedded/.cache/esp-idf-v6.0.2=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -std=gnu23 -Wno-old-style-declaration -fzero-init-padding-bits=all -fno-malloc-dce -O2 -fno-lto -fstack-usage -o esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/ge_leaf.c.obj -c /home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/esp-idf/goose_scalar/ge_leaf.c",
+        "file": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/esp-idf/goose_scalar/ge_leaf.c",
+        "output": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/ge_leaf.c.obj"
+      },
+      "sdkconfig_sha256": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+      "stack_usage": {
+        "O2/firmware/esp-idf/main/CMakeFiles/__idf_main.dir/app_main.c.su": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:18:6:app_main\t48\tstatic\n",
+        "O2/firmware/esp-idf/main/CMakeFiles/__idf_main.dir/abi_checks.c.su": "",
+        "O2/firmware/esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/ge_leaf.c.su": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/esp-idf/goose_scalar/ge_leaf.c:112:6:goose_init\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/esp-idf/goose_scalar/ge_leaf.c:119:6:goose_exit\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/firmware/esp-idf/goose_scalar/ge_leaf.c:123:8:ge_add\t32\tstatic\n",
+        "O2/firmware/esp-idf/goose_scalar/CMakeFiles/__idf_goose_scalar.dir/home/robert/Programare/goose-embedded/src/platform/esp_idf/scalar_panic.c.su": "/home/robert/Programare/goose-embedded/src/platform/esp_idf/scalar_panic.c:19:6:ge_scalar_v0_panic_v1\t32\tstatic\n",
+        "O2/arithmetic.su": "/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/arithmetic.c:48:25:gs_panic\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/arithmetic.c:145:6:goose_init\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/arithmetic.c:152:6:goose_exit\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/arithmetic.c:156:8:ge_add\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/arithmetic.c:162:8:ge_sub\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/arithmetic.c:168:8:ge_mul\t32\tstatic\n/home/robert/Programare/goose-embedded/build/esp-idf-stack-probe/O2/arithmetic.c:174:8:ge_neg\t32\tstatic\n"
+      },
+      "artifacts": {
+        "goose_scalar.elf": {
+          "bytes": 3168496,
+          "sha256": "3fd537fe20f4b63971c9cbe6a43a77af5aab4cbb5de4fe57ee24e79eb0f7fd33"
+        },
+        "goose_scalar.bin": {
+          "bytes": 145616,
+          "sha256": "9cdf26c17983a9a4e3968f6618e97571d7c3e9216e540f751ef58376978918fb"
+        },
+        "goose_scalar.map": {
+          "bytes": 2908747,
+          "sha256": "84fa211c68fc5f4ebbcc193a7604524902d4fb01f5f134115e7adac735c070f7"
+        },
+        "bootloader/bootloader.bin": {
+          "bytes": 21040,
+          "sha256": "458d73ce42a90f067f197143ae05be62ddce8b5d86309468b577630689d5c13a"
+        },
+        "partition_table/partition-table.bin": {
+          "bytes": 3072,
+          "sha256": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820"
+        }
+      },
+      "sdk_visible_frames": {
+        "main_task": 48,
+        "vPortTaskWrapper": 32,
+        "uxTaskGetStackHighWaterMark": 32,
+        "xt_unhandled_exception": 32,
+        "esp_panic_handler": 32
+      },
+      "stack_record_symbol": "3fc92e48 00000014 B ge_stack_samples",
+      "sdkconfig_selected": [
+        "CONFIG_ESP_MAIN_TASK_STACK_SIZE=3584",
+        "# CONFIG_FREERTOS_CHECK_STACKOVERFLOW_NONE is not set",
+        "# CONFIG_FREERTOS_CHECK_STACKOVERFLOW_PTRVAL is not set",
+        "CONFIG_FREERTOS_CHECK_STACKOVERFLOW_CANARY=y",
+        "CONFIG_FREERTOS_TASK_FUNCTION_WRAPPER=y",
+        "# CONFIG_FREERTOS_WATCHPOINT_END_OF_STACK is not set"
+      ]
+    }
+  },
+  "python_lock_sha256": "2375856b5d2e02a63abfd959b3d79ab694d190cbdf62cc308bcbb4942544e08f",
+  "gcc_version": "xtensa-esp-elf-gcc (crosstool-NG esp-15.2.0_20251204) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "source_hashes": {
+    "examples/esp32s3_scalar/CMakeLists.txt": "4a44751fc309a285a74cbf80cc25a477c2be3274f3037370b1445cf48d5e7bfa",
+    "examples/esp32s3_scalar/components/goose_scalar/CMakeLists.txt": "760549a7903f7a5398875a12febad3b7cee814f31977e32f74279bfde86859d2",
+    "examples/esp32s3_scalar/main/CMakeLists.txt": "55fce9cc917ac90a0c9c81050b77478593ab0d2625a0720617429c05cf76a5ad",
+    "examples/esp32s3_scalar/main/abi_checks.c": "3504218dd42832dafd1a8e5e0ab040b9f1fe89d5900042fe31b2accde1eb4274",
+    "examples/esp32s3_scalar/main/app_main.c": "60114bf8ad73d9ced4cd03d8cf953ff9a3806c548f41565ac223d82e466d75b6",
+    "examples/esp32s3_scalar/main/stack_samples.h": "1cec745a0fd9a62fece19ab8c3c6ed63d4f4b9ebe8d1f49306b74bdaa2ed615e",
+    "examples/esp32s3_scalar/sdkconfig.defaults": "134da8d60ea4f450812beaea948c34b11d8c73ab80d7ab785a03d463ca3d627a",
+    "examples/leaf.goose": "6f5d378f1a9180e408aabd81f3ab561b405a53763b75311a188f954ff73fdede",
+    "src/platform/esp_idf/scalar_panic.c": "06f66d01c6ea3ca72ee3f35b0af693d6f7cbc7a9c0fe87c6252b877a13ee2f7b",
+    "src/platform/esp_idf/scalar_panic.h": "15d3a2e5fbe8477783a9d799bcdb5451d38e22435964f753fce49895c5c25833"
+  },
+  "date": "2026-11-05",
+  "command_count": 73,
+  "expected_failure_count": 18,
+  "hardware_samples": null,
+  "command_results": [
+    {
+      "log": "python-packages.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/configure.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/build.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/leaf-undefined.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/leaf-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/bridge-undefined.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/bridge-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/elf-header.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/symbols.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/firmware-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/app_main-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/esp_system_abort-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/panic_abort-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/main_task-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/vPortTaskWrapper-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/uxTaskGetStackHighWaterMark-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/_xt_user_exc-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/xt_unhandled_exception-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/esp_panic_handler-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/size.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/host-leaf.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/host-link.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/host-success.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/host-direct.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/host-cold.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/host-bad-init.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/host-overflow.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/host-after-exit.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/reject-bad-abi.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/reject-panic-policy.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/app-host-link.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/app-host-success.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/app-host-wrong-result.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/reject-stack-units.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O0/emit-arithmetic.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/compile-arithmetic.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O0/arithmetic-undefined.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/configure.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/build.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/leaf-undefined.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/leaf-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/bridge-undefined.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/bridge-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/elf-header.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/symbols.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/firmware-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/app_main-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/esp_system_abort-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/panic_abort-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/main_task-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/vPortTaskWrapper-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/uxTaskGetStackHighWaterMark-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/_xt_user_exc-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/xt_unhandled_exception-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/esp_panic_handler-assembly.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/size.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/host-leaf.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/host-link.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/host-success.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/host-direct.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/host-cold.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/host-bad-init.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/host-overflow.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/host-after-exit.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/reject-bad-abi.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/reject-panic-policy.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/app-host-link.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/app-host-success.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/app-host-wrong-result.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/reject-stack-units.log",
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "log": "O2/emit-arithmetic.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/compile-arithmetic.log",
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "log": "O2/arithmetic-undefined.log",
+      "exit_code": 0,
+      "expected": 0
+    }
+  ],
+  "raw_results_sha256": "f858797d08c6d231701e1aea3062313885cb7c5a8f20b3995fd4a82ff6f7eadc",
+  "test_sources_sha256": {
+    "tools/test_esp_idf_scalar.py": "64d15d433fad5066f78c4287a46827aca91f4327950f6217c376ab4331cbfde1",
+    "tests/esp_idf/panic_bridge_host.c": "61eac8c02f7f244b7090be18476200b44668750f8335a43ebfd46a94036e0359",
+    "tests/esp_idf/stack_samples_host.c": "0d2fba264d40af4e07db55e51cb89db993591e9b120efc73d6cc07acd67ef66b",
+    "tests/esp_idf/stubs/esp_system.h": "b0a4568aecc43e92760fd252495fc4024b483d18c69c75e9f0e1b674c09cf436",
+    "tests/esp_idf/stubs/esp_rom_sys.h": "d733ff59dfc0212d2db9189aa67ed1d79766bcd5ebef54adc8776aa6028b1227",
+    "tests/esp_idf/stubs/sdkconfig.h": "b2c4fe4ab1e7928bee27cb242589bae2c2068e358d634c84c2c78954235cac6c",
+    "tests/esp_idf/stubs/freertos/FreeRTOS.h": "512df440ce1c05df94d8c7f577fcacfbb1cc03baad667796be3cc9fe47057a39",
+    "tests/esp_idf/stubs/freertos/task.h": "b71fd80a615ee178e9de0a0d9374ba51fc4075c21bb6fa2b818fb69fb7ca6be9"
+  },
+  "log_sha256": {
+    "O0/_xt_user_exc-assembly.log": "b8dc4babb467c68b4353f15000812179dd5d900ccf31a63b42070f45526b567b",
+    "O0/app-host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/app-host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/app-host-wrong-result.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/app_main-assembly.log": "bbb0bf749ec30d13a77d56f51acc29fa56d630e0f11aa9a1008098d6ae5df8ac",
+    "O0/arithmetic-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+    "O0/bridge-assembly.log": "a19085ba4bdd939ac04760f69944fda3b5495cfcc1236083703925d794654b94",
+    "O0/bridge-undefined.log": "3c240d52c8f63770a219628f03ae7b6b970359a5752d314a4b8670ef90ca694d",
+    "O0/build.log": "c3ad34453a4648d4c03d30ba2c2d5e69ce693736978390adbef2e6b2addfaa13",
+    "O0/compile-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/configure.log": "f189be811acc40cdbbcadaba13625a496bdbe02bec237fee57232858a85f8e58",
+    "O0/elf-header.log": "94917962cee1f67331698168e6c8518142226bbd66ba2a6d2827f36747476815",
+    "O0/emit-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/esp_panic_handler-assembly.log": "122ce9fee0cdf489f1dd1487b89d96fcbfacee01a83b0883f2aafe852e5f1ab2",
+    "O0/esp_system_abort-assembly.log": "80dab8517e2a13e2e1461ded49d3f362959f1538aeb5d6ff2412c07250988508",
+    "O0/firmware-assembly.log": "41343f5fef165f67dd3922a434f982d741795d7758da2547ed91d51ee6a02450",
+    "O0/host-after-exit.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O0/host-bad-init.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O0/host-cold.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O0/host-direct.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O0/host-leaf.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/host-overflow.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O0/host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O0/leaf-assembly.log": "44b76479a9cf43a0b87cdbc2c964f89ae1b34954e8a35889c382fdc8bc57e58d",
+    "O0/leaf-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+    "O0/main_task-assembly.log": "11a5b5bdc4f2a0d6ae4cac0e14ffac46b524b2e0450ec06d7de05273f8fcbb1d",
+    "O0/panic_abort-assembly.log": "ff2b81c429c35cfb17db01dec692f8397d414eb24b37d7ab07e74aedb7e931df",
+    "O0/reject-bad-abi.log": "5a24af0d4012bab4c2b396e3c399abc0047db13b84b386f223a42b6af0488c15",
+    "O0/reject-panic-policy.log": "164974d835204c11c9f9d81240915a2abf2034cc6a4b338dd2724edb117957ef",
+    "O0/reject-stack-units.log": "e477775e66c4ab17a631255dd71e51be205a181b39a1f16108ce6451c2db55f9",
+    "O0/size.log": "a1b2fcc8f9af819d9a0cb7d0fc663fb15f89c79bff31c10dbe43914dccad6fc2",
+    "O0/symbols.log": "29dfb1de8ca8270aaa1c05a35a43df339ade7b35b58ff15265ab0f7a86e12fad",
+    "O0/uxTaskGetStackHighWaterMark-assembly.log": "52153ccfd702c825df3d3b372349474a5e881475b5fbd8b36ae19d418d6d9ded",
+    "O0/vPortTaskWrapper-assembly.log": "5da5bdde7d0ee17874fe929177688bbdb5a8d88016e435ae55ae9962ae65f548",
+    "O0/xt_unhandled_exception-assembly.log": "f834674ac6d001c0ce5b4969d39b07a921d22801d456a158e2e6fc73983017d9",
+    "O2/_xt_user_exc-assembly.log": "d252dea34f64145f9b3e494bbdaf61475e276471f6371e79392ea64f2a1d40c9",
+    "O2/app-host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/app-host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/app-host-wrong-result.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/app_main-assembly.log": "56f6bca4e5f2f12e5ef1f26532241955ed2f1d7470e9115a235643a2a396d796",
+    "O2/arithmetic-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+    "O2/bridge-assembly.log": "ed11cc9df19d0ffdbb0e075ece3657dde45afaf6b74646da27424ce062f4e0f9",
+    "O2/bridge-undefined.log": "3c240d52c8f63770a219628f03ae7b6b970359a5752d314a4b8670ef90ca694d",
+    "O2/build.log": "4a65f463382741e64a659937857896969b631e714b310bdb6fea274846e4afca",
+    "O2/compile-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/configure.log": "3166c335d6b2fdae31e6bf57c06c4cfc8c11e91bb559cd327535fb45afb86639",
+    "O2/elf-header.log": "3f50947a95f8c27b5b5755442bf3b5aa11c33ae0062061051c35ae876ff1f4b6",
+    "O2/emit-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/esp_panic_handler-assembly.log": "3edef0979cf6efcc82d073b234bdc3987c16f786e4494f62140db80999c0ca83",
+    "O2/esp_system_abort-assembly.log": "6e9a751f6c2c18ba2c5bd86a60c5504ed98e74bd8332e34e497eb527cf25d6b4",
+    "O2/firmware-assembly.log": "215576c8d2ffc258759a5fd6cd68707c1b81bbf54c28d6d8b680f3f47885c7f7",
+    "O2/host-after-exit.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O2/host-bad-init.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O2/host-cold.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O2/host-direct.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O2/host-leaf.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/host-overflow.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+    "O2/host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "O2/leaf-assembly.log": "1e85dba93d3f55980b0900164937b455f3333de60d6597739b1bc61f486a38f9",
+    "O2/leaf-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+    "O2/main_task-assembly.log": "cb9a9340623d8c069afe1d0ce6ff9b9f0212b07d759c968454fa551d343bf000",
+    "O2/panic_abort-assembly.log": "5b08097153ba747cf2f5fc565047e19b5e68ca155f8c703979a60f08e8148f71",
+    "O2/reject-bad-abi.log": "5a24af0d4012bab4c2b396e3c399abc0047db13b84b386f223a42b6af0488c15",
+    "O2/reject-panic-policy.log": "164974d835204c11c9f9d81240915a2abf2034cc6a4b338dd2724edb117957ef",
+    "O2/reject-stack-units.log": "e477775e66c4ab17a631255dd71e51be205a181b39a1f16108ce6451c2db55f9",
+    "O2/size.log": "67ef0e5490f88e09f1852b3fc233fa277d9de950dd83e962429226867b25d1cc",
+    "O2/symbols.log": "4d526bf260049445cbd7249df7f9de011666a195908a497b13a7138f90ccf154",
+    "O2/uxTaskGetStackHighWaterMark-assembly.log": "e86f3ad06bf6539d37b6c289f1bcc30e6cc2e0567ecce6ad21e673907ad81d2e",
+    "O2/vPortTaskWrapper-assembly.log": "b8e49b0a984af4e0bfadacd6718faf69ab0107a4b259f5778b1642085fd9e61b",
+    "O2/xt_unhandled_exception-assembly.log": "0d0adf9701c5cb2037dc3240d997392533744941cfb3243cac5026c0030c5416",
+    "activation.log": "5d50dbc8ff763c1aac44c6a902e30c0b640dc056dfa3f23c3034a9db18ea3a74",
+    "python-packages.log": "2375856b5d2e02a63abfd959b3d79ab694d190cbdf62cc308bcbb4942544e08f"
+  },
+  "supplementary_static_audit": {
+    "scope": "Static ROM revision-0 ELF inspection; board silicon revision is unknown",
+    "rom_elf_sha256": "c0ce0f338d1de1bdc6efbef1591779a2a42c1ab7d759d3c6ae8ae63a7dd34cfd",
+    "commands": [
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-readelf",
+          "-S",
+          ".cache/espressif/tools/esp-rom-elfs/20241011/esp32s3_rev0_rom.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/rom-sections.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--start-address=0x400005d0",
+          "--stop-address=0x400005dc",
+          ".cache/espressif/tools/esp-rom-elfs/20241011/esp32s3_rev0_rom.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/rom-printf-stub.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=ets_printf",
+          ".cache/espressif/tools/esp-rom-elfs/20241011/esp32s3_rev0_rom.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/rom-ets_printf.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=ets_vprintf",
+          ".cache/espressif/tools/esp-rom-elfs/20241011/esp32s3_rev0_rom.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/rom-ets_vprintf.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=ets_write_char",
+          ".cache/espressif/tools/esp-rom-elfs/20241011/esp32s3_rev0_rom.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/rom-ets_write_char.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=xTaskGetCurrentTaskHandle",
+          "build/esp-idf-stack-probe/O0/firmware/goose_scalar.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/O0-xTaskGetCurrentTaskHandle.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=prvTaskCheckFreeStackSpace",
+          "build/esp-idf-stack-probe/O0/firmware/goose_scalar.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/O0-prvTaskCheckFreeStackSpace.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=_xt_handle_exc",
+          "build/esp-idf-stack-probe/O0/firmware/goose_scalar.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/O0-_xt_handle_exc.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=xTaskGetCurrentTaskHandle",
+          "build/esp-idf-stack-probe/O2/firmware/goose_scalar.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/O2-xTaskGetCurrentTaskHandle.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=prvTaskCheckFreeStackSpace",
+          "build/esp-idf-stack-probe/O2/firmware/goose_scalar.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/O2-prvTaskCheckFreeStackSpace.log"
+      },
+      {
+        "command": [
+          ".cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+          "-d",
+          "--disassemble=_xt_handle_exc",
+          "build/esp-idf-stack-probe/O2/firmware/goose_scalar.elf"
+        ],
+        "exit_code": 0,
+        "log": "build/esp-idf-stack-audit/O2-_xt_handle_exc.log"
+      }
+    ],
+    "logs_sha256": {
+      "O2-_xt_handle_exc.log": "d64e4a30e0343993b963a4368833cb83def53bc50841eaa2229edde611de7dd4",
+      "O0-_xt_handle_exc.log": "19fe50aa16d3ab5d7be951ce5d6db226396b33a6e846077e746d817d27449bf1",
+      "O0-xTaskGetCurrentTaskHandle.log": "0703f0944570e213728dd1fe62227d0f77ce6aa477128530c1e28d5a0b1434bd",
+      "rom-ets_write_char.log": "b3e29277bcdd01973103ace8bf8d43d3efddba204af017345083e886a1579868",
+      "rom-printf-stub.log": "77bab824c51f7b02662a53930d2cb8451083bfb141a185db2fb9fbcd61a19ebe",
+      "rom-sections.log": "365b4ccf622dcab6eafbb92bf33d8bff4e3b42429271597a2f2b8be2dcc1243a",
+      "O2-xTaskGetCurrentTaskHandle.log": "9ec08abaf0aae6c1fd5cfc63c859968ecbd0a037d574b92df445c5e83be3f189",
+      "O2-prvTaskCheckFreeStackSpace.log": "d9d39da97b2fbb1b62e541f72e54f11fb29e2169a3a451bd011af40231150a1d",
+      "rom-ets_printf.log": "bbfea705a0251bc009a300bef6a0248973e04e91da5426c225259b6db8ad01d4",
+      "O0-prvTaskCheckFreeStackSpace.log": "7ca7408c411d00afb1daa9bec54aab91455cb85c0551e8751da7f5f79a320338",
+      "rom-ets_vprintf.log": "cb336a561c8a4c1eae45cad4f90bb404aacad535a0b4ea53bd0bfcdd4df60d40"
+    }
+  },
+  "frame_scope": "Individual visible compiler/assembly frames and partial call-path sums only, not a whole-task bound"
+}

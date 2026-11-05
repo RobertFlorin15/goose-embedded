@@ -147,3 +147,23 @@ chip/runtime logic from board-specific flash/PSRAM/console/pin configurations;
 require per-configuration build/execution evidence, not a universal binary claim.
 No guessed board definitions. Proof: cross-build/ABI/object/map/assembly and host
 SDK-double tests in research/ESP32S3_SCALAR.md; physical execution remains open.
+
+## 010 — Observe normal-task stack use without claiming a bound (2026-11-05)
+
+Problem: leaf frame sums omit SDK parents, ROM output and exception costs.
+Selected: audit those boundaries and add four normal-task lifetime low-water
+samples, byte/API compile guards, a completed count and a debugger-only final
+post-report reading. Keep target ABI assertions in a separate compiled witness
+so actual app_main can be host-tested with doubles without a bypass macro.
+
+Alternatives: certify the configured stack from partial sums (insufficient),
+guess a safety threshold (no supporting bound), instrument panic with FreeRTOS
+calls (assumes a healthy task/RTOS during failure), or recursively print every
+new measurement (never covers its last print). Retain a finite debugger record;
+no change to compiler/runtime/panic implementation, no universal board image.
+
+Tradeoffs: SDK fill scanning includes observation overhead and may miss untouched
+reserved space. It cannot establish a worst-case stack guarantee or cover fatal
+paths. Static ROM audit is revision-specific and has indirect callbacks. Target
+build and host sequencing tests pass; physical readings remain absent. Record
+each board/config/workload separately using HARDWARE_RUN_TEMPLATE.md.

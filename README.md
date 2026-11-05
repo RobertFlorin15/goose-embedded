@@ -14,6 +14,8 @@ and [roadmap](docs/ROADMAP.md). The opt-in scalar validator and isolated runtime
 The [scalar target report](research/ESP32S3_SCALAR.md) records the platform
 adapter, dependency/ABI/stack inspection and limits. Board-specific flash/PSRAM/
 console configurations need [separate validation](docs/HARDWARE_VALIDATION.md).
+The [stack audit and measurement preparation](research/STACK_MEASUREMENT.md)
+passes cross-build/host tests; no target readings or complete stack budget exist yet.
 Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md),
 [handoff](docs/HANDOFF.md), and the [project skill](.agents/skills/goose-embedded/SKILL.md).
 

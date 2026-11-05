@@ -186,3 +186,17 @@ console wiring and pin availability. The scalar Goose library can stay unchanged
 while ESP-IDF configurations vary. Build and validate each configuration; do not
 describe one default DIO/2 MB image as supporting every module. That separation
 also leaves a clear place for board pin mappings once HAL work is justified.
+
+## High-water observations are not live stack pointers or proofs
+
+ESP-IDF's Xtensa stack scanner counts bytes still equal to the initial fill
+pattern. It reports the minimum untouched area over the task's lifetime, which
+includes SDK startup, logging and our observation calls. A function can reserve
+a frame without touching every byte; pattern scanning can miss that reservation.
+Subtracting readings therefore does not isolate Goose cost or prove a bound.
+
+Our example samples after result printing and again after printing the stack
+report. Only the first three readings are printed; the fourth stays in a debugger
+record so reporting does not silently exclude its own cost. completed marks valid
+fields. The pinned API uses bytes and StackType_t is uint8_t; never assume the
+word units described by generic FreeRTOS documentation apply to this port.

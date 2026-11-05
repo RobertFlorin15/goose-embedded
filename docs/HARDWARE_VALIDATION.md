@@ -49,3 +49,10 @@ Current matrix:
 | User board variants (identity/settings pending) | Not run | Not run | Not run | Unverified |
 
 See [target report](../research/ESP32S3_SCALAR.md) and [roadmap](ROADMAP.md).
+
+Measurement preparation now cross-builds and is host-double tested; actual board
+readings remain absent. Use [the run template](HARDWARE_RUN_TEMPLATE.md) and
+[stack audit](../research/STACK_MEASUREMENT.md). The example prints three byte
+low-water samples and retains a fourth post-report sample for a debugger. Sample
+differences are not isolated Goose consumption, and fill-pattern scanning does
+not certify the full task budget. Normal samples do not measure a fatal workload.

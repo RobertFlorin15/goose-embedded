@@ -148,3 +148,21 @@ explicit SDK configurations and future board/pin mappings outside the portable
 runtime. No exact board inventory is supplied; the current DIO/2 MB/no-PSRAM
 control build is not a universal image. docs/HARDWARE_VALIDATION.md defines the
 per-configuration evidence record. No HAL or physical action follows this build.
+
+## Stack observations (prepared, not physically collected)
+
+The example records four current-task lifetime low-water byte values via the
+pinned FreeRTOS API: before/after Goose, after result printing and after report
+printing. The first three are printed; all four plus completed count remain in
+the 20-byte volatile ge_stack_samples record. No sampling is added to panic.
+Target ABI checks remain in a separate compiled witness. Linux tests execute
+the actual application with SDK/Goose doubles, without bypassing target asserts.
+
+The SDK scanner counts fill bytes; Xtensa StackType_t is one byte. Scanning can
+miss untouched reserved frames and does not establish worst-case behavior.
+Visible main-task/wrapper frames add 80 bytes above app_main. User exception
+handling allocates a 192-byte task-stack frame before C diagnostics; ordinary
+interrupt dispatch later switches stacks. Revision-0 ROM print code has indirect
+callbacks and additional frames. Complete stack/exception bounds remain open.
+See research/STACK_MEASUREMENT.md and docs/HARDWARE_RUN_TEMPLATE.md. No actual
+reading, validated board configuration or physical success claim follows.

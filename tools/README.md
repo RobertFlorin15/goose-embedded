@@ -198,7 +198,13 @@ LTO, records target object/final symbols and assembly plus stack-usage reports,
 and compiles an arithmetic fixture as target C11. It verifies panic configuration
 and C ABI assertions and runs Linux tests of the real panic adapter with a
 terminating SDK double, including ABI/panic-policy compile refusals. Logs and
-full results remain under the chosen output; research/ESP32S3_SCALAR.md and its
-reviewed JSON describe the verified 53-command run and partial stack evidence.
+full results remain under the chosen output. research/ESP32S3_SCALAR.md records
+the historical 53-command integration gate. The instrumented version passes 73
+commands (18 expected failures); research/STACK_MEASUREMENT.md and its reviewed
+JSON record the audit, host application sequencing tests and simulated wider
+stack-element rejection. Target-only ABI checks remain compiled. The example
+records four lifetime byte low-water readings, with the post-report sample
+debugger-only. No actual target readings exist yet. Supplementary ROM revision-0
+inspection does not establish the user's silicon revision.
 Physical execution, whole-task stack budget and per-board settings are separate
 gates; read docs/HARDWARE_VALIDATION.md. No claim that one image fits all modules.

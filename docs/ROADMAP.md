@@ -17,9 +17,10 @@ complete (SCALAR_PROFILE.md, research/RUNTIME_STARTUP.md). Compiler allowlist,
 rejection tests, restricted lifecycle/failure and desktop regressions now pass.
 Official ESP-IDF v6.0.2 control and scalar leaf builds pass with the pinned
 toolchain. research/ESP32S3_SCALAR.md records ABI/map/assembly review and partial
-compiler frame sums, not a whole-task stack guarantee. Next: audit remaining
-SDK/ROM stack paths and prepare stack measurement plus per-board execution
-records (HARDWARE_VALIDATION.md). User has multiple board variants; no exact
+compiler frame sums, not a whole-task stack guarantee. SDK/ROM audit and normal
+task measurement preparation now pass (research/STACK_MEASUREMENT.md); no actual
+readings exist. Next: explicit configuration inputs and offline run/log validation
+before per-board execution (HARDWARE_VALIDATION.md). User has multiple board variants; no exact
 board configuration is identified and no hardware action is authorized.
 Do not start unbounded arenas, HAL or an async framework as a shortcut around the runtime gate.
 
