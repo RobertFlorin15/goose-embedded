@@ -240,3 +240,19 @@ execution or stack safety. All current automated captures are synthetic. The
 records, failed boots/panics, tampering and path boundaries. See
 [RUN_LOG_FORMAT.md](../docs/RUN_LOG_FORMAT.md) for schema/layout and
 [the verified report](../research/CONFIGURATION_LOG_VALIDATION.md) for evidence.
+
+### Selectable fatal firmware (build/test only)
+
+```sh
+python3 tools/test_esp_idf_scalar.py --case cold-export --output build/cold-new
+python3 tools/test_esp_idf_scalar.py --case overflow --output build/overflow-new
+python3 -m unittest discover -s tests -p 'test_scalar*.py' -v
+python3 tools/validate_scalar_fatal.py --manifest build/overflow-new/O0/run-manifest.json --capture /path/to/capture.json
+```
+
+Default case is success. Keep each case/configuration in a fresh output; manifests
+and fatal captures explicitly identify case. Normal/fatal validators reject each
+other's build cases. See [fatal protocol](../docs/FATAL_RUN_LOG_FORMAT.md) for exact
+expected messages, host-double limits and source evidence. No command here opens
+a device or authorizes hardware operations. Offline consistency never proves
+execution, physical halt or a stack bound.

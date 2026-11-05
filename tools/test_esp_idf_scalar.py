@@ -26,6 +26,7 @@ def main():
     p.add_argument('--config-id', help='explicit configuration label, not a verified board claim')
     p.add_argument('--defaults', type=Path, action='append', default=[],
                    help='append SDK defaults overlay, in order; base policy remains first')
+    p.add_argument('--case', choices=('success', 'cold-export', 'overflow'), default='success')
     a = p.parse_args()
     compiler, sdk, tools, out = (x.resolve() for x in (a.compiler, a.sdk, a.tools, a.output))
     source = ROOT / '.cache/goose-scalar-runtime'
@@ -60,7 +61,7 @@ def main():
               'compiler_version': capture([str(compiler), 'version']),
               'runtime_patch_sha256': manifest['patch_sha256'],
               'baseline_app_bytes': baseline['artifacts']['hello_world.bin']['bytes'],
-              'configuration': configuration, 'defaults_inputs': defaults,
+              'configuration': configuration, 'case': a.case, 'defaults_inputs': defaults,
               'commands': [], 'levels': {}}
 
     def save():
@@ -120,7 +121,8 @@ def main():
             fw = work / 'firmware'
             idf = [python, sdk / 'tools/idf.py', '-C', ROOT / 'examples/esp32s3_scalar', '-B', fw,
                    '-D', f'SDKCONFIG={work / "sdkconfig"}', '-D', f'GOOSE_COMPILER={compiler}',
-                   '-D', f'GE_SCALAR_OPT={level}', '-D', f'GE_PROJECT_ROOT={ROOT}']
+                   '-D', f'GE_SCALAR_OPT={level}', '-D', f'GE_PROJECT_ROOT={ROOT}',
+                   '-D', f'GE_SCALAR_CASE={a.case}']
             idf += ['-D', 'SDKCONFIG_DEFAULTS=' + ';'.join(default_paths)]
             run([*idf, 'set-target', 'esp32s3'], f'{name}/configure', target_env)
             if 'unknown kconfig symbol' in (out / f'{name}/configure.log').read_text():
@@ -147,8 +149,13 @@ def main():
                 raise RuntimeError(f'Unexpected bridge dependencies: {bridge_symbols}')
             run([prefix + 'objdump', '-dr', bridge_obj], f'{name}/bridge-assembly', target_env)
             abi_entry = next(x for x in commands if x['file'].endswith('/abi_checks.c'))
-            for own in (entry, bridge_entry, abi_entry,
-                        next(x for x in commands if x['file'].endswith('/app_main.c'))):
+            app_entry = next(x for x in commands if x['file'].endswith('/app_main.c'))
+            case_flags = [x for x in shlex.split(app_entry['command']) if x.startswith('-DGE_SCALAR_CASE')]
+            expected_case = {'success': [], 'cold-export': ['-DGE_SCALAR_CASE=1'],
+                             'overflow': ['-DGE_SCALAR_CASE=2']}[a.case]
+            if case_flags != expected_case:
+                raise RuntimeError('Firmware case compile definition mismatch')
+            for own in (entry, bridge_entry, abi_entry, app_entry):
                 flags = shlex.split(own['command'])
                 if [x for x in flags if x.startswith('-O')][-1] != f'-O{level}' or '-fno-lto' not in flags:
                     raise RuntimeError('Component optimization/LTO settings were not honored')
@@ -158,9 +165,12 @@ def main():
                 raise RuntimeError('Unexpected ELF architecture')
             final = run([prefix + 'nm', '--defined-only', elf], f'{name}/symbols', target_env)
             final_names = {x.split()[-1] for x in final.splitlines() if x.strip()}
-            if not {'ge_add', 'goose_init', 'goose_exit', 'ge_scalar_v0_panic_v1',
+            required = {'ge_add', 'ge_scalar_v0_panic_v1',
                     'ge_scalar_v0_last_panic', 'app_main', 'ge_stack_samples',
-                    'uxTaskGetStackHighWaterMark'} <= final_names:
+                    'uxTaskGetStackHighWaterMark'}
+            if a.case != 'cold-export': required.add('goose_init')
+            if a.case == 'success': required.add('goose_exit')
+            if not required <= final_names:
                 raise RuntimeError('Required leaf/bridge symbols missing')
             run([prefix + 'objdump', '-d', elf], f'{name}/firmware-assembly', target_env)
             audited = ('app_main', 'esp_system_abort', 'panic_abort', 'main_task',
@@ -225,6 +235,16 @@ def main():
                          '-o', bad / 'units.o'], f'{name}/reject-stack-units', goose_env, expected=1)
             if 'review stack watermark byte units on new ports' not in units:
                 raise RuntimeError('Expected explicit watermark units guard')
+            # Real application + generated runtime + real panic bridge, host SDK only.
+            for case_id, case in ((1, 'cold-export'), (2, 'overflow')):
+                fatal_host = work / f'app-{case}-host'
+                run(['cc', *app_flags, f'-DGE_SCALAR_CASE={case_id}', app / 'app_main.c',
+                     work / 'leaf-host.o', ROOT / 'src/platform/esp_idf/scalar_panic.c',
+                     ROOT / 'tests/esp_idf/fatal_app_host.c', '-o', fatal_host],
+                    f'{name}/app-{case}-link', goose_env)
+                text = run([fatal_host, case], f'{name}/app-{case}-host', goose_env, expected=1)
+                if 'host fatal application boundary verified' not in text:
+                    raise RuntimeError('Fatal application did not reach the SDK double')
             # Additional accepted operators compile independently, without SDK headers.
             arithmetic = work / 'arithmetic.c'
             run([compiler, '--embedded-profile=scalar-v0', f'-O{level}', '--header',
@@ -254,7 +274,7 @@ def main():
             raise RuntimeError('Experiment inputs changed during build')
         for level in (0, 2):
             work = out / f'O{level}'
-            manifest = run_manifest(work, level, configuration, defaults, result['compiler_sha256'], pin['commit'])
+            manifest = run_manifest(work, level, configuration, defaults, result['compiler_sha256'], pin['commit'], a.case)
             (work / 'run-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
         result['status'] = 'pass'
         save()

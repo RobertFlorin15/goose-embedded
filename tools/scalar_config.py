@@ -59,7 +59,7 @@ def validate_effective_config(config):
             raise ValueError(f'incompatible configuration: {key}')
 
 
-def run_manifest(work, level, configuration, inputs, compiler_hash, sdk_commit):
+def run_manifest(work, level, configuration, inputs, compiler_hash, sdk_commit, case="success"):
     work = Path(work)
     config = (work / 'sdkconfig').read_text()
     match = re.search(r'^CONFIG_ESP_MAIN_TASK_STACK_SIZE=([0-9]+)$', config, re.M)
@@ -69,7 +69,7 @@ def run_manifest(work, level, configuration, inputs, compiler_hash, sdk_commit):
              'firmware/bootloader/bootloader.bin', 'firmware/partition_table/partition-table.bin']
     hashes = {name: sha256(work / name) for name in files}
     return {'schema_version': 1, 'kind': 'scalar-v0-build', 'configuration': configuration,
-            'optimization': level, 'sdk_commit': sdk_commit, 'compiler_sha256': compiler_hash,
+            'case': case, 'optimization': level, 'sdk_commit': sdk_commit, 'compiler_sha256': compiler_hash,
             'defaults': inputs, 'artifacts': hashes, 'main_stack_bytes': int(match.group(1)),
             'elf_sha256': hashes['firmware/goose_scalar.elf'],
             'evidence': 'cross-build/host tests only; no physical verification'}

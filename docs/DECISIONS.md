@@ -189,3 +189,25 @@ external inputs; minimal components do not support every optional setting.
 Identity/completion prints add normal-task work outside some sample intervals.
 Four builds, 28 synthetic unittest cases and saved-file CLI checks pass; zero
 physical results. Keep fatal records separate from normal-path validation.
+
+## 012 — Build fatal experiments separately and check their own protocol (2026-11-05)
+
+Problem: normal logs intentionally reject panics, and one firmware containing
+runtime-selectable failures complicates provenance and accidentally triggering a
+case. Selected: explicit compile-time success/cold-export/overflow cases, separate
+per-case manifests, and a fatal-only saved-file checker sharing integrity loading
+with the normal checker. The SDK panic bridge stays unchanged.
+
+Alternatives: reuse the normal validator with a permissive panic flag (weakens
+its success meaning), add serial commands to choose cases (new interaction and
+runtime state), or change the runtime hook to print custom diagnostics (changes
+the failure path being tested). A fixed case needs no device-side command parser.
+Host tests link actual app/runtime/adapter to SDK doubles and verify category,
+ordering and source record; target builds use real SDK headers/libraries.
+
+Tradeoffs: each case needs its own build/ELF. Legacy missing case means success;
+fatal manifests/captures require explicit matching case. SDK details are pinned
+source facts, not observed hardware output. CPU halted text precedes the SDK final
+halt call, so even matching text cannot prove persistent halt. Offline results
+keep execution/halt/stack proof false. Six builds and synthetic/host tests pass;
+M2b remains unverified. No hardware action is implied by this decision.

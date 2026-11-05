@@ -49,6 +49,14 @@ class ScalarRunTests(unittest.TestCase):
         self.assertFalse(r['hardware_execution_proven']); self.assertFalse(r['stack_bound_proven'])
         self.assertIsNone(r['debugger_samples'])
 
+    def test_explicit_success_case_and_fatal_mismatch(self):
+        self.m['case'] = self.c['case'] = 'success'
+        self.assertEqual(self.check()['status'], 'consistent')
+        self.c['case'] = 'overflow'
+        with self.assertRaises(ValueError): self.check()
+        self.m['case'] = self.c['case'] = 'overflow'
+        with self.assertRaises(ValueError): self.check()
+
     def test_debugger_complete(self):
         d = dict(before=3000, after_goose=2800, after_result_print=2400, after_report=2300, completed=4)
         self.assertEqual(self.check(debugger=d)['debugger_samples'], d)

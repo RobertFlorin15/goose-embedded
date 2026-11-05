@@ -216,3 +216,22 @@ SDK actually selected. Copying ordered defaults and target-specific siblings
 prevents later file changes from silently altering the selected inputs. Inspect
 the effective config and referenced dependencies too; a defaults hash alone is
 not a complete, hermetic build recipe or a claim of board compatibility.
+
+## Testing a fatal path without confusing evidence levels
+
+A fatal operation should not return. Here cold-export calls ge_add before init;
+overflow calls ge_add(INT32_MAX,1) after init. Both reach the same runtime hook,
+but their message and source record distinguish the cause. A returning operation
+must emit a different failure, otherwise a broken check could pass its own test.
+
+Host tests execute actual generated code and the real C adapter, replacing only
+SDK services with doubles that verify parameters and terminate the process. This
+proves application/runtime/adapter sequencing on the host. Linking the same source
+against Xtensa SDK proves target compatibility. Neither executes the hardware
+panic handler. Synthetic logs test the offline parser only.
+
+The SDK prints CPU halted before calling its final halt routine. Observing that
+text would therefore show progress toward halt, not proof the CPU stopped or
+stayed stopped. Artifact hashes correlate supplied files; they cannot turn a
+synthetic or edited log into physical evidence. Keep each claim at its tested
+level, and retain a separate case/configuration/ELF record for every experiment.

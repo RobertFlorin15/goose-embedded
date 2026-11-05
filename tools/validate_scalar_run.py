@@ -45,7 +45,7 @@ def local_file(root, name):
     return path
 
 
-def validate(manifest_path, capture_path):
+def load_capture(manifest_path, capture_path):
     manifest_path, capture_path = Path(manifest_path), Path(capture_path)
     manifest_bytes = manifest_path.read_bytes()
     m, c = parse_json(manifest_bytes), read_json(capture_path)
@@ -86,6 +86,15 @@ def validate(manifest_path, capture_path):
     require(len(log_bytes) <= 16 * 1024 * 1024, 'log exceeds 16 MiB inspection limit')
     require(c.get('log_sha256') == hashlib.sha256(log_bytes).hexdigest(), 'log hash mismatch')
     lines = log_bytes.decode('utf-8').splitlines()
+    case = m.get('case', 'success')
+    require(case in ('success', 'cold-export', 'overflow'), 'unknown build case')
+    require(c.get('case', 'success') == case, 'case mismatch')
+    return m, c, lines
+
+
+def validate(manifest_path, capture_path):
+    m, c, lines = load_capture(manifest_path, capture_path)
+    require(m.get('case', 'success') == 'success', 'normal validator requires success build')
     fatal = re.compile(r"Guru Meditation|panic'ed|abort\(\) was called|Backtrace:|stack canary|CPU halted|Brownout|"
                        r"Stack smashing|stack overflow|assert failed:|Task watchdog got triggered", re.I)
     require(not any(fatal.search(x) for x in lines), 'fatal diagnostic in normal-path capture')

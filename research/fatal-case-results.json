@@ -1,0 +1,467 @@
+{
+  "status": "pass",
+  "scope": "cross-build, host execution and synthetic saved-file checks only",
+  "physical_runs": 0,
+  "simulator_runs": 0,
+  "builds": [
+    {
+      "path": "build/esp-idf-fatal-cold",
+      "results_sha256": "3427b020a5106aee9e52db167c168271ddab21333e21ab96d8eeec4553ed6761",
+      "case": "cold-export",
+      "commands": 83,
+      "expected_failures": 22,
+      "levels": {
+        "O0": {
+          "manifest_sha256": "e3cb1b0ac23622a667187d66069e235862576cc50e67d0e3a47610c06191f893",
+          "elf_sha256": "85b82bfd07e55f549208e46651afcd7827a4ca47c75ee4389a4b6ef6f14702fd",
+          "app_bytes": 145808,
+          "capture_sha256": "36cbba6b89ae7a461989280a5cc4620d5ad706941224e9ebc3e90ea71a696526",
+          "log_sha256": "2c2378b5a150542162ff9a67abfcdb19db267ef5121058455dca779d01800848",
+          "case_compile_flags": [
+            "-DGE_SCALAR_CASE=1"
+          ],
+          "app_stack_usage": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:26:6:app_main\t48\tstatic\n"
+        },
+        "O2": {
+          "manifest_sha256": "f4ae543e0a332cd174b79f1d2fd069942658f6542dace97df7c81036e41d8817",
+          "elf_sha256": "ae852175c497aad5104fab6b835c1a8b1924477b7061bcbf462b35a7dbfc299b",
+          "app_bytes": 145520,
+          "capture_sha256": "f6ea2c8e1c1e4dca30bd23bb8f30d12982fd7cf307ed50f46ac7426c812f8c29",
+          "log_sha256": "7ca6d5fbf2244bab2946e80404d5760812465220d8c17298fa548c397de5a5c1",
+          "case_compile_flags": [
+            "-DGE_SCALAR_CASE=1"
+          ],
+          "app_stack_usage": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:26:6:app_main\t32\tstatic\n"
+        }
+      }
+    },
+    {
+      "path": "build/esp-idf-fatal-overflow",
+      "results_sha256": "cf869e686e9e0f62b5e136244be9a860bdb07c258434a5367e3446db2faf0a67",
+      "case": "overflow",
+      "commands": 83,
+      "expected_failures": 22,
+      "levels": {
+        "O0": {
+          "manifest_sha256": "a146836ab10348c32e68e23b1d028fac6f1167ff3937bae5c2214c9c617c42d6",
+          "elf_sha256": "e367b9fd45cb1d48f88b57cb8078fdad5e2ad75c4a2a1085687f4d013fc5882a",
+          "app_bytes": 145872,
+          "capture_sha256": "936b4fb593241dee756c3773fbbeee9e30255cc576178c90277c0efb620d8ebc",
+          "log_sha256": "f4b64777d3c4c8ea59a6211ce2ac0f67bd4ed0c03c58a2d00a0a2b2b05b40005",
+          "case_compile_flags": [
+            "-DGE_SCALAR_CASE=2"
+          ],
+          "app_stack_usage": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:26:6:app_main\t48\tstatic\n"
+        },
+        "O2": {
+          "manifest_sha256": "b358a692dddef7d290392dad2809d959f3d9fbbeb37d7e302153f1be92d4ef34",
+          "elf_sha256": "cc4d2edf1ee58e69c6cd7414bff7fdb3546156241bb5e2d773c992551ccc41bb",
+          "app_bytes": 145600,
+          "capture_sha256": "b8413d1290289f039b57a51633ac325180f59c806ff99a089c5366e2b15b7ec2",
+          "log_sha256": "66603bbb159efc431dec8fa0b65009381ab15d790a98bddad0671d778c392626",
+          "case_compile_flags": [
+            "-DGE_SCALAR_CASE=2"
+          ],
+          "app_stack_usage": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:26:6:app_main\t32\tstatic\n"
+        }
+      }
+    },
+    {
+      "path": "build/esp-idf-fatal-success",
+      "results_sha256": "432a7c0b8d89228c20a7afbfa2245f9bbbda5756ed56716c7b2a7d282f4ee0de",
+      "case": "success",
+      "commands": 83,
+      "expected_failures": 22,
+      "levels": {
+        "O0": {
+          "manifest_sha256": "077eb5ef9871a4bf41c596a3513e7dc21237f982cd14a53a85576ecac5824709",
+          "elf_sha256": "5b22e568d21f4cb671c155f91f562178a7aa51bb91942f7fada7aa83e65606d2",
+          "app_bytes": 146144,
+          "capture_sha256": "156d14149db069d255736fd4f3b0570f3cfbee656c9e89c872948ff7ae5972aa",
+          "log_sha256": "d312f1d45f4a732328f82d15d29144eb05687a792101357fa7aebf14d3c47831",
+          "case_compile_flags": [],
+          "app_stack_usage": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:26:6:app_main\t48\tstatic\n"
+        },
+        "O2": {
+          "manifest_sha256": "c60d3404edf7d09d0c65f00d61e2a5fe099d6aa0004d8e8f2e4872299549499c",
+          "elf_sha256": "28354e40d03f396d6d336941f2c7cc16b8ecc6184582c1441e8c129ebe07422c",
+          "app_bytes": 145824,
+          "capture_sha256": "6279244973453da1436afacd03c7e35011079e8e596da69f1e1fe15b2681cd03",
+          "log_sha256": "b4f7d734023fd5e54876ac0c20a360db708345c0e0db9e869e8e2f0fd513870f",
+          "case_compile_flags": [],
+          "app_stack_usage": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:26:6:app_main\t48\tstatic\n"
+        }
+      }
+    }
+  ],
+  "supplementary_checks": [
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O0/app-cold-export-host",
+        "overflow"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O0/app-overflow-host",
+        "cold-export"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_fatal.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O0/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/cold-O0/capture.json"
+      ],
+      "expected": 0,
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"cold-export\",\n  \"expected_message\": \"goose_init must be called before exported functions\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 0,\n  \"elf_sha256\": \"85b82bfd07e55f549208e46651afcd7827a4ca47c75ee4389a4b6ef6f14702fd\",\n  \"log_sha256\": \"2c2378b5a150542162ff9a67abfcdb19db267ef5121058455dca779d01800848\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_run.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O0/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/cold-O0/capture.json"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "{\"status\": \"rejected\", \"error\": \"normal validator requires success build\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O2/app-cold-export-host",
+        "overflow"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O2/app-overflow-host",
+        "cold-export"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_fatal.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O2/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/cold-O2/capture.json"
+      ],
+      "expected": 0,
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"cold-export\",\n  \"expected_message\": \"goose_init must be called before exported functions\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 2,\n  \"elf_sha256\": \"ae852175c497aad5104fab6b835c1a8b1924477b7061bcbf462b35a7dbfc299b\",\n  \"log_sha256\": \"7ca6d5fbf2244bab2946e80404d5760812465220d8c17298fa548c397de5a5c1\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_run.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O2/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/cold-O2/capture.json"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "{\"status\": \"rejected\", \"error\": \"normal validator requires success build\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O0/app-cold-export-host",
+        "overflow"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O0/app-overflow-host",
+        "cold-export"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_fatal.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O0/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/overflow-O0/capture.json"
+      ],
+      "expected": 0,
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"overflow\",\n  \"expected_message\": \"i32 overflow\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 0,\n  \"elf_sha256\": \"e367b9fd45cb1d48f88b57cb8078fdad5e2ad75c4a2a1085687f4d013fc5882a\",\n  \"log_sha256\": \"f4b64777d3c4c8ea59a6211ce2ac0f67bd4ed0c03c58a2d00a0a2b2b05b40005\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_run.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O0/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/overflow-O0/capture.json"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "{\"status\": \"rejected\", \"error\": \"normal validator requires success build\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O2/app-cold-export-host",
+        "overflow"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O2/app-overflow-host",
+        "cold-export"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_fatal.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O2/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/overflow-O2/capture.json"
+      ],
+      "expected": 0,
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"overflow\",\n  \"expected_message\": \"i32 overflow\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 2,\n  \"elf_sha256\": \"cc4d2edf1ee58e69c6cd7414bff7fdb3546156241bb5e2d773c992551ccc41bb\",\n  \"log_sha256\": \"66603bbb159efc431dec8fa0b65009381ab15d790a98bddad0671d778c392626\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_run.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O2/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/overflow-O2/capture.json"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "{\"status\": \"rejected\", \"error\": \"normal validator requires success build\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O0/app-cold-export-host",
+        "overflow"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O0/app-overflow-host",
+        "cold-export"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_run.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O0/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/success-O0/capture.json"
+      ],
+      "expected": 0,
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"consistent\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 0,\n  \"elf_sha256\": \"5b22e568d21f4cb671c155f91f562178a7aa51bb91942f7fada7aa83e65606d2\",\n  \"log_sha256\": \"d312f1d45f4a732328f82d15d29144eb05687a792101357fa7aebf14d3c47831\",\n  \"serial_samples_bytes\": {\n    \"before\": 3000,\n    \"after_goose\": 2800,\n    \"after_result_print\": 2400\n  },\n  \"debugger_samples\": null,\n  \"zero_reading_present\": false\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_fatal.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O0/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/success-O0/capture.json"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "{\"status\": \"rejected\", \"error\": \"fatal validator requires an explicit fatal build case\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O2/app-cold-export-host",
+        "overflow"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O2/app-overflow-host",
+        "cold-export"
+      ],
+      "expected": 94,
+      "exit_code": 94,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_run.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O2/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/success-O2/capture.json"
+      ],
+      "expected": 0,
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"consistent\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 2,\n  \"elf_sha256\": \"28354e40d03f396d6d336941f2c7cc16b8ecc6184582c1441e8c129ebe07422c\",\n  \"log_sha256\": \"b4f7d734023fd5e54876ac0c20a360db708345c0e0db9e869e8e2f0fd513870f\",\n  \"serial_samples_bytes\": {\n    \"before\": 3000,\n    \"after_goose\": 2800,\n    \"after_result_print\": 2400\n  },\n  \"debugger_samples\": null,\n  \"zero_reading_present\": false\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_fatal.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O2/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/success-O2/capture.json"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "{\"status\": \"rejected\", \"error\": \"fatal validator requires an explicit fatal build case\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robert/Programare/goose-embedded/tools/validate_scalar_fatal.py",
+        "--manifest",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O0/run-manifest.json",
+        "--capture",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/cold-O0/capture.json"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "{\"status\": \"rejected\", \"error\": \"manifest hash mismatch\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar",
+        "-B",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/bad-case",
+        "-DGOOSE_COMPILER=/home/robert/Programare/goose-embedded/build/goose-scalar-runtime/goose",
+        "-DGE_SCALAR_CASE=unknown"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "-- Configuring incomplete, errors occurred!\n",
+      "stderr": "CMake Error at CMakeLists.txt:19 (message):\n  GE_SCALAR_CASE must be success, cold-export or overflow\n\n\n"
+    },
+    {
+      "argv": [
+        "cc",
+        "-std=c11",
+        "-DGE_SCALAR_CASE=3",
+        "-I",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-success/O0/firmware/esp-idf/goose_scalar",
+        "-I",
+        "/home/robert/Programare/goose-embedded/tests/esp_idf/stubs",
+        "-I",
+        "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main",
+        "-c",
+        "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c",
+        "-o",
+        "/home/robert/Programare/goose-embedded/build/fatal-fixtures/bad-case.o"
+      ],
+      "expected": 1,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:23:2: error: #error \"unknown scalar firmware case\"\n   23 | #error \"unknown scalar firmware case\"\n      |  ^~~~~\n"
+    }
+  ],
+  "case_flag_guard": "all six compile databases checked after final probe guard added; full builds precede that guard-only edit",
+  "unit_tests": {
+    "count": 41,
+    "log": "build/fatal-fixtures/unit-tests.log",
+    "sha256": "d110c119f78e6ee4a71926b505ece73bab7dfcb81bd97e5bf5ee001d4a4e0b55"
+  },
+  "source_sha256": {
+    "examples/esp32s3_scalar/CMakeLists.txt": "3e3c7be9b302864b3ae313c8cf7a96e20424b0d7097ece6d02a3cc3c07f84d00",
+    "examples/esp32s3_scalar/main/CMakeLists.txt": "404e4fc83861a38852268e25af76d9bbea45ed82d21a2d25881cbe9e2a18221d",
+    "examples/esp32s3_scalar/main/app_main.c": "c70f3f4e70ebc8c35e636451041b004daf9613c4c40476f7939625f11d4ddc73",
+    "tools/test_esp_idf_scalar.py": "6da4fb7c038120fa52dd61e123e2f5b022e899017433e9f1f6694cc843c58a3f",
+    "tools/scalar_config.py": "eaf6d7660eff261b5f2d6192e6eb1825544a5b35eb6a7dddf84f6bbfdbf568e8",
+    "tools/validate_scalar_run.py": "9bb559d07fd8aeee9d23e572d46f2e4955f19898d30ae47696f1dac2a63d612a",
+    "tools/validate_scalar_fatal.py": "8dc84a97e0c1b36125bbca31ce3e6bf48192ecd06a5a1e7f3b8e5f7641dee161",
+    "tests/test_scalar_tools.py": "9d8a253e0245f9da903b121ecca39a750ae388c6c1d95501301482eb266de41e",
+    "tests/test_scalar_fatal.py": "2e4e43ec5f59df66d6530708743775225be3bde0ad7a97552495517570a092ff",
+    "tests/esp_idf/fatal_app_host.c": "af375c2294cacb1df6509f331029d88b5da23b9a4e00770e03feb28b4fe215f8"
+  },
+  "pins": {
+    "release": "v6.0.2",
+    "repository": "https://github.com/espressif/esp-idf.git",
+    "commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+    "tag_object": "b0d7ee8723d5cd90c1aa2c54729aa7c92f2bf187",
+    "tools_json_sha256": "b403c25dc0c841dece4ac45abfa0a131f55ccae72db6be86ee36e3e69557f0e4",
+    "xtensa_toolchain": "esp-15.2.0_20251204",
+    "gcc_version": "15.2.0",
+    "linux_amd64_xtensa_archive_sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8"
+  },
+  "prior_verified_commit": "336443af4f721e511367ccad9fb9c35296d6ddd6",
+  "supplementary_harness_correction": "Initial unknown-case compilation pointed at absent generated/ header folder; fixed include path, intended diagnostic then verified."
+}

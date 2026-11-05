@@ -16,6 +16,13 @@ _Static_assert(sizeof(UBaseType_t) <= sizeof(unsigned int) && UINT_MAX <= UINT32
 
 volatile struct ge_example_stack_samples ge_stack_samples;
 
+#ifndef GE_SCALAR_CASE
+#define GE_SCALAR_CASE 0
+#endif
+#if GE_SCALAR_CASE < 0 || GE_SCALAR_CASE > 2
+#error "unknown scalar firmware case"
+#endif
+
 void app_main(void)
 {
     /* ESP-IDF calls app_main in its normal main task. No workers or ISR entry. */
@@ -33,6 +40,14 @@ void app_main(void)
     esp_rom_printf("goose-embedded identity-v1: elf_sha256=%s\n", elf_hex);
     ge_stack_samples.before = uxTaskGetStackHighWaterMark(NULL);
     ge_stack_samples.completed = 1;
+#if GE_SCALAR_CASE == 1
+    esp_rom_printf("goose-embedded case-v1: cold-export\n");
+    (void)ge_add(10, 32); /* Deliberately call before initialization. */
+#elif GE_SCALAR_CASE == 2
+    esp_rom_printf("goose-embedded case-v1: overflow\n");
+    goose_init(0, NULL);
+    (void)ge_add(INT32_MAX, 1); /* Deliberately exceed checked i32 range. */
+#else
     goose_init(0, NULL);
     int32_t result = ge_add(10, 32);
     if (result != 42) {
@@ -54,4 +69,9 @@ void app_main(void)
     ge_stack_samples.completed = 4;
     esp_rom_printf("goose-embedded completed-v1\n");
     /* Returning lets ESP-IDF delete its main task. */
+#endif
+#if GE_SCALAR_CASE != 0
+    /* A returning fatal call must never produce the expected diagnosis. */
+    ge_scalar_v0_panic_v1("fatal case unexpectedly returned", __FILE__, __LINE__);
+#endif
 }

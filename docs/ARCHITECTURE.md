@@ -188,3 +188,20 @@ known failure/reset cues and sample shape/ranges. It always reports physical
 execution and stack bounds as unproven. Real module identity, authorization and
 physical evidence remain a human/measurement boundary. See RUN_LOG_FORMAT.md and
 research/CONFIGURATION_LOG_VALIDATION.md; current automated captures are synthetic.
+
+## Separately built fatal cases
+
+The example now selects success (default), cold-export or overflow at CMake
+configuration. Only the main adapter changes; compiler/runtime/panic binding are
+unchanged. Fatal cases print identity/case, retain a partial completed=1 sample,
+and intentionally invoke the checked failure. A returning operation escalates a
+different diagnostic and cannot imitate expected success. Case-specific manifests
+and compile-definition checks keep build/log selection explicit. No dynamic test
+selector, ISR entry or new Goose API is introduced.
+
+The offline loaders share artifact/config/hash/path validation; separate normal
+and fatal protocol validators prevent accepting one category as the other. Fatal
+consistency includes the expected details and terminal SDK halt cue, without
+claiming execution or physical halt. See [fatal protocol](FATAL_RUN_LOG_FORMAT.md)
+and [evidence](../research/FATAL_CASES.md). Complete stack and physical evidence
+remain prerequisites for later claims; isolated frame sizes are not task bounds.

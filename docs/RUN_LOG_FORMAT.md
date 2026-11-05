@@ -106,3 +106,9 @@ no parser can establish physical execution, authorization, correct board identit
 or stack safety from these files alone. Human review and actual evidence remain
 in [the hardware procedure](HARDWARE_VALIDATION.md) and
 [run template](HARDWARE_RUN_TEMPLATE.md). All automated fixtures so far are synthetic.
+
+New manifests include `case`, with `success` for the normal application. Normal
+captures may explicitly provide `"case": "success"`; omitted case in legacy
+normal manifests/captures means success. The normal checker rejects fatal build
+cases even if supplied text resembles normal telemetry. Use the separate
+[fatal-case protocol/checker](FATAL_RUN_LOG_FORMAT.md) for cold-export/overflow.

@@ -18,6 +18,8 @@ The [stack audit and measurement preparation](research/STACK_MEASUREMENT.md)
 passes cross-build/host tests; no target readings or complete stack budget exist yet.
 [Configuration inputs and offline log checks](research/CONFIGURATION_LOG_VALIDATION.md)
 also pass; all automated captures are synthetic.
+[Separately selectable fatal cases](research/FATAL_CASES.md) pass target builds
+and host checks; physical success, panic and halt behavior remain unverified.
 Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md),
 [handoff](docs/HANDOFF.md), and the [project skill](.agents/skills/goose-embedded/SKILL.md).
 
