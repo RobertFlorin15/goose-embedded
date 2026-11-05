@@ -63,7 +63,9 @@ optimization, ELF identity, record/log hashes, paths and input limits exactly as
 for normal runs. The separate fatal checker requires one identity/case pair and
 one expected details line followed by one terminal halt cue. It rejects missing,
 duplicate, conflicting or reordered cues, normal protocol, known unrelated faults,
-resets, and nonempty content after halt. Unknown fault text cannot be exhaustively
+resets, SDK |<-CORRUPTED backtraces, and nonempty content after halt.
+A |<-CONTINUES depth-limit marker remains allowed and requires human review;
+it does not certify a complete backtrace. Unknown fault text cannot be exhaustively
 recognized; human review of the complete retained log remains necessary.
 
 Exit 0/status consistent means supplied files agree. The result always keeps

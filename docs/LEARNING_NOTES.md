@@ -235,3 +235,19 @@ text would therefore show progress toward halt, not proof the CPU stopped or
 stayed stopped. Artifact hashes correlate supplied files; they cannot turn a
 synthetic or edited log into physical evidence. Keep each claim at its tested
 level, and retain a separate case/configuration/ELF record for every experiment.
+
+
+## Stack allocation is different from deepest memory touched
+
+The linked fatal exception prologue moves a1 down 192 bytes, then stores
+pseudo-backtrace data at new a1-16. That store address is 208 bytes below the
+trapped stack pointer. A frame-allocation number alone therefore misses memory
+touches. Later C save areas may overlap this region; adding a fixed extra amount
+to every function can double count. Follow the ABI and actual instruction paths.
+
+Calls that return before the panic (initialization, case printing and sampling)
+do not stay nested under it. Their lifetime peaks still matter. UART and USB
+character outputs are sequential too: their peak is a maximum, rather than a sum.
+By contrast, task parents remain active when the fatal export calls the hook.
+An iterative backtrace depth limit controls traversal/output; it does not create
+that many nested C calls. Missing assembly entry metadata means unknown, not zero.

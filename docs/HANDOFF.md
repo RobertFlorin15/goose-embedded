@@ -1,71 +1,64 @@
 # Handoff
 
-2026-11-05. **Selectable fatal firmware and offline checks verified by cross-build,
-host execution and synthetic captures only. No physical/simulator execution or
-observed halt; M2b and HAL remain blocked.**
+2026-11-05. **Fatal stack ownership/frames audited statically. Whole-task stack,
+physical execution and halt remain unverified. M2b and HAL are still blocked.**
 
-Recover AGENTS.md -> PROJECT_STATE.md -> project skill -> Git/source/evidence.
-Branch main; no remote. Prior completed checkpoint 336443af4f721e511367ccad9fb9c35296d6ddd6.
+Recover AGENTS.md -> PROJECT_STATE.md -> skill -> Git/source/evidence.
+Branch main; no remote. Prior checkpoint 4352678ac2b2d580e40eee218c82ef7d42be09a2.
 Current checkpoint is the commit containing this file (`git rev-parse HEAD`).
-Task changes committed together; verify status. Unrelated untracked .vscode/ is
-preserved/excluded. Compiler/runtime patches, SDK panic adapter and pins unchanged.
+Task changes committed together; verify status. Unrelated untracked .vscode/
+preserved/excluded. No compiler/runtime/target app/SDK/panic-adapter changes.
 
-New: `--case success|cold-export|overflow` (default success), mapped to fixed main
-compile definitions. Fatal apps print identity and case, keep only before sample
-(completed=1), invoke actual invalid operation and never print normal completion.
-Returning failure uses a distinct rejected panic. Target case flags checked.
-Per-level manifests include case; missing legacy case means success only.
-Fatal manifests/captures require explicit matching case.
+New tools/audit_scalar_fatal.py checks existing passing fatal builds against pinned
+SDK, recorded current source, manifests and artifact hashes; retains four full
+linked disassemblies and 140 symbol records. Frames without ordinary entry are
+null, never zero. It records manual pre-trap paths, direct/indirect indicators and
+partial frame sums, not automatic closure or whole-task safety. Current reviewed
+console is UART + secondary USB Serial/JTAG; other selections require review.
 
-Offline tools/validate_scalar_fatal.py shares integrity loading with normal tool,
-requires exact selected details followed by terminal CPU halted cue, and rejects
-wrong case/identity, normal protocol, duplicates/truncation/reordering/resets and
-known unrelated faults. Normal tool rejects fatal builds. Results only mean file
-consistency; hardware_execution_proven, halt_proven and stack_bound_proven false.
-All automated captures declare synthetic. SDK prints halt cue before final halt
-routine, so text cannot prove persistent halt. No actual SDK panic executed.
+Findings:
+- Cold/overflow pre-trap frame sums O0: 336/464; both O2: 240 including SDK parents.
+- Ordinary fatal exception stays on task stack; allocation 192 plus pseudo-save
+  stores down to trapped a1-208. Register windows/ABI overlap still unbounded.
+  Separate configured 1536-byte ISR stack does not absorb this ordinary fatal path.
+- SDK panic_handler 80 and esp_panic_handler 32 are individual frames. Cache helper
+  returns before main processing. SDK panic output uses UART/USB character paths,
+  not normal ROM formatter. Watchdogs/core coordination/indirect/ROM paths open.
+- Backtrace walker is iterative with depth 100; corrupted marker now rejected by
+  fatal validator, continuation marker allowed without complete-backtrace claim.
+- Halt cue precedes module reset/ROM UART drain/final loop. No physical halt proof.
+  Default exception-table dispatch is a source fact, not runtime attestation.
 
-Verified:
-- 41 unit tests: 29 normal/config/integrity + 12 fatal, plus table subcases.
-- Three full probes, 83 commands/22 expected nonzero exits each: six target builds
-  O0/O2, previous ABI/dependency/policy/arithmetic/normal app checks and new actual
-  fatal app + generated runtime + real bridge host tests with SDK doubles.
-- 27 supplementary checks: six synthetic capture accepts, six opposite-validator
-  rejects, cross-case mismatch reject, 12 wrong-case host marker rejects, unknown
-  CMake/preprocessor case rejects. All six compile databases match selected case.
-  Permanent definition guard added after full builds; equivalent check run separately.
-- Full ELF digest in every image matches ELF. App bytes O0/O2: success 146144/145824,
-  cold 145808/145520, overflow 145872/145600. app_main frames 48/48 normal, 48/32 fatal;
-  no whole-task bound. Control config remains 2 MB/3584 stack (not a board preset).
-- One supplementary harness path was wrong; corrected include path and intended
-  preprocessor guard then passed. SDK/Goose reference trees clean; adapted source
-  digest checks pass. No new warning suppression. No physical operations.
+Verified 47 unit tests (29 normal/config, 13 fatal, 5 extraction), four ELF audits,
+four refusal checks (normal build/existing output/overlap/tampered ELF), six prior
+synthetic captures with current tools. Raw output build/fatal-stack-audit-final,
+build/fatal-audit-unit-tests.log, build/fatal-audit-refusals. No target rebuild or
+hardware needed. Prior six target builds remain unchanged/historical evidence.
+Previous report source hashes refer to its prior compiler/tool checkpoint; current
+implementation hashes in research/fatal-stack-results.json.
 
-Commands (fresh output for full builds):
 ```sh
 python3 -m unittest discover -s tests -p 'test_scalar*.py' -v
-python3 tools/test_esp_idf_scalar.py --case cold-export --output build/new-cold
-python3 tools/test_esp_idf_scalar.py --case overflow --output build/new-overflow
-python3 tools/test_esp_idf_scalar.py --output build/new-success
-python3 tools/validate_scalar_fatal.py --manifest build/new-overflow/O0/run-manifest.json --capture /path/to/capture.json
+python3 tools/audit_scalar_fatal.py --build build/esp-idf-fatal-cold --build build/esp-idf-fatal-overflow --output build/fatal-stack-audit-new
 ```
-Existing outputs build/esp-idf-fatal-{cold,overflow,success}, build/fatal-fixtures.
-Read research/FATAL_CASES.md and fatal-case-results.json for exact evidence and
-source/manifest/artifact hashes. docs/FATAL_RUN_LOG_FORMAT.md defines saved files
-and SDK source diagnostics; RUN_LOG_FORMAT.md retains normal protocol. Existing
-config overlays/IDs continue to work; no new board configurations introduced.
+Fresh audit output required. Preserve original build artifact layouts; pinned SDK/
+local tools required for audit, not for unit tests. Rebuild missing fatal inputs
+using tools/test_esp_idf_scalar.py --case cold-export|overflow with separate fresh
+outputs (see tools/README.md). No flash/monitor/debug command is involved.
+Read research/FATAL_STACK_AUDIT.md and fatal-stack-results.json for evidence,
+source permalinks, frame table and exact missing-bound requirements.
 
-Next exact task: audit source/assembly of fatal SDK/exception entry paths and list
-remaining unbounded stack requirements. Use pinned SDK and current app/firmware
-assembly; distinguish static compiler frames from task/window/exception/ROM costs.
-Do not manufacture a numerical full bound from partial frame sums. Astra/high
-recommended for that reasoning; Sol/medium for routine tool maintenance. Checkpoint
-before a user model transition; do not assume switching yourself.
+Next exact task: inventory license files/notices and distribution considerations
+for pinned Goose/compiler third parties, ESP-IDF/submodules and installed tools.
+Review research/REFERENCES.md and actual pinned license files first; distinguish
+local use, generated/linked output and redistribution. Record unresolved matters;
+do not select a project license or assert compatibility prematurely. Sol/medium
+for routine inventory; Astra/high for future complete ABI/window/exception/ROM
+stack reasoning. Checkpoint before any user model transition.
 
-User has multiple board types, with no exact inventory/reviewed physical config or
-hardware authorization. Do not repeatedly ask for one board as if it defines the
-framework. Before concrete flash/serial/debug: review exact module/config and get
-explicit authorization. Runtime contract is serial normal task, caches enabled;
-no ISR/reentrancy/concurrency/HAL. No actual watermark/serial evidence exists.
-License inventory/full upstream suites remain pending. Grapify unavailable in
-prior checks; standard inspection used. Setup/pins unchanged in tools/README.md.
+User has several unspecified board variants; do not repeatedly request one board
+as if it defines framework portability. No exact inventory/reviewed physical config
+or hardware authorization exists. Before concrete operations: exact module/config
+review and explicit authorization. No actual watermark/serial/SDK panic observation,
+no complete stack guarantee, no ISR/concurrency/HAL. Grapify unavailable in prior
+discovery; standard source/disassembly tools used. Pins/setup unchanged.

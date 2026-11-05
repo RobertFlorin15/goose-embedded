@@ -19,7 +19,9 @@ passes cross-build/host tests; no target readings or complete stack budget exist
 [Configuration inputs and offline log checks](research/CONFIGURATION_LOG_VALIDATION.md)
 also pass; all automated captures are synthetic.
 [Separately selectable fatal cases](research/FATAL_CASES.md) pass target builds
-and host checks; physical success, panic and halt behavior remain unverified.
+and host checks. The [fatal stack audit](research/FATAL_STACK_AUDIT.md) records
+exception ownership and remaining budget gaps; physical execution and stack
+sufficiency remain unverified.
 Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md),
 [handoff](docs/HANDOFF.md), and the [project skill](.agents/skills/goose-embedded/SKILL.md).
 

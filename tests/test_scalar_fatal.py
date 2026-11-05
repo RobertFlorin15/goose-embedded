@@ -70,7 +70,7 @@ class FatalTests(unittest.TestCase):
         for cue in ('Guru Meditation Error', "Core panic'ed", 'abort() was called', 'Brownout detector',
                     'stack canary', 'Stack smashing', 'stack overflow', 'assert failed:', 'Task watchdog',
                     'Rebooting...', 'fatal case unexpectedly returned', 'invalid initialization arguments',
-                    'unreachable scalar code', 'rst:0x1', 'ESP-ROM:second',
+                    'unreachable scalar code', 'Backtrace: 0x123:0x456 |<-CORRUPTED', 'rst:0x1', 'ESP-ROM:second',
                     'goose-embedded scalar-v0: 42', 'goose-embedded completed-v1'):
             with self.subTest(cue=cue), self.assertRaises(ValueError):
                 validate(*self.write([*self.lines[:3], cue, *self.lines[3:]]))
@@ -78,6 +78,11 @@ class FatalTests(unittest.TestCase):
     def test_backtrace_before_expected_failure(self):
         with self.assertRaises(ValueError):
             validate(*self.write(['Backtrace: earlier failure', *self.lines]))
+
+    def test_bounded_backtrace_continuation_is_not_corruption(self):
+        lines = self.lines.copy()
+        lines[3] = 'Backtrace: synthetic placeholder |<-CONTINUES'
+        self.assertEqual(validate(*self.write(lines))['status'], 'consistent')
 
     def test_no_content_after_halt(self):
         with self.assertRaises(ValueError): validate(*self.write([*self.lines, 'continued']))

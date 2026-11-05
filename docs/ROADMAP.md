@@ -22,8 +22,10 @@ task measurement preparation now pass (research/STACK_MEASUREMENT.md); no actual
 readings exist. Explicit configuration inputs and offline normal-run consistency checks also pass
 (research/CONFIGURATION_LOG_VALIDATION.md). Separately built success/cold-export/overflow cases and fatal saved-log checks
 also pass six target builds and host/synthetic tests (research/FATAL_CASES.md).
-Next: review fatal SDK/exception stack requirements before planning authorized
-per-board execution (HARDWARE_VALIDATION.md). User has multiple board variants; no exact
+Fatal SDK/exception ownership and individual-frame audit is documented in
+research/FATAL_STACK_AUDIT.md; complete stack requirements remain open. Next
+independent task: pinned dependency/tool license inventory before choosing a
+project license. Per-board execution remains gated (HARDWARE_VALIDATION.md). User has multiple board variants; no exact
 board configuration is identified and no hardware action is authorized.
 Do not start unbounded arenas, HAL or an async framework as a shortcut around the runtime gate.
 

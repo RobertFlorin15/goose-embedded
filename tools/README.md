@@ -256,3 +256,18 @@ other's build cases. See [fatal protocol](../docs/FATAL_RUN_LOG_FORMAT.md) for e
 expected messages, host-double limits and source evidence. No command here opens
 a device or authorizes hardware operations. Offline consistency never proves
 execution, physical halt or a stack bound.
+
+
+### Read-only fatal stack evidence
+
+```sh
+python3 tools/audit_scalar_fatal.py --build build/esp-idf-fatal-cold --build build/esp-idf-fatal-overflow --output build/fatal-stack-audit-new
+```
+
+Requires passing prior fatal probes, their original artifact layout and the
+unchanged recorded application/adapter sources. Use a fresh output outside input
+trees. The tool retains four disassemblies, individual entry frames and direct/
+indirect-call indicators. It reviews the current UART + secondary USB console
+selection; other console builds need a separate review. No target rebuild, SDK
+execution, hardware access or numerical whole-stack guarantee. See
+[audit report](../research/FATAL_STACK_AUDIT.md) for assumptions and open requirements.

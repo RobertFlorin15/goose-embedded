@@ -34,7 +34,7 @@ def validate(manifest_path, capture_path):
     require(not any(reset.search(x) for x in lines[first + 1:]), 'reset after application identity')
     require(sum('ESP-ROM:' in x for x in lines) <= 1, 'multiple boot sessions')
     unrelated = re.compile(r"Guru Meditation|panic'ed|abort\(\) was called|Brownout|stack canary|"
-                           r"Stack smashing|stack overflow|assert failed:|watchdog|Rebooting|"
+                           r"Stack smashing|stack overflow|assert failed:|watchdog|Rebooting|\|<-CORRUPTED|"
                            r"fatal case unexpectedly returned|invalid initialization arguments|unreachable scalar code", re.I)
     for i, line in enumerate(lines):
         require(not unrelated.search(line), 'unexpected fault/reset diagnostic')

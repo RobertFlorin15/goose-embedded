@@ -1,0 +1,849 @@
+{
+  "status": "pass",
+  "scope": "static source/artifact inspection only",
+  "hardware_execution_proven": false,
+  "stack_bound_proven": false,
+  "sdk_commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+  "objdump_sha256": "f556eb8b42ff8c0bb748243afa391a216b3482b7d3724e5c2aa6870952b76b74",
+  "sdk_sources": {
+    "components/esp_system/panic.c": "d14d24b5d4708b365a1321e0c73fb861008157d7c067a0994711e3bd53d4ecd7",
+    "components/esp_system/port/panic_handler.c": "57bd5762e94003fe5bc4b0064610ec7ceb9a5d2f6536de4b95313e140b95a363",
+    "components/esp_system/port/esp_system_chip.c": "919cfa6faf79b441faa116360c4434d747e2757ff6d240162b1cf5c07976e251",
+    "components/esp_system/port/arch/xtensa/panic_arch.c": "e1a1bdeecea450008597b37bdb1052e7eabb052681994f6a78088480fe934faf",
+    "components/esp_system/port/arch/xtensa/debug_helpers.c": "88f7dd70ed75f7c9e388863d389211c21443ad585eb8d7ac0f61804c0f40f183",
+    "components/xtensa/xtensa_vectors.S": "2a8731e5dfa72fe11df2ea54969028a950db38f6292ce51e5b5633dc6a9995dc",
+    "components/xtensa/xtensa_context.S": "6446fd037a24069bc4d4ac5b42bcda53fd376be590f14a9c4e6a527a3aad88e2",
+    "components/xtensa/include/xt_asm_utils.h": "86b7ff27d3f4ea6b7e5a9f0285a079a5fb23f340b78b4a741ad3f42d65151704",
+    "components/xtensa/xtensa_intr_asm.S": "eb07af713699ffb6978d46a1f3e86b27fafe6890b3a370f8d4bd0275f6668d8b",
+    "components/xtensa/xtensa_intr.c": "b1a0200802daa02bbab52bdfdeb6fde5ab785b35c96d43ca26801e50286b861f",
+    "components/esp_system/port/soc/esp32s3/system_internal.c": "3ccabbf8bc70c33b5b2c371a77cf55d881ee6bbeede5b22a38015a97a543976f"
+  },
+  "prior_verified_commit": "4352678ac2b2d580e40eee218c82ef7d42be09a2",
+  "raw_result": "build/fatal-stack-audit-final/results.json",
+  "raw_result_sha256": "65c8c1bd78fb8b41b040f7f60a0c1e36c17cbca75bd94ba5e93b81f8d8b9fe2f",
+  "symbol_records": 140,
+  "reference_symbols": {
+    "vPortTaskWrapper": {
+      "address": "4200bd58",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "pcTaskGetName"
+      ],
+      "indirect_call_count": 4,
+      "assembly_sha256": "e5c0c0b59a3a61ed9273daa7477417f824e71de91b1e4c6c0544810123de61af"
+    },
+    "main_task": {
+      "address": "42008818",
+      "entry_frame_bytes": 48,
+      "direct_calls": [
+        "reclaim_startup_stack_memory_for_heap",
+        "esp_task_wdt_init",
+        "app_main",
+        "vTaskDelete"
+      ],
+      "indirect_call_count": 8,
+      "assembly_sha256": "314df351b8bf0723127d3f607cecb2c91274987852f376e45a69c82cb1e93f1c"
+    },
+    "app_main": {
+      "address": "42004c24",
+      "entry_frame_bytes": 48,
+      "direct_calls": [
+        "esp_app_get_description",
+        "uxTaskGetStackHighWaterMark",
+        "ge_add",
+        "ge_scalar_v0_panic_v1"
+      ],
+      "indirect_call_count": 2,
+      "assembly_sha256": "f0232841a55a73b8631e95ecdbdcbf9d3431dd8e006c350d2ef8fd9b8f423643"
+    },
+    "ge_add": {
+      "address": "42004d9c",
+      "entry_frame_bytes": 48,
+      "direct_calls": [
+        "gs_panic",
+        "add_g"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "3e5242e738c1badb5d330e8db6c9726fc312bab09cdaab0ee158326b4344811f"
+    },
+    "ge_scalar_v0_panic_v1": {
+      "address": "42004dc8",
+      "entry_frame_bytes": 48,
+      "direct_calls": [],
+      "indirect_call_count": 1,
+      "assembly_sha256": "3298e350290cb7ea34b4dfa5cb2794bcdd5f8a25fb79ffb861e1865ee45a7d2a"
+    },
+    "esp_system_abort": {
+      "address": "4037a108",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "panic_abort"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "b82f188afbacb2ffcfae8202107ed9f1b392341b7901f33eccc23b63e8904375"
+    },
+    "panic_abort": {
+      "address": "4037a138",
+      "entry_frame_bytes": 32,
+      "direct_calls": [],
+      "indirect_call_count": 0,
+      "assembly_sha256": "924f4359129298da5cd426266191318bc41bf3a596ada486d93a12166d030448"
+    },
+    "_xt_user_exc": {
+      "address": "40376804",
+      "entry_frame_bytes": null,
+      "direct_calls": [],
+      "indirect_call_count": 0,
+      "assembly_sha256": "90370a7208eb67690ce285ba4708708f6f49a73ce062a39ae8d04456c5074168"
+    },
+    "_xt_handle_exc": {
+      "address": "4037680d",
+      "entry_frame_bytes": null,
+      "direct_calls": [
+        "_xt_context_save",
+        "_xt_context_restore"
+      ],
+      "indirect_call_count": 1,
+      "assembly_sha256": "def5599e257626515dd5c135084cb56945b1615b246e6bb68166247bb302e582"
+    },
+    "_xt_context_save": {
+      "address": "4037f640",
+      "entry_frame_bytes": null,
+      "direct_calls": [
+        "xthal_save_extra_nw"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "616bd27760c25908352614fedccfa7797d70e3dad92a722a9a6ea92bcffd7309"
+    },
+    "_WindowOverflow4": {
+      "address": "40374000",
+      "entry_frame_bytes": null,
+      "direct_calls": [],
+      "indirect_call_count": 0,
+      "assembly_sha256": "6e7a3df0073d55d93e58b5082c36e5f90e490c7ed2fbc3a237fffa0a2f913c94"
+    },
+    "_WindowOverflow8": {
+      "address": "40374080",
+      "entry_frame_bytes": null,
+      "direct_calls": [],
+      "indirect_call_count": 0,
+      "assembly_sha256": "4734f81bad215674ed4bd7bb6a9c84461304ff3ae97178e61f4881cf5f60cd3b"
+    },
+    "_WindowOverflow12": {
+      "address": "40374100",
+      "entry_frame_bytes": null,
+      "direct_calls": [],
+      "indirect_call_count": 0,
+      "assembly_sha256": "90e905f6cc5ff1c963fe7c314439e8fe9b02dabc2fbbb922b6990cc761cbb2c2"
+    },
+    "xt_unhandled_exception": {
+      "address": "403763b4",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "panic_enable_cache"
+      ],
+      "indirect_call_count": 1,
+      "assembly_sha256": "e60a5fe5b57208795b5b84126badb77c8905cacb01b9a09fc465a144feaa224f"
+    },
+    "panic_enable_cache": {
+      "address": "4037637c",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "spi_flash_cache_enabled",
+        "esp_ipc_isr_stall_abort",
+        "spi_flash_enable_cache"
+      ],
+      "indirect_call_count": 1,
+      "assembly_sha256": "2996bdc9f0b13d9d6f8f932162b0c22a6b36152b765203df8021cfad5bda8416"
+    },
+    "panic_handler": {
+      "address": "42004128",
+      "entry_frame_bytes": 80,
+      "direct_calls": [
+        "esp_panic_handler_increment_entry_count",
+        "panic_get_cause",
+        "panic_get_cause",
+        "panic_get_cause",
+        "esp_cache_err_get_cpuid",
+        "esp_panic_handler_enable_rtc_wdt",
+        "esp_panic_handler_disable_timg_wdts",
+        "panic_get_address",
+        "panic_get_address",
+        "panic_set_address",
+        "frame_to_panic_info",
+        "esp_panic_handler"
+      ],
+      "indirect_call_count": 5,
+      "assembly_sha256": "3916db81e65f5332e25dc2ed95136f7153caeb393eb0e59412c8b02160fa1d06"
+    },
+    "esp_panic_handler": {
+      "address": "4200baf0",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "esp_panic_handler_feed_wdts",
+        "panic_print_str",
+        "panic_print_dec",
+        "panic_print_str",
+        "panic_print_str",
+        "panic_print_str",
+        "panic_print_str",
+        "panic_print_str",
+        "panic_print_str",
+        "esp_panic_handler_feed_wdts",
+        "panic_print_str",
+        "panic_clear_active_interrupts",
+        "panic_print_str",
+        "panic_print_str",
+        "panic_print_str",
+        "panic_print_str",
+        "esp_panic_handler_feed_wdts",
+        "panic_print_str",
+        "disable_all_wdts"
+      ],
+      "indirect_call_count": 3,
+      "assembly_sha256": "e2fdf6e7ff97ab17b79362ca5a2429903def6ee722ce3d6dfe86c53db18b4c99"
+    },
+    "print_abort_details": {
+      "address": "4200b8e4",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "panic_print_str"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "77516955f3616130d978916b236c0217486fcbd907b7bd9f10755699731cd770"
+    },
+    "print_state": {
+      "address": "42004238",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "print_state_for_core",
+        "panic_print_str",
+        "print_state_for_core",
+        "panic_print_str"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "0b1477c99c35133ed35621b1337fa63bc1af4f719de48b88a6fdc4387b93a25d"
+    },
+    "print_state_for_core": {
+      "address": "42004210",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "panic_print_registers",
+        "panic_print_str",
+        "panic_print_backtrace"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "7eb800bbfec85a1e04933b12263834bf79c413c51422422ca4c7ba0c8b685100"
+    },
+    "panic_print_backtrace": {
+      "address": "42004538",
+      "entry_frame_bytes": 48,
+      "direct_calls": [],
+      "indirect_call_count": 1,
+      "assembly_sha256": "096b10cf81d2c86d25f134e8e3d70e8b9f71a730386ba4cd36ba005a256c4776"
+    },
+    "esp_backtrace_print_from_frame": {
+      "address": "40376488",
+      "entry_frame_bytes": 48,
+      "direct_calls": [
+        "print_str",
+        "print_entry",
+        "esp_ptr_executable",
+        "esp_backtrace_get_next_frame",
+        "print_entry",
+        "print_str",
+        "print_str",
+        "print_str"
+      ],
+      "indirect_call_count": 1,
+      "assembly_sha256": "96ffe446bc0e2b406dc8f1ba1033b9a394eebab3d78bf665ae03c4b543387419"
+    },
+    "esp_backtrace_get_next_frame": {
+      "address": "4037642c",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "esp_ptr_executable"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "8b0e203fd4da617122359714c4cb4854e8cc556b1e2a47762bb0ff4049946110"
+    },
+    "panic_print_str": {
+      "address": "4200b8c4",
+      "entry_frame_bytes": 32,
+      "direct_calls": [],
+      "indirect_call_count": 0,
+      "assembly_sha256": "2d91e1466ebd7c03046f2ac44009571c2bee6020b2e517254e498ababaed8dfe"
+    },
+    "panic_print_char": {
+      "address": "4200b8b0",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "panic_print_char_uart",
+        "panic_print_char_usb_serial_jtag"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "83862d965eedbbc5f434dcb52b53dae2e68bd6fda350a7d27403a095d5fe9652"
+    },
+    "panic_print_char_uart": {
+      "address": "4200b814",
+      "entry_frame_bytes": 64,
+      "direct_calls": [
+        "uart_hal_write_txfifo"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "1bf16d55bda0024d454e8e8453209abefdc9a26e3793e75a8b76164d2c9b07fc"
+    },
+    "panic_print_char_usb_serial_jtag": {
+      "address": "4200b844",
+      "entry_frame_bytes": 48,
+      "direct_calls": [
+        "_etext+0x1e4de"
+      ],
+      "indirect_call_count": 1,
+      "assembly_sha256": "83e056888fcf605d52cd07111267a3aff9cd78b2bfa00e0819583dd66db528b6"
+    },
+    "uart_hal_write_txfifo": {
+      "address": "4200a9f8",
+      "entry_frame_bytes": 32,
+      "direct_calls": [],
+      "indirect_call_count": 0,
+      "assembly_sha256": "82d6d613798be93060b26794592d742f0d34500d152507105d4e8ecd39269723"
+    },
+    "esp_panic_handler_increment_entry_count": {
+      "address": "4200bac8",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "panic_print_str",
+        "panic_restart"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "a547f64577ee171c950c305f215da4d0eae5e29124c6263ec000febad4ff50af"
+    },
+    "esp_panic_handler_enable_rtc_wdt": {
+      "address": "4200b9d4",
+      "entry_frame_bytes": 48,
+      "direct_calls": [],
+      "indirect_call_count": 6,
+      "assembly_sha256": "2409ace494eaf48720076e18e3b58f883c36eef00794a0d7d8177d9504464562"
+    },
+    "esp_panic_handler_disable_timg_wdts": {
+      "address": "4200b960",
+      "entry_frame_bytes": 48,
+      "direct_calls": [],
+      "indirect_call_count": 6,
+      "assembly_sha256": "4a13e67b9e40d7972f56d11fe5dd4c48c0ff7c17e5eba068138553d8fc15579a"
+    },
+    "esp_panic_handler_reset_modules_on_exit_and_halt": {
+      "address": "40376744",
+      "entry_frame_bytes": 32,
+      "direct_calls": [
+        "esp_system_reset_modules_on_exit"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "f6acb54f949ceb7c3a281fb9aad54ddfaf9b43603c26346bdbc39ff2ab078712"
+    },
+    "esp_system_reset_modules_on_exit": {
+      "address": "4037a2c8",
+      "entry_frame_bytes": 32,
+      "direct_calls": [],
+      "indirect_call_count": 1,
+      "assembly_sha256": "05b27cdc21032c642305bdb04322aa56ed8476686c55e295eaf788cfb3074d5d"
+    },
+    "gs_panic": {
+      "address": "42004cf0",
+      "entry_frame_bytes": 48,
+      "direct_calls": [
+        "ge_scalar_v0_panic_v1"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "f6610438897a4164163581a678a37b3be216344bb67e4290c95e97a73f66086c"
+    },
+    "add_g": {
+      "address": "42004d78",
+      "entry_frame_bytes": 64,
+      "direct_calls": [
+        "gs_add_i32"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "836a3db89c6c3d879a03036367e1ec114a3c34c39837dcd0a24cb4c6c36ff30c"
+    },
+    "gs_add_i32": {
+      "address": "42004d18",
+      "entry_frame_bytes": 64,
+      "direct_calls": [
+        "gs_scalar_overflow"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "8142959972f06b481d370a49276cb1b0758f4d980c88ffeb7e6e640294bdcf5e"
+    },
+    "gs_scalar_overflow": {
+      "address": "42004d00",
+      "entry_frame_bytes": 48,
+      "direct_calls": [
+        "ge_scalar_v0_panic_v1"
+      ],
+      "indirect_call_count": 0,
+      "assembly_sha256": "1a0356c38f83b747b39cee998546e6e194c07b1600b5f5247eb4a0f4359a6c60"
+    }
+  },
+  "builds": [
+    {
+      "case": "cold-export",
+      "optimization": 0,
+      "probe": "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold",
+      "probe_sha256": "3427b020a5106aee9e52db167c168271ddab21333e21ab96d8eeec4553ed6761",
+      "manifest_sha256": "e3cb1b0ac23622a667187d66069e235862576cc50e67d0e3a47610c06191f893",
+      "elf_sha256": "85b82bfd07e55f549208e46651afcd7827a4ca47c75ee4389a4b6ef6f14702fd",
+      "sdkconfig_sha256": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+      "command": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+        "-d",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O0/firmware/goose_scalar.elf"
+      ],
+      "assembly_log": "0-cold-export-O0-assembly.log",
+      "assembly_log_sha256": "fe286a0f6b78f3e5fa3de6986cf82d7798a09870ec5cbe7201a9432b9b4184e1",
+      "reviewed_pre_trap_path": [
+        "vPortTaskWrapper",
+        "main_task",
+        "app_main",
+        "ge_add",
+        "gs_panic",
+        "ge_scalar_v0_panic_v1",
+        "esp_system_abort",
+        "panic_abort"
+      ],
+      "visible_entry_frame_sum_bytes": 336,
+      "sum_is_stack_bound": false,
+      "console_config": [
+        "CONFIG_ESP_CONSOLE_UART_DEFAULT=y",
+        "CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y",
+        "CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=y",
+        "CONFIG_ESP_CONSOLE_UART=y",
+        "CONFIG_ESP_CONSOLE_UART_NUM=0",
+        "CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=0",
+        "CONFIG_ESP_CONSOLE_UART_BAUDRATE=115200"
+      ],
+      "isr_stack_config": "CONFIG_FREERTOS_ISR_STACKSIZE=1536",
+      "individual_entry_frames": {
+        "vPortTaskWrapper": 32,
+        "main_task": 48,
+        "app_main": 48,
+        "ge_add": 48,
+        "ge_scalar_v0_panic_v1": 48,
+        "esp_system_abort": 32,
+        "panic_abort": 32,
+        "_xt_user_exc": null,
+        "_xt_handle_exc": null,
+        "_xt_context_save": null,
+        "_WindowOverflow4": null,
+        "_WindowOverflow8": null,
+        "_WindowOverflow12": null,
+        "xt_unhandled_exception": 32,
+        "panic_enable_cache": 32,
+        "panic_handler": 80,
+        "esp_panic_handler": 32,
+        "print_abort_details": 32,
+        "print_state": 32,
+        "print_state_for_core": 32,
+        "panic_print_backtrace": 48,
+        "esp_backtrace_print_from_frame": 48,
+        "esp_backtrace_get_next_frame": 32,
+        "panic_print_str": 32,
+        "panic_print_char": 32,
+        "panic_print_char_uart": 64,
+        "panic_print_char_usb_serial_jtag": 48,
+        "uart_hal_write_txfifo": 32,
+        "esp_panic_handler_increment_entry_count": 32,
+        "esp_panic_handler_enable_rtc_wdt": 48,
+        "esp_panic_handler_disable_timg_wdts": 48,
+        "esp_panic_handler_reset_modules_on_exit_and_halt": 32,
+        "esp_system_reset_modules_on_exit": 32,
+        "gs_panic": 48,
+        "add_g": 64,
+        "gs_add_i32": 64,
+        "gs_scalar_overflow": 48
+      }
+    },
+    {
+      "case": "cold-export",
+      "optimization": 2,
+      "probe": "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold",
+      "probe_sha256": "3427b020a5106aee9e52db167c168271ddab21333e21ab96d8eeec4553ed6761",
+      "manifest_sha256": "f4ae543e0a332cd174b79f1d2fd069942658f6542dace97df7c81036e41d8817",
+      "elf_sha256": "ae852175c497aad5104fab6b835c1a8b1924477b7061bcbf462b35a7dbfc299b",
+      "sdkconfig_sha256": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+      "command": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+        "-d",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-cold/O2/firmware/goose_scalar.elf"
+      ],
+      "assembly_log": "0-cold-export-O2-assembly.log",
+      "assembly_log_sha256": "1f4ee21e61d7312b196469209cb0a6c5e8a84330c4b61d19bd9e6f978627d0ac",
+      "reviewed_pre_trap_path": [
+        "vPortTaskWrapper",
+        "main_task",
+        "app_main",
+        "ge_add",
+        "ge_scalar_v0_panic_v1",
+        "esp_system_abort",
+        "panic_abort"
+      ],
+      "visible_entry_frame_sum_bytes": 240,
+      "sum_is_stack_bound": false,
+      "console_config": [
+        "CONFIG_ESP_CONSOLE_UART_DEFAULT=y",
+        "CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y",
+        "CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=y",
+        "CONFIG_ESP_CONSOLE_UART=y",
+        "CONFIG_ESP_CONSOLE_UART_NUM=0",
+        "CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=0",
+        "CONFIG_ESP_CONSOLE_UART_BAUDRATE=115200"
+      ],
+      "isr_stack_config": "CONFIG_FREERTOS_ISR_STACKSIZE=1536",
+      "individual_entry_frames": {
+        "vPortTaskWrapper": 32,
+        "main_task": 48,
+        "app_main": 32,
+        "ge_add": 32,
+        "ge_scalar_v0_panic_v1": 32,
+        "esp_system_abort": 32,
+        "panic_abort": 32,
+        "_xt_user_exc": null,
+        "_xt_handle_exc": null,
+        "_xt_context_save": null,
+        "_WindowOverflow4": null,
+        "_WindowOverflow8": null,
+        "_WindowOverflow12": null,
+        "xt_unhandled_exception": 32,
+        "panic_enable_cache": 32,
+        "panic_handler": 80,
+        "esp_panic_handler": 32,
+        "print_abort_details": 32,
+        "print_state": 32,
+        "print_state_for_core": 32,
+        "panic_print_backtrace": 48,
+        "esp_backtrace_print_from_frame": 48,
+        "esp_backtrace_get_next_frame": 32,
+        "panic_print_str": 32,
+        "panic_print_char": 32,
+        "panic_print_char_uart": 64,
+        "panic_print_char_usb_serial_jtag": 48,
+        "uart_hal_write_txfifo": 32,
+        "esp_panic_handler_increment_entry_count": 32,
+        "esp_panic_handler_enable_rtc_wdt": 48,
+        "esp_panic_handler_disable_timg_wdts": 48,
+        "esp_panic_handler_reset_modules_on_exit_and_halt": 32,
+        "esp_system_reset_modules_on_exit": 32
+      }
+    },
+    {
+      "case": "overflow",
+      "optimization": 0,
+      "probe": "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow",
+      "probe_sha256": "cf869e686e9e0f62b5e136244be9a860bdb07c258434a5367e3446db2faf0a67",
+      "manifest_sha256": "a146836ab10348c32e68e23b1d028fac6f1167ff3937bae5c2214c9c617c42d6",
+      "elf_sha256": "e367b9fd45cb1d48f88b57cb8078fdad5e2ad75c4a2a1085687f4d013fc5882a",
+      "sdkconfig_sha256": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+      "command": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+        "-d",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O0/firmware/goose_scalar.elf"
+      ],
+      "assembly_log": "1-overflow-O0-assembly.log",
+      "assembly_log_sha256": "9499b641ccb64b896d38817c273964caae2dc5762752e2200875ca5422d86eb3",
+      "reviewed_pre_trap_path": [
+        "vPortTaskWrapper",
+        "main_task",
+        "app_main",
+        "ge_add",
+        "add_g",
+        "gs_add_i32",
+        "gs_scalar_overflow",
+        "ge_scalar_v0_panic_v1",
+        "esp_system_abort",
+        "panic_abort"
+      ],
+      "visible_entry_frame_sum_bytes": 464,
+      "sum_is_stack_bound": false,
+      "console_config": [
+        "CONFIG_ESP_CONSOLE_UART_DEFAULT=y",
+        "CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y",
+        "CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=y",
+        "CONFIG_ESP_CONSOLE_UART=y",
+        "CONFIG_ESP_CONSOLE_UART_NUM=0",
+        "CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=0",
+        "CONFIG_ESP_CONSOLE_UART_BAUDRATE=115200"
+      ],
+      "isr_stack_config": "CONFIG_FREERTOS_ISR_STACKSIZE=1536",
+      "individual_entry_frames": {
+        "vPortTaskWrapper": 32,
+        "main_task": 48,
+        "app_main": 48,
+        "ge_add": 48,
+        "ge_scalar_v0_panic_v1": 48,
+        "esp_system_abort": 32,
+        "panic_abort": 32,
+        "_xt_user_exc": null,
+        "_xt_handle_exc": null,
+        "_xt_context_save": null,
+        "_WindowOverflow4": null,
+        "_WindowOverflow8": null,
+        "_WindowOverflow12": null,
+        "xt_unhandled_exception": 32,
+        "panic_enable_cache": 32,
+        "panic_handler": 80,
+        "esp_panic_handler": 32,
+        "print_abort_details": 32,
+        "print_state": 32,
+        "print_state_for_core": 32,
+        "panic_print_backtrace": 48,
+        "esp_backtrace_print_from_frame": 48,
+        "esp_backtrace_get_next_frame": 32,
+        "panic_print_str": 32,
+        "panic_print_char": 32,
+        "panic_print_char_uart": 64,
+        "panic_print_char_usb_serial_jtag": 48,
+        "uart_hal_write_txfifo": 32,
+        "esp_panic_handler_increment_entry_count": 32,
+        "esp_panic_handler_enable_rtc_wdt": 48,
+        "esp_panic_handler_disable_timg_wdts": 48,
+        "esp_panic_handler_reset_modules_on_exit_and_halt": 32,
+        "esp_system_reset_modules_on_exit": 32,
+        "gs_panic": 48,
+        "add_g": 64,
+        "gs_add_i32": 64,
+        "gs_scalar_overflow": 48
+      }
+    },
+    {
+      "case": "overflow",
+      "optimization": 2,
+      "probe": "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow",
+      "probe_sha256": "cf869e686e9e0f62b5e136244be9a860bdb07c258434a5367e3446db2faf0a67",
+      "manifest_sha256": "b358a692dddef7d290392dad2809d959f3d9fbbeb37d7e302153f1be92d4ef34",
+      "elf_sha256": "cc4d2edf1ee58e69c6cd7414bff7fdb3546156241bb5e2d773c992551ccc41bb",
+      "sdkconfig_sha256": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+      "command": [
+        "/home/robert/Programare/goose-embedded/.cache/espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump",
+        "-d",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-fatal-overflow/O2/firmware/goose_scalar.elf"
+      ],
+      "assembly_log": "1-overflow-O2-assembly.log",
+      "assembly_log_sha256": "3f3aedbe0b4b23af648010928fbea3ee2fa05fe2dab45c181b2fdeeaefff49bf",
+      "reviewed_pre_trap_path": [
+        "vPortTaskWrapper",
+        "main_task",
+        "app_main",
+        "ge_add",
+        "ge_scalar_v0_panic_v1",
+        "esp_system_abort",
+        "panic_abort"
+      ],
+      "visible_entry_frame_sum_bytes": 240,
+      "sum_is_stack_bound": false,
+      "console_config": [
+        "CONFIG_ESP_CONSOLE_UART_DEFAULT=y",
+        "CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y",
+        "CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=y",
+        "CONFIG_ESP_CONSOLE_UART=y",
+        "CONFIG_ESP_CONSOLE_UART_NUM=0",
+        "CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=0",
+        "CONFIG_ESP_CONSOLE_UART_BAUDRATE=115200"
+      ],
+      "isr_stack_config": "CONFIG_FREERTOS_ISR_STACKSIZE=1536",
+      "individual_entry_frames": {
+        "vPortTaskWrapper": 32,
+        "main_task": 48,
+        "app_main": 32,
+        "ge_add": 32,
+        "ge_scalar_v0_panic_v1": 32,
+        "esp_system_abort": 32,
+        "panic_abort": 32,
+        "_xt_user_exc": null,
+        "_xt_handle_exc": null,
+        "_xt_context_save": null,
+        "_WindowOverflow4": null,
+        "_WindowOverflow8": null,
+        "_WindowOverflow12": null,
+        "xt_unhandled_exception": 32,
+        "panic_enable_cache": 32,
+        "panic_handler": 80,
+        "esp_panic_handler": 32,
+        "print_abort_details": 32,
+        "print_state": 32,
+        "print_state_for_core": 32,
+        "panic_print_backtrace": 48,
+        "esp_backtrace_print_from_frame": 48,
+        "esp_backtrace_get_next_frame": 32,
+        "panic_print_str": 32,
+        "panic_print_char": 32,
+        "panic_print_char_uart": 64,
+        "panic_print_char_usb_serial_jtag": 48,
+        "uart_hal_write_txfifo": 32,
+        "esp_panic_handler_increment_entry_count": 32,
+        "esp_panic_handler_enable_rtc_wdt": 48,
+        "esp_panic_handler_disable_timg_wdts": 48,
+        "esp_panic_handler_reset_modules_on_exit_and_halt": 32,
+        "esp_system_reset_modules_on_exit": 32
+      }
+    }
+  ],
+  "verification": {
+    "unit_tests": 47,
+    "unit_log": "build/fatal-audit-unit-tests.log",
+    "unit_log_sha256": "4749e6727d9b163035e3735113909ceca43b91cfb632d8f6677c3ac534c556df",
+    "audit_refusals": 4,
+    "existing_synthetic_captures": 6,
+    "commands": [
+      {
+        "case": "normal-build",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/audit_scalar_fatal.py",
+          "--build",
+          "build/esp-idf-fatal-success",
+          "--output",
+          "build/fatal-audit-refusals/normal-build"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "fatal build case required\n"
+      },
+      {
+        "case": "existing-output",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/audit_scalar_fatal.py",
+          "--build",
+          "build/esp-idf-fatal-cold",
+          "--output",
+          "build/fatal-stack-audit-final"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "fresh audit output required\n"
+      },
+      {
+        "case": "overlap",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/audit_scalar_fatal.py",
+          "--build",
+          "build/esp-idf-fatal-cold",
+          "--output",
+          "build/esp-idf-fatal-cold/new-audit"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "output overlaps input tree\n"
+      },
+      {
+        "case": "tampered-ELF",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/audit_scalar_fatal.py",
+          "--build",
+          "build/fatal-audit-refusals/tampered-input",
+          "--output",
+          "build/fatal-audit-refusals/tampered-audit"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "artifact mismatch: firmware/goose_scalar.elf\n"
+      },
+      {
+        "case": "existing-synthetic-cold-O0",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/validate_scalar_fatal.py",
+          "--manifest",
+          "build/esp-idf-fatal-cold/O0/run-manifest.json",
+          "--capture",
+          "build/fatal-fixtures/cold-O0/capture.json"
+        ],
+        "exit_code": 0,
+        "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"cold-export\",\n  \"expected_message\": \"goose_init must be called before exported functions\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 0,\n  \"elf_sha256\": \"85b82bfd07e55f549208e46651afcd7827a4ca47c75ee4389a4b6ef6f14702fd\",\n  \"log_sha256\": \"2c2378b5a150542162ff9a67abfcdb19db267ef5121058455dca779d01800848\"\n}\n",
+        "stderr": ""
+      },
+      {
+        "case": "existing-synthetic-cold-O2",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/validate_scalar_fatal.py",
+          "--manifest",
+          "build/esp-idf-fatal-cold/O2/run-manifest.json",
+          "--capture",
+          "build/fatal-fixtures/cold-O2/capture.json"
+        ],
+        "exit_code": 0,
+        "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"cold-export\",\n  \"expected_message\": \"goose_init must be called before exported functions\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 2,\n  \"elf_sha256\": \"ae852175c497aad5104fab6b835c1a8b1924477b7061bcbf462b35a7dbfc299b\",\n  \"log_sha256\": \"7ca6d5fbf2244bab2946e80404d5760812465220d8c17298fa548c397de5a5c1\"\n}\n",
+        "stderr": ""
+      },
+      {
+        "case": "existing-synthetic-overflow-O0",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/validate_scalar_fatal.py",
+          "--manifest",
+          "build/esp-idf-fatal-overflow/O0/run-manifest.json",
+          "--capture",
+          "build/fatal-fixtures/overflow-O0/capture.json"
+        ],
+        "exit_code": 0,
+        "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"overflow\",\n  \"expected_message\": \"i32 overflow\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 0,\n  \"elf_sha256\": \"e367b9fd45cb1d48f88b57cb8078fdad5e2ad75c4a2a1085687f4d013fc5882a\",\n  \"log_sha256\": \"f4b64777d3c4c8ea59a6211ce2ac0f67bd4ed0c03c58a2d00a0a2b2b05b40005\"\n}\n",
+        "stderr": ""
+      },
+      {
+        "case": "existing-synthetic-overflow-O2",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/validate_scalar_fatal.py",
+          "--manifest",
+          "build/esp-idf-fatal-overflow/O2/run-manifest.json",
+          "--capture",
+          "build/fatal-fixtures/overflow-O2/capture.json"
+        ],
+        "exit_code": 0,
+        "stdout": "{\n  \"status\": \"consistent\",\n  \"case\": \"overflow\",\n  \"expected_message\": \"i32 overflow\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution or proof of halt\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"halt_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 2,\n  \"elf_sha256\": \"cc4d2edf1ee58e69c6cd7414bff7fdb3546156241bb5e2d773c992551ccc41bb\",\n  \"log_sha256\": \"66603bbb159efc431dec8fa0b65009381ab15d790a98bddad0671d778c392626\"\n}\n",
+        "stderr": ""
+      },
+      {
+        "case": "existing-synthetic-success-O0",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/validate_scalar_run.py",
+          "--manifest",
+          "build/esp-idf-fatal-success/O0/run-manifest.json",
+          "--capture",
+          "build/fatal-fixtures/success-O0/capture.json"
+        ],
+        "exit_code": 0,
+        "stdout": "{\n  \"status\": \"consistent\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 0,\n  \"elf_sha256\": \"5b22e568d21f4cb671c155f91f562178a7aa51bb91942f7fada7aa83e65606d2\",\n  \"log_sha256\": \"d312f1d45f4a732328f82d15d29144eb05687a792101357fa7aebf14d3c47831\",\n  \"serial_samples_bytes\": {\n    \"before\": 3000,\n    \"after_goose\": 2800,\n    \"after_result_print\": 2400\n  },\n  \"debugger_samples\": null,\n  \"zero_reading_present\": false\n}\n",
+        "stderr": ""
+      },
+      {
+        "case": "existing-synthetic-success-O2",
+        "argv": [
+          "/usr/bin/python3",
+          "tools/validate_scalar_run.py",
+          "--manifest",
+          "build/esp-idf-fatal-success/O2/run-manifest.json",
+          "--capture",
+          "build/fatal-fixtures/success-O2/capture.json"
+        ],
+        "exit_code": 0,
+        "stdout": "{\n  \"status\": \"consistent\",\n  \"scope\": \"supplied-file consistency only; not authenticated execution\",\n  \"declared_evidence_type\": \"synthetic\",\n  \"hardware_execution_proven\": false,\n  \"stack_bound_proven\": false,\n  \"configuration\": \"control\",\n  \"optimization\": 2,\n  \"elf_sha256\": \"28354e40d03f396d6d336941f2c7cc16b8ecc6184582c1441e8c129ebe07422c\",\n  \"log_sha256\": \"b4f7d734023fd5e54876ac0c20a360db708345c0e0db9e869e8e2f0fd513870f\",\n  \"serial_samples_bytes\": {\n    \"before\": 3000,\n    \"after_goose\": 2800,\n    \"after_result_print\": 2400\n  },\n  \"debugger_samples\": null,\n  \"zero_reading_present\": false\n}\n",
+        "stderr": ""
+      }
+    ],
+    "physical_runs": 0,
+    "simulator_runs": 0,
+    "new_target_builds": 0
+  },
+  "implementation_sha256": {
+    "tools/audit_scalar_fatal.py": "b2c2e112092f468fc66b7d331435b61b88d769c555e001e721afe574d4bea3e3",
+    "tools/validate_scalar_fatal.py": "8e2218d410987f1ec28d44a5b4cc054073ad9334156412759918d60877bc96f9",
+    "tests/test_scalar_audit.py": "f23da4dce576384fdcdcf6ed76b5508fcb43ec4d6aa2b2b76c16ff0ab969ed12",
+    "tests/test_scalar_fatal.py": "8aa4ce04a8c4793fc12ba4494c56ad1c9e00a9459d5cb84df8cd08b668537b3b"
+  }
+}

@@ -205,3 +205,17 @@ consistency includes the expected details and terminal SDK halt cue, without
 claiming execution or physical halt. See [fatal protocol](FATAL_RUN_LOG_FORMAT.md)
 and [evidence](../research/FATAL_CASES.md). Complete stack and physical evidence
 remain prerequisites for later claims; isolated frame sizes are not task bounds.
+
+
+## Fatal exception stack ownership audit
+
+For the reviewed ordinary task abort, Xtensa exception handling stays on the main
+task stack. Its 192-byte allocation also has explicit pseudo-save stores below
+the new stack pointer; context/window spilling needs ABI-aware overlap analysis.
+The 1536-byte ISR stack is a different domain. SDK panic printing uses its own
+UART and secondary USB routines; the normal ROM formatter audit does not cover
+that path. SDK cache preparation, diagnostic callbacks, watchdog/core coordination
+and module-reset/ROM calls add further requirements. Individual entry sizes and
+pre-trap frame sums remain partial, with unknown assembly costs recorded as null.
+See [audit](../research/FATAL_STACK_AUDIT.md) and its reproducible host tool.
+No new runtime stack, allocator, target code or hardware claim follows.
