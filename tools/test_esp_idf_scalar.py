@@ -13,6 +13,7 @@ import subprocess
 import sys
 
 from esp_idf_baseline import ROOT, PIN, capture, digest, verify_sdk
+from scalar_config import defaults_inputs, snapshot_defaults, verify_defaults, run_manifest, validate_effective_config
 
 
 def main():
@@ -22,13 +23,23 @@ def main():
     p.add_argument('--tools', type=Path, default=ROOT / '.cache/espressif')
     p.add_argument('--output', type=Path, default=ROOT / 'build/esp-idf-scalar')
     p.add_argument('--jobs', type=int, default=2)
+    p.add_argument('--config-id', help='explicit configuration label, not a verified board claim')
+    p.add_argument('--defaults', type=Path, action='append', default=[],
+                   help='append SDK defaults overlay, in order; base policy remains first')
     a = p.parse_args()
     compiler, sdk, tools, out = (x.resolve() for x in (a.compiler, a.sdk, a.tools, a.output))
     source = ROOT / '.cache/goose-scalar-runtime'
+    if a.defaults and not a.config_id:
+        p.error('--defaults requires an explicit --config-id')
+    configuration = a.config_id or 'control'
+    try:
+        defaults = defaults_inputs(ROOT / 'examples/esp32s3_scalar/sdkconfig.defaults', a.defaults, configuration)
+    except ValueError as error:
+        p.error(str(error))
     if out.exists() or a.jobs < 1:
         p.error('use a fresh output and positive --jobs')
-    if any(' ' in str(x) for x in (compiler, sdk, tools, out, ROOT)):
-        p.error('ESP-IDF paths must not contain spaces')
+    if any(any(c in str(x) for c in (' ', ';', '\r', '\n')) for x in (compiler, sdk, tools, out, ROOT)):
+        p.error('ESP-IDF paths must not contain spaces or list/newline delimiters')
     if any(out == x or out.is_relative_to(x) or x.is_relative_to(out)
            for x in (sdk, tools, source, compiler.parent, ROOT / 'examples', ROOT / 'src')):
         p.error('output must be separate from source/compiler/SDK/tools')
@@ -49,6 +60,7 @@ def main():
               'compiler_version': capture([str(compiler), 'version']),
               'runtime_patch_sha256': manifest['patch_sha256'],
               'baseline_app_bytes': baseline['artifacts']['hello_world.bin']['bytes'],
+              'configuration': configuration, 'defaults_inputs': defaults,
               'commands': [], 'levels': {}}
 
     def save():
@@ -69,6 +81,7 @@ def main():
 
     save()
     try:
+        default_paths = snapshot_defaults(out, defaults)
         env = dict(os.environ)
         for key in ('IDF_PATH', 'IDF_PYTHON_ENV_PATH', 'IDF_TARGET', 'VIRTUAL_ENV',
                     'SDKCONFIG', 'SDKCONFIG_DEFAULTS', 'EXTRA_COMPONENT_DIRS'):
@@ -108,7 +121,11 @@ def main():
             idf = [python, sdk / 'tools/idf.py', '-C', ROOT / 'examples/esp32s3_scalar', '-B', fw,
                    '-D', f'SDKCONFIG={work / "sdkconfig"}', '-D', f'GOOSE_COMPILER={compiler}',
                    '-D', f'GE_SCALAR_OPT={level}', '-D', f'GE_PROJECT_ROOT={ROOT}']
+            idf += ['-D', 'SDKCONFIG_DEFAULTS=' + ';'.join(default_paths)]
             run([*idf, 'set-target', 'esp32s3'], f'{name}/configure', target_env)
+            if 'unknown kconfig symbol' in (out / f'{name}/configure.log').read_text():
+                raise RuntimeError('Unknown Kconfig symbol in defaults; inspect configure log')
+            validate_effective_config((work / 'sdkconfig').read_text())
             run(['cmake', '--build', fw, '--parallel', a.jobs], f'{name}/build', target_env)
             commands = json.loads((fw / 'compile_commands.json').read_text())
             entry = next(x for x in commands if x['file'].endswith('/ge_leaf.c'))
@@ -155,6 +172,12 @@ def main():
                 run([prefix + 'objdump', '-d', f'--disassemble={symbol}', elf],
                     f'{name}/{symbol}-assembly', target_env)
             run([*idf, 'size'], f'{name}/size', target_env)
+            # Read the actual image descriptor using the pinned esptool package;
+            # it must contain the full hash that the application will print.
+            image_info = run([python, '-m', 'esptool', 'image-info', fw / 'goose_scalar.bin'],
+                             f'{name}/image-info', target_env)
+            if digest(elf) not in image_info:
+                raise RuntimeError('Image descriptor does not contain the expected ELF hash')
             config = (work / 'sdkconfig').read_text()
             for value in ('CONFIG_IDF_TARGET="esp32s3"', 'CONFIG_ESP_SYSTEM_PANIC_PRINT_HALT=y'):
                 if value not in config: raise RuntimeError(f'Missing configuration: {value}')
@@ -226,8 +249,13 @@ def main():
                                                    for x in artifacts}}
             save()
         verify_sdk(sdk, pin)
+        verify_defaults(out, defaults)
         if any(digest(ROOT / x) != sha for x, sha in result['source_hashes'].items()):
             raise RuntimeError('Experiment inputs changed during build')
+        for level in (0, 2):
+            work = out / f'O{level}'
+            manifest = run_manifest(work, level, configuration, defaults, result['compiler_sha256'], pin['commit'])
+            (work / 'run-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
         result['status'] = 'pass'
         save()
         print(f'PASS: scalar ESP32-S3 cross-build and host bridge tests; {out / "results.json"}')
@@ -240,5 +268,5 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except (RuntimeError, subprocess.CalledProcessError) as error:
+    except (RuntimeError, ValueError, subprocess.CalledProcessError) as error:
         sys.exit(str(error))

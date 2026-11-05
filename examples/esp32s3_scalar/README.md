@@ -21,6 +21,14 @@ calls goose_init(0, NULL), ge_add(10, 32), checks 42, then goose_exit. The expec
 ROM console line is `goose-embedded scalar-v0: 42`; it has not been observed on
 a device. Returning from app_main lets ESP-IDF delete its main task.
 
+The protocol first prints the full ELF hash from the running image's SDK
+descriptor. A completion marker is printed after all four stack samples. The
+probe verifies the descriptor digest using esptool image-info and publishes a
+run-manifest.json per level. Ordered --defaults inputs with explicit --config-id
+allow separate reviewed configurations; inputs and target-specific siblings are
+snapshotted and actual policy checked. See [run format](../../docs/RUN_LOG_FORMAT.md)
+for offline consistency checks. No parser authenticates a physical run.
+
 app_main samples its task's lifetime minimum untouched stack space before Goose,
 after Goose, after result printing, and after reporting the first three readings.
 Units are bytes in the pinned Xtensa port. The first three appear in a
@@ -30,6 +38,9 @@ Target ABI checks are in abi_checks.c; host application tests use SDK/Goose
 doubles. No actual hardware readings or worst-case stack proof exist yet. See
 [stack audit](../../research/STACK_MEASUREMENT.md) and
 [run template](../../docs/HARDWARE_RUN_TEMPLATE.md).
+
+Identity output can affect the lifetime reading sampled before Goose. The final
+completion print and SDK return/deletion are outside all four samples.
 
 The platform panic adapter retains borrowed static message/file/line in the
 debugger-visible ge_scalar_v0_last_panic record and calls esp_system_abort with

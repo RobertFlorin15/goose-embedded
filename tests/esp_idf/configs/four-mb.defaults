@@ -1,0 +1,2 @@
+# Build-only fixture, not a definition for any physical board.
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y

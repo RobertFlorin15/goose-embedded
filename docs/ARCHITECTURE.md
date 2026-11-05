@@ -166,3 +166,25 @@ interrupt dispatch later switches stacks. Revision-0 ROM print code has indirect
 callbacks and additional frames. Complete stack/exception bounds remain open.
 See research/STACK_MEASUREMENT.md and docs/HARDWARE_RUN_TEMPLATE.md. No actual
 reading, validated board configuration or physical success claim follows.
+
+## Configuration and capture boundaries
+
+The scalar probe snapshots ordered SDK defaults plus .esp32s3 siblings before
+configuration. Explicit IDs label the requested configurations; effective SDK
+config and all image/ELF hashes are retained in a per-level run manifest. Known
+target/panic/LTO policy and unknown-symbol checks precede build. Snapshots and
+hashes support repeatability but do not automatically include files referenced
+by arbitrary SDK options or certify a board's flash/PSRAM/console capabilities.
+
+The example converts the full SDK app descriptor ELF digest into fixed static
+hex storage and prints identity before sampling. It prints a completion marker
+after the fourth sample; that last print and SDK return are outside observations.
+Compiler/runtime/panic implementations stay unchanged. No Goose foreign API or
+HAL feature is added by this C application instrumentation.
+
+tools/validate_scalar_run.py checks only saved-file consistency: local artifacts,
+capture/manifest hashes, config/level, firmware identity, ordered normal telemetry,
+known failure/reset cues and sample shape/ranges. It always reports physical
+execution and stack bounds as unproven. Real module identity, authorization and
+physical evidence remain a human/measurement boundary. See RUN_LOG_FORMAT.md and
+research/CONFIGURATION_LOG_VALIDATION.md; current automated captures are synthetic.

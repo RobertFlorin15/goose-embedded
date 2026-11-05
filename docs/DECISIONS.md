@@ -167,3 +167,25 @@ reserved space. It cannot establish a worst-case stack guarantee or cover fatal
 paths. Static ROM audit is revision-specific and has indirect callbacks. Target
 build and host sequencing tests pass; physical readings remain absent. Record
 each board/config/workload separately using HARDWARE_RUN_TEMPLATE.md.
+
+## 011 — Snapshot configurations and correlate logs without attestation claims (2026-11-05)
+
+Problem: a generic result-42 log cannot distinguish configurations or firmware,
+and SDK defaults can change or silently miss optional symbols. Selected: ordered
+snapshots, effective policy/unknown-symbol checks, per-level artifact/config
+manifests and full ELF identity from the SDK's public image descriptor. Add a
+post-sampling completion marker. Use a separate saved-file validator that checks
+consistency and explicitly leaves execution/stack proof false.
+
+Alternatives: rely on a short SDK hash or operator label (weak correlation),
+invent board presets (unknown actual inventory), or add a custom signed telemetry
+system (unneeded for this local proof of concept). The existing SDK descriptor
+avoids a new firmware identity generator. Raw ELF/config/image hashes identify
+reviewed inputs/artifacts; they do not authenticate an edited log or independently
+attest every configuration bit. Human/physical review remains necessary.
+
+Tradeoffs: snapshots do not automatically capture referenced CSVs or other
+external inputs; minimal components do not support every optional setting.
+Identity/completion prints add normal-task work outside some sample intervals.
+Four builds, 28 synthetic unittest cases and saved-file CLI checks pass; zero
+physical results. Keep fatal records separate from normal-path validation.

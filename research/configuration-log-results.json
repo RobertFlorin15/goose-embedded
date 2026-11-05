@@ -1,0 +1,699 @@
+{
+  "date": "2026-11-05",
+  "scope": "target cross-builds plus synthetic host/file tests; no hardware execution",
+  "physical_runs": 0,
+  "hardware_samples": null,
+  "implementation_and_test_sha256": {
+    "tools/scalar_config.py": "dc3f02fc456cd5d1d5b06006e8089bb08bfc5ca5163fc13e2af5145872494b80",
+    "tools/validate_scalar_run.py": "b2f88a99db16375d7c60248dd16f1797715d6b56e21c82bb7d2dd5ed6ca47e74",
+    "tools/test_esp_idf_scalar.py": "559d091895634a5c9093ef71d4c06e20279f55daf9895f1b9b854e95c19008af",
+    "tests/test_scalar_tools.py": "f6ff3ae88785f1dc9370ca70554504f6f3d02f33493df247f101c9892842f6aa",
+    "examples/esp32s3_scalar/main/app_main.c": "c2fa2431fd853534177cf5f743b3c0e6bcba1788dcce2cc6d281259e09fe2ad9",
+    "examples/esp32s3_scalar/main/CMakeLists.txt": "0cc09545116f8c312bf86a5807044632d5fab3b4c46a3a85d05b385b1f26cf98",
+    "tests/esp_idf/stack_samples_host.c": "ae249d4a291156dfb733e993e1997cbf3860a60ecb0b4381385b03aa6e4007ee",
+    "tests/esp_idf/stubs/esp_app_desc.h": "0f6563dd86a79c302a5be45e42262009df465d7feee0e280f0ff1780cdf05f52",
+    "tests/esp_idf/configs/bad-policy.defaults": "5184ca2bab78a22f21e1c2bb3b9d82b74c9a25ee70e012a7849f31c70e51c7ce",
+    "tests/esp_idf/configs/four-mb.defaults.esp32s3": "460a205991a013c7dae944273ce6b56a7108a5b6429863c486707d100e651ecb",
+    "tests/esp_idf/configs/unknown.defaults": "e1b9dbeac6bef2300e7ec7c2c68bd0285518320f83aa0760d975c00b768aa847",
+    "tests/esp_idf/configs/four-mb.defaults": "1389b8ea6474397dd9b10675c6208ab87d05c3bc3f83618afb9ce059e061f8d8"
+  },
+  "builds": {
+    "control": {
+      "status": "pass",
+      "command_count": 75,
+      "expected_failure_count": 18,
+      "raw_results_sha256": "485f604c6faac60cdafb311784650e7c65e2f26c7539658257a99e03373bc15b",
+      "sdk_pin": {
+        "release": "v6.0.2",
+        "repository": "https://github.com/espressif/esp-idf.git",
+        "commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+        "tag_object": "b0d7ee8723d5cd90c1aa2c54729aa7c92f2bf187",
+        "tools_json_sha256": "b403c25dc0c841dece4ac45abfa0a131f55ccae72db6be86ee36e3e69557f0e4",
+        "xtensa_toolchain": "esp-15.2.0_20251204",
+        "gcc_version": "15.2.0",
+        "linux_amd64_xtensa_archive_sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8"
+      },
+      "compiler_version": "goose 335fddc+scalar-v0-runtime (runtime d22ae129d92b)",
+      "defaults_inputs": [
+        {
+          "original": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/sdkconfig.defaults",
+          "snapshot": "config-inputs/00.defaults",
+          "sha256": "134da8d60ea4f450812beaea948c34b11d8c73ab80d7ab785a03d463ca3d627a"
+        }
+      ],
+      "levels": {
+        "O0": {
+          "manifest": {
+            "schema_version": 1,
+            "kind": "scalar-v0-build",
+            "configuration": "control",
+            "optimization": 0,
+            "sdk_commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+            "compiler_sha256": "39498abe793a2174bc4472841b93bd3a485f6515d0396c6941b16858dde0a02b",
+            "defaults": [
+              {
+                "original": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/sdkconfig.defaults",
+                "snapshot": "config-inputs/00.defaults",
+                "sha256": "134da8d60ea4f450812beaea948c34b11d8c73ab80d7ab785a03d463ca3d627a"
+              }
+            ],
+            "artifacts": {
+              "sdkconfig": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+              "firmware/goose_scalar.elf": "2c32e8b1bb6221de439bccc5b631d17cb207103ab78e72c0fd066ea4fd1e6036",
+              "firmware/goose_scalar.bin": "4967155bfa991ffd22d433ef0f21fd272727aec63321ad199dc8652abdfb773f",
+              "firmware/bootloader/bootloader.bin": "134e49a8f93d1936a2e1c127d7f27be0f573a9837f62df0c1ecc1ce9490f479c",
+              "firmware/partition_table/partition-table.bin": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820"
+            },
+            "main_stack_bytes": 3584,
+            "elf_sha256": "2c32e8b1bb6221de439bccc5b631d17cb207103ab78e72c0fd066ea4fd1e6036",
+            "evidence": "cross-build/host tests only; no physical verification"
+          },
+          "manifest_sha256": "e3f25b85376ddb1d29b64036fb558b0895e47299aa46836135c0174095ffdedb",
+          "artifact_sizes": {
+            "goose_scalar.elf": 3172984,
+            "goose_scalar.bin": 146144,
+            "goose_scalar.map": 2910733,
+            "bootloader/bootloader.bin": 21040,
+            "partition_table/partition-table.bin": 3072
+          },
+          "profile_object_imports": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "bridge_imports": [
+            "esp_system_abort"
+          ],
+          "app_frame_report": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:19:6:app_main\t48\tstatic\n",
+          "log_sha256": {
+            "xt_unhandled_exception-assembly.log": "f96031ea6faa897a77dc2819210e515e59322ee3e8779d93008c46a2e859eab8",
+            "elf-header.log": "776efc2afdcb433370e3bd83a093f9600dc1f297c450647de6e32d4b143ba577",
+            "uxTaskGetStackHighWaterMark-assembly.log": "57f7d35196d0260792e86afdfea41567e63196d360de400a815b079df37aad68",
+            "emit-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "firmware-assembly.log": "d51f6fc520eb0e438e8739fb6f89675b2781040fa9185afcb8691bea7e351a12",
+            "image-info.log": "8d302c90f3c8b6feaaddf5ec20762d9c7799449ab42e152fb7642137466e7c81",
+            "configure.log": "6b859ffffd8331f39c0f872b8075780a975dafb615d01de7a8cd0fdea8e8f5bd",
+            "esp_panic_handler-assembly.log": "0648b28caf445d8e151cd5d852683949a8c155f092df96c9abf0d887d65eac38",
+            "_xt_user_exc-assembly.log": "ef6d5bf3fe47e33be955420c0f36afbb51c0693058c822faec5995e2cd05afc7",
+            "app_main-assembly.log": "4f360e144b2f8dc468a71648a4743b65e08c1ea539c732bd14fa22344dd4762b",
+            "host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "panic_abort-assembly.log": "e6e18488a0a3c22f26896bd06b285398da966cf7e2e85304c54d0fbaaf9199dc",
+            "reject-stack-units.log": "a320e703110ec5b54f22f167567688943e6a3894296829b2781bacefc9e517ae",
+            "arithmetic-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "reject-panic-policy.log": "164974d835204c11c9f9d81240915a2abf2034cc6a4b338dd2724edb117957ef",
+            "main_task-assembly.log": "082fdbc9a6041b6f04d9b6e372d4a6dc18cf65769787c203d22c0da3ff6c9db2",
+            "app-host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bridge-assembly.log": "4c48c7e5bcb3118e15cab54c5686d4cc56dd8897fb7834d6d9ec9d200629ad28",
+            "symbols.log": "30087d2fd386fbc109d6d4240c13b72546f36eb7e80f63f59af201b754e4684d",
+            "leaf-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "host-overflow.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "reject-bad-abi.log": "5a24af0d4012bab4c2b396e3c399abc0047db13b84b386f223a42b6af0488c15",
+            "bridge-undefined.log": "3c240d52c8f63770a219628f03ae7b6b970359a5752d314a4b8670ef90ca694d",
+            "host-cold.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "leaf-assembly.log": "e6a133d497974bd9c9de8fd7675f0fab3db1befc1ed60d59e5d1e8dac5ec216d",
+            "host-bad-init.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "app-host-wrong-result.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "compile-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-leaf.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "app-host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size.log": "83c71f184cf955b72cc42cc5ab9b8e1799667812905fdfc110069f17a7de47fa",
+            "host-direct.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "build.log": "de94d7f60a14ed11298e06e8b4eba5b014f5d4aef96f73bc9b88232cd6919894",
+            "esp_system_abort-assembly.log": "e6292896a630d0842388e586d4593b18ab0993c644ce49d5af9f0f06c052e08a",
+            "vPortTaskWrapper-assembly.log": "ead150f3a7e96e150c2df252c2421b78a15cad7c2ab2dfd096224f46afcdd45f",
+            "host-after-exit.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d"
+          }
+        },
+        "O2": {
+          "manifest": {
+            "schema_version": 1,
+            "kind": "scalar-v0-build",
+            "configuration": "control",
+            "optimization": 2,
+            "sdk_commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+            "compiler_sha256": "39498abe793a2174bc4472841b93bd3a485f6515d0396c6941b16858dde0a02b",
+            "defaults": [
+              {
+                "original": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/sdkconfig.defaults",
+                "snapshot": "config-inputs/00.defaults",
+                "sha256": "134da8d60ea4f450812beaea948c34b11d8c73ab80d7ab785a03d463ca3d627a"
+              }
+            ],
+            "artifacts": {
+              "sdkconfig": "fc195e31f378bc734a76a466b311874be2de461e108409af06d829ad24199107",
+              "firmware/goose_scalar.elf": "d9f9c5b084ca01d30501b41dc4b10d4c9154f9f328cb853ed1780326e91829a8",
+              "firmware/goose_scalar.bin": "2f1cd39e784bb5f070c8470d2254b9e5beb1ed6411fa26f6ea755d0ac28fe6f0",
+              "firmware/bootloader/bootloader.bin": "e6862023d1c8fec2c92ad9be482b8c12fbd6999c6ad5c33ca460232d20edc5a2",
+              "firmware/partition_table/partition-table.bin": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820"
+            },
+            "main_stack_bytes": 3584,
+            "elf_sha256": "d9f9c5b084ca01d30501b41dc4b10d4c9154f9f328cb853ed1780326e91829a8",
+            "evidence": "cross-build/host tests only; no physical verification"
+          },
+          "manifest_sha256": "5587f68d6573a291c71a6b2d644d19231ba0c76377abce2bf3c18ab182061ccd",
+          "artifact_sizes": {
+            "goose_scalar.elf": 3169672,
+            "goose_scalar.bin": 145824,
+            "goose_scalar.map": 2909129,
+            "bootloader/bootloader.bin": 21040,
+            "partition_table/partition-table.bin": 3072
+          },
+          "profile_object_imports": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "bridge_imports": [
+            "esp_system_abort"
+          ],
+          "app_frame_report": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:19:6:app_main\t48\tstatic\n",
+          "log_sha256": {
+            "xt_unhandled_exception-assembly.log": "8dbd4c72926c1f4dc279b24bd22f3a909b4dc644793c4386708dfcc6eeccf7d6",
+            "elf-header.log": "e70d85049547811066ecd945e99b41d066eaa4a3a155ae64ac76a6f8d23b05aa",
+            "uxTaskGetStackHighWaterMark-assembly.log": "43ec67243bd4e234121f2a12d53384c557f141adf7ceaa0d90f67dcfd6b80f65",
+            "emit-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "firmware-assembly.log": "dbfce41839c43b7a2814caef0ff7180e4e21107fa68f783b2e031e28be0cb8a9",
+            "image-info.log": "4e8849a25bf444f69288e4439649e0f3e93516474deb6be1a39b898e666d22bc",
+            "configure.log": "1d05051e4ac0275b6ab910ab7c0d4ccd8778381a8b33fdd1df06fadf4b28ee30",
+            "esp_panic_handler-assembly.log": "a53ef09475d573ecdfe64b706631098d770441a1016ba58c299a0c63410e52c3",
+            "_xt_user_exc-assembly.log": "bb4aef3ebc2a93a7d4f3ccfece90df1397ed6366635f8db16fe2b89076273a22",
+            "app_main-assembly.log": "fabcb44e4c0f8a60453f957e3e79a31513d43fccb1e318513247aa89331fe811",
+            "host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "panic_abort-assembly.log": "f78d0a4a69215041f3c5c1e17f411eccb43d561371ad58de4b89ae48dc8e85db",
+            "reject-stack-units.log": "a320e703110ec5b54f22f167567688943e6a3894296829b2781bacefc9e517ae",
+            "arithmetic-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "reject-panic-policy.log": "164974d835204c11c9f9d81240915a2abf2034cc6a4b338dd2724edb117957ef",
+            "main_task-assembly.log": "351cc2617cd384c76e9ca5729f8c313b50024d7f8703936f742ee52588728e37",
+            "app-host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bridge-assembly.log": "2c3b741f6770fc3d576a1e7401888fc98967201aed0ac427ac397db897ba8ab9",
+            "symbols.log": "c68075cfea6575fc5bb8ce88757b010ef8934cf67744cbe3004201fe29216b0d",
+            "leaf-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "host-overflow.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "reject-bad-abi.log": "5a24af0d4012bab4c2b396e3c399abc0047db13b84b386f223a42b6af0488c15",
+            "bridge-undefined.log": "3c240d52c8f63770a219628f03ae7b6b970359a5752d314a4b8670ef90ca694d",
+            "host-cold.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "leaf-assembly.log": "ed673214f623306d9dec6627dd1de01d0eec950954345ee169b84b468d84bfe9",
+            "host-bad-init.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "app-host-wrong-result.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "compile-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-leaf.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "app-host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size.log": "fff404eca4d0a73b76505361785168e794c8bc33d3f6976c43f44e68efdbac1a",
+            "host-direct.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "build.log": "45facea1fa87fb55fbeb9debdab11e5cac4e7661dab3a7d59501aad69768afe5",
+            "esp_system_abort-assembly.log": "749b5dcfdeb1272ae1d589cbcbeb9819d98fc143670ad38c76bfbc57a47a9566",
+            "vPortTaskWrapper-assembly.log": "8c3ee17ab363cca343bc329a74b20cb97320c833da478b688f05b50878bbf844",
+            "host-after-exit.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d"
+          }
+        }
+      }
+    },
+    "test-4mb": {
+      "status": "pass",
+      "command_count": 75,
+      "expected_failure_count": 18,
+      "raw_results_sha256": "2692ecac2243b5f90d71c79b74ec26a7e79ca3ca40a60f333267d8879a0652a2",
+      "sdk_pin": {
+        "release": "v6.0.2",
+        "repository": "https://github.com/espressif/esp-idf.git",
+        "commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+        "tag_object": "b0d7ee8723d5cd90c1aa2c54729aa7c92f2bf187",
+        "tools_json_sha256": "b403c25dc0c841dece4ac45abfa0a131f55ccae72db6be86ee36e3e69557f0e4",
+        "xtensa_toolchain": "esp-15.2.0_20251204",
+        "gcc_version": "15.2.0",
+        "linux_amd64_xtensa_archive_sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8"
+      },
+      "compiler_version": "goose 335fddc+scalar-v0-runtime (runtime d22ae129d92b)",
+      "defaults_inputs": [
+        {
+          "original": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/sdkconfig.defaults",
+          "snapshot": "config-inputs/00.defaults",
+          "sha256": "134da8d60ea4f450812beaea948c34b11d8c73ab80d7ab785a03d463ca3d627a"
+        },
+        {
+          "original": "/home/robert/Programare/goose-embedded/build/config-fixtures/four-mb.defaults",
+          "snapshot": "config-inputs/01.defaults",
+          "sha256": "1389b8ea6474397dd9b10675c6208ab87d05c3bc3f83618afb9ce059e061f8d8"
+        },
+        {
+          "original": "/home/robert/Programare/goose-embedded/build/config-fixtures/four-mb.defaults.esp32s3",
+          "snapshot": "config-inputs/01.defaults.esp32s3",
+          "sha256": "460a205991a013c7dae944273ce6b56a7108a5b6429863c486707d100e651ecb"
+        }
+      ],
+      "levels": {
+        "O0": {
+          "manifest": {
+            "schema_version": 1,
+            "kind": "scalar-v0-build",
+            "configuration": "test-4mb",
+            "optimization": 0,
+            "sdk_commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+            "compiler_sha256": "39498abe793a2174bc4472841b93bd3a485f6515d0396c6941b16858dde0a02b",
+            "defaults": [
+              {
+                "original": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/sdkconfig.defaults",
+                "snapshot": "config-inputs/00.defaults",
+                "sha256": "134da8d60ea4f450812beaea948c34b11d8c73ab80d7ab785a03d463ca3d627a"
+              },
+              {
+                "original": "/home/robert/Programare/goose-embedded/build/config-fixtures/four-mb.defaults",
+                "snapshot": "config-inputs/01.defaults",
+                "sha256": "1389b8ea6474397dd9b10675c6208ab87d05c3bc3f83618afb9ce059e061f8d8"
+              },
+              {
+                "original": "/home/robert/Programare/goose-embedded/build/config-fixtures/four-mb.defaults.esp32s3",
+                "snapshot": "config-inputs/01.defaults.esp32s3",
+                "sha256": "460a205991a013c7dae944273ce6b56a7108a5b6429863c486707d100e651ecb"
+              }
+            ],
+            "artifacts": {
+              "sdkconfig": "a6ab80e55d0dd89ea789e19fb6e2de309cd3553056527f97bb0154a111893884",
+              "firmware/goose_scalar.elf": "7dc151ee12a3a8b934086f5489e5999eb94081af0eac55050c35fd8d208ab963",
+              "firmware/goose_scalar.bin": "ba3a886ea6387486b0ba8acf53320e509aa980e320aa74e867b9f7936526dea4",
+              "firmware/bootloader/bootloader.bin": "0b674d4e3cc2b57527d78c1b7fff61c801fb69f38ee6fe7d57b56ca8e49e20cc",
+              "firmware/partition_table/partition-table.bin": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820"
+            },
+            "main_stack_bytes": 4096,
+            "elf_sha256": "7dc151ee12a3a8b934086f5489e5999eb94081af0eac55050c35fd8d208ab963",
+            "evidence": "cross-build/host tests only; no physical verification"
+          },
+          "manifest_sha256": "cfe0c480b447b74178b4baecd2113224bccb83fc5005b346d9fd5c94897a9f2f",
+          "artifact_sizes": {
+            "goose_scalar.elf": 3172984,
+            "goose_scalar.bin": 146144,
+            "goose_scalar.map": 2910733,
+            "bootloader/bootloader.bin": 21040,
+            "partition_table/partition-table.bin": 3072
+          },
+          "profile_object_imports": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "bridge_imports": [
+            "esp_system_abort"
+          ],
+          "app_frame_report": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:19:6:app_main\t48\tstatic\n",
+          "log_sha256": {
+            "xt_unhandled_exception-assembly.log": "d5673406338978d964a355939bbf40449382e003e660cec9eb91a7070ae8c9c6",
+            "elf-header.log": "776efc2afdcb433370e3bd83a093f9600dc1f297c450647de6e32d4b143ba577",
+            "uxTaskGetStackHighWaterMark-assembly.log": "e8fef125f1a1eabd924eefa30489da654aa8d652330327ac7feb33f4a18b1483",
+            "emit-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "firmware-assembly.log": "26dbffafcebb5b3ee424b1ff0ab830132c92f74846ef51a6c1829924c1e02dde",
+            "image-info.log": "6cbf90fd8573116a19ab3f4c3d2b257f29e5ee0181c17df876ba3b78bdb1e56a",
+            "configure.log": "de64980e37b5a9f24d2e535a756ffb11d5b13472714b5114f93bc13f536a6327",
+            "esp_panic_handler-assembly.log": "87ef5ac1fb2653e4b271020ae894094ecc78038fdf840ab1a6ff06d91f592500",
+            "_xt_user_exc-assembly.log": "f9f3678818d55b418de4ac2c4150e4b604cd0ce3149c0200dafae66899e14c09",
+            "app_main-assembly.log": "3a193b9f91d09a0c48f054139a8a1ea1906d10fef86c0616ee2622f27539d2ab",
+            "host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "panic_abort-assembly.log": "fb07d242d3918cd2c1eb6f5d8884efca8824b9bbb2799ada3178e31930701e77",
+            "reject-stack-units.log": "a320e703110ec5b54f22f167567688943e6a3894296829b2781bacefc9e517ae",
+            "arithmetic-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "reject-panic-policy.log": "164974d835204c11c9f9d81240915a2abf2034cc6a4b338dd2724edb117957ef",
+            "main_task-assembly.log": "02822d80a5f9bc044c12ea6779474f0e486ca51651594afa893bf5a3693aec54",
+            "app-host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bridge-assembly.log": "78ca2132d3d7834526085dd57d2125e31bfd0d08add50f79c777db7566d24e12",
+            "symbols.log": "8452206070f5f8449201615b85d0338e1b0b99e325ba58bb31e5518d7ada520d",
+            "leaf-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "host-overflow.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "reject-bad-abi.log": "5a24af0d4012bab4c2b396e3c399abc0047db13b84b386f223a42b6af0488c15",
+            "bridge-undefined.log": "3c240d52c8f63770a219628f03ae7b6b970359a5752d314a4b8670ef90ca694d",
+            "host-cold.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "leaf-assembly.log": "7ff82dbdca1020d065cf0e2f8dcda291b985ec10d202c46f66d167d1fb962748",
+            "host-bad-init.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "app-host-wrong-result.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "compile-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-leaf.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "app-host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size.log": "abc7c217f36add36e3f6b8ab88e7f3a5d03f2d172244f6d9c89e1fc5d69ba8f4",
+            "host-direct.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "build.log": "d55600e9a20e1ced793fac8a70e0cb54e65a1045ac1474f5838dd4b682cf9152",
+            "esp_system_abort-assembly.log": "6336b27ef0533d0ae765850551589b5543afd545da736a9e873ccc4e5edc99df",
+            "vPortTaskWrapper-assembly.log": "2b07f31c1dc05b2405ceaf8a8813b3f62443af1af6ab415585b8b601f5286102",
+            "host-after-exit.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d"
+          }
+        },
+        "O2": {
+          "manifest": {
+            "schema_version": 1,
+            "kind": "scalar-v0-build",
+            "configuration": "test-4mb",
+            "optimization": 2,
+            "sdk_commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+            "compiler_sha256": "39498abe793a2174bc4472841b93bd3a485f6515d0396c6941b16858dde0a02b",
+            "defaults": [
+              {
+                "original": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/sdkconfig.defaults",
+                "snapshot": "config-inputs/00.defaults",
+                "sha256": "134da8d60ea4f450812beaea948c34b11d8c73ab80d7ab785a03d463ca3d627a"
+              },
+              {
+                "original": "/home/robert/Programare/goose-embedded/build/config-fixtures/four-mb.defaults",
+                "snapshot": "config-inputs/01.defaults",
+                "sha256": "1389b8ea6474397dd9b10675c6208ab87d05c3bc3f83618afb9ce059e061f8d8"
+              },
+              {
+                "original": "/home/robert/Programare/goose-embedded/build/config-fixtures/four-mb.defaults.esp32s3",
+                "snapshot": "config-inputs/01.defaults.esp32s3",
+                "sha256": "460a205991a013c7dae944273ce6b56a7108a5b6429863c486707d100e651ecb"
+              }
+            ],
+            "artifacts": {
+              "sdkconfig": "a6ab80e55d0dd89ea789e19fb6e2de309cd3553056527f97bb0154a111893884",
+              "firmware/goose_scalar.elf": "478823f43a0d0e444c423c6c7b47440ad20e8b0f45b747994fc392c04a59fc59",
+              "firmware/goose_scalar.bin": "7710f55d5038f82e8686f56940d1f00d2cd4863626bc2cf27beafd7882e93502",
+              "firmware/bootloader/bootloader.bin": "638ce0cd933a64c25b57c248be8154a9e9dad468c344bd28cd962851e74dcb5a",
+              "firmware/partition_table/partition-table.bin": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820"
+            },
+            "main_stack_bytes": 4096,
+            "elf_sha256": "478823f43a0d0e444c423c6c7b47440ad20e8b0f45b747994fc392c04a59fc59",
+            "evidence": "cross-build/host tests only; no physical verification"
+          },
+          "manifest_sha256": "57609192a2ce1885cdf586e6b5c866cad02ddbbe4ceb5d370a002dca2262276d",
+          "artifact_sizes": {
+            "goose_scalar.elf": 3169672,
+            "goose_scalar.bin": 145824,
+            "goose_scalar.map": 2909129,
+            "bootloader/bootloader.bin": 21040,
+            "partition_table/partition-table.bin": 3072
+          },
+          "profile_object_imports": [
+            "ge_scalar_v0_panic_v1"
+          ],
+          "bridge_imports": [
+            "esp_system_abort"
+          ],
+          "app_frame_report": "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c:19:6:app_main\t48\tstatic\n",
+          "log_sha256": {
+            "xt_unhandled_exception-assembly.log": "cb553f40f11fb2173deccfba49f23768632c11a1fb4e597b1c83cccf609ee7c1",
+            "elf-header.log": "e70d85049547811066ecd945e99b41d066eaa4a3a155ae64ac76a6f8d23b05aa",
+            "uxTaskGetStackHighWaterMark-assembly.log": "84c61c6769ee1ec3346028bc936b22c57d1276ecefa9bc19eb370b9cf0c9008e",
+            "emit-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "firmware-assembly.log": "c76e4e63a6e1858598b4c26832af6044ed1e1618cff500cb4a8caa9ae907a961",
+            "image-info.log": "f4c24c19253f5475362d64b21a112dbcecf24466bf9da636eded91911e575cb2",
+            "configure.log": "f030e6a9f347c76295ccf658773311037de3b8603a6943765a90d76db0605704",
+            "esp_panic_handler-assembly.log": "43c65e2ef04d5f18b53853a5e7e13ceba96124af66b32e32c4e9c275e654d5f5",
+            "_xt_user_exc-assembly.log": "6c75aeee93284102419e36e175c80cb23edcfb91db4b0a2491586ab706bdf85a",
+            "app_main-assembly.log": "26560becb0682314609361604b11c2bc9df26795504e95704707c03293cd8401",
+            "host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "panic_abort-assembly.log": "ecdfbe62708dc69880d36b8a8367dbfc48c6d878f4fa4b93365708065a5873ff",
+            "reject-stack-units.log": "a320e703110ec5b54f22f167567688943e6a3894296829b2781bacefc9e517ae",
+            "arithmetic-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "reject-panic-policy.log": "164974d835204c11c9f9d81240915a2abf2034cc6a4b338dd2724edb117957ef",
+            "main_task-assembly.log": "bb7497e73665cf27c657a0b63dc2f6cffb711e75626b2e6aa69cd63de8ef410a",
+            "app-host-link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bridge-assembly.log": "3e62d49083b15c72900c97bcc9ae422a1710fa0a6477dfab5d8d2e540a9096a7",
+            "symbols.log": "98f04df64df7aace842b4c7a8d370b59d9d242a56a5338689e5846ae6ecfc804",
+            "leaf-undefined.log": "1ada834982ff748b63c85eb3111e3b080bc7e49034078b765262f7cef07f3882",
+            "host-overflow.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "reject-bad-abi.log": "5a24af0d4012bab4c2b396e3c399abc0047db13b84b386f223a42b6af0488c15",
+            "bridge-undefined.log": "3c240d52c8f63770a219628f03ae7b6b970359a5752d314a4b8670ef90ca694d",
+            "host-cold.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "leaf-assembly.log": "e48f83ac1485d037dbd0112483d461a879d3e54f2a992ea94c0a18b23b3da018",
+            "host-bad-init.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "app-host-wrong-result.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "compile-arithmetic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-leaf.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "app-host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "host-success.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size.log": "2c206b15e69802a68fd1be01f4f2524cbf39d8e710cdfd139589caff2b596e01",
+            "host-direct.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d",
+            "build.log": "45796f959960a7bbc4a0f95952a26af50a3c4e3bb480974ecafab26213d75bd5",
+            "esp_system_abort-assembly.log": "61f7736b46d307abe4b5adf2b3728044bb213141680e666985a6c2db719496ae",
+            "vPortTaskWrapper-assembly.log": "4f875974179dca093b393b5a66fe3d6864ac45c2af06135da9a43321c1194bfc",
+            "host-after-exit.log": "d7aafe50baf45a0e93bfabe7b5c71a889b3400abb7279b1c3c708d9a73d18d8d"
+          }
+        }
+      }
+    }
+  },
+  "unit_tests": {
+    "command": "python3 -m unittest discover -s tests -p test_scalar_tools.py -v",
+    "cases": 28,
+    "status": "pass",
+    "log_sha256": "01988c0bb936734164341bddb30fc9b7db223230886798b2c4f4a881e5a94d13"
+  },
+  "synthetic_cli_checks": [
+    {
+      "argv": [
+        "python3",
+        "tools/validate_scalar_run.py",
+        "--manifest",
+        "build/esp-idf-config-control/O0/run-manifest.json",
+        "--capture",
+        "build/config-fixtures/captures/control-O0.json"
+      ],
+      "exit_code": 0,
+      "capture_sha256": "af78b5eaf5ae94dd3f40c57293f7647bc0f5a21dd9c80f151d32b3d92ebdb1bb",
+      "result": {
+        "status": "consistent",
+        "scope": "supplied-file consistency only; not authenticated execution",
+        "declared_evidence_type": "synthetic",
+        "hardware_execution_proven": false,
+        "stack_bound_proven": false,
+        "configuration": "control",
+        "optimization": 0,
+        "elf_sha256": "2c32e8b1bb6221de439bccc5b631d17cb207103ab78e72c0fd066ea4fd1e6036",
+        "log_sha256": "1f3868e2dabf7f5394b0ca563fc77f5a84ea48776779da0a87f22508036fa1a6",
+        "serial_samples_bytes": {
+          "before": 3000,
+          "after_goose": 2800,
+          "after_result_print": 2400
+        },
+        "debugger_samples": null,
+        "zero_reading_present": false
+      }
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/validate_scalar_run.py",
+        "--manifest",
+        "build/esp-idf-config-control/O2/run-manifest.json",
+        "--capture",
+        "build/config-fixtures/captures/control-O2.json"
+      ],
+      "exit_code": 0,
+      "capture_sha256": "573835c62544639d625373d19e009d7a9d339cd7d589e94aad0e104d5bce8b64",
+      "result": {
+        "status": "consistent",
+        "scope": "supplied-file consistency only; not authenticated execution",
+        "declared_evidence_type": "synthetic",
+        "hardware_execution_proven": false,
+        "stack_bound_proven": false,
+        "configuration": "control",
+        "optimization": 2,
+        "elf_sha256": "d9f9c5b084ca01d30501b41dc4b10d4c9154f9f328cb853ed1780326e91829a8",
+        "log_sha256": "016da8a62fe8e82c093491311b1fea0bc3a9ebd56903daa142250812b101fd58",
+        "serial_samples_bytes": {
+          "before": 3000,
+          "after_goose": 2800,
+          "after_result_print": 2400
+        },
+        "debugger_samples": null,
+        "zero_reading_present": false
+      }
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/validate_scalar_run.py",
+        "--manifest",
+        "build/esp-idf-config-overlay/O0/run-manifest.json",
+        "--capture",
+        "build/config-fixtures/captures/test-4mb-O0.json"
+      ],
+      "exit_code": 0,
+      "capture_sha256": "6a783222f7bde418219d6820eddb98df265df1a83fd7041f3861027d3eb5be4f",
+      "result": {
+        "status": "consistent",
+        "scope": "supplied-file consistency only; not authenticated execution",
+        "declared_evidence_type": "synthetic",
+        "hardware_execution_proven": false,
+        "stack_bound_proven": false,
+        "configuration": "test-4mb",
+        "optimization": 0,
+        "elf_sha256": "7dc151ee12a3a8b934086f5489e5999eb94081af0eac55050c35fd8d208ab963",
+        "log_sha256": "b5dfbece76de20a6d1e4f096b86fbe58ccd8d35deaf47ce1085d1831ea264094",
+        "serial_samples_bytes": {
+          "before": 3000,
+          "after_goose": 2800,
+          "after_result_print": 2400
+        },
+        "debugger_samples": null,
+        "zero_reading_present": false
+      }
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/validate_scalar_run.py",
+        "--manifest",
+        "build/esp-idf-config-overlay/O2/run-manifest.json",
+        "--capture",
+        "build/config-fixtures/captures/test-4mb-O2.json"
+      ],
+      "exit_code": 0,
+      "capture_sha256": "5ad40e026a0a388a84dd61a7a9bb32d83187dfeabda804387f51209637efa411",
+      "result": {
+        "status": "consistent",
+        "scope": "supplied-file consistency only; not authenticated execution",
+        "declared_evidence_type": "synthetic",
+        "hardware_execution_proven": false,
+        "stack_bound_proven": false,
+        "configuration": "test-4mb",
+        "optimization": 2,
+        "elf_sha256": "478823f43a0d0e444c423c6c7b47440ad20e8b0f45b747994fc392c04a59fc59",
+        "log_sha256": "d147d073d040f87e9fff4dbf9afcdcf5200b8a674b3a3b40b195794674b5232d",
+        "serial_samples_bytes": {
+          "before": 3000,
+          "after_goose": 2800,
+          "after_result_print": 2400
+        },
+        "debugger_samples": null,
+        "zero_reading_present": false
+      }
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/validate_scalar_run.py",
+        "--manifest",
+        "build/esp-idf-config-control/O0/run-manifest.json",
+        "--capture",
+        "build/config-fixtures/captures/test-4mb-O0.json"
+      ],
+      "exit_code": 1,
+      "result": {
+        "status": "rejected",
+        "error": "manifest hash mismatch"
+      }
+    }
+  ],
+  "expected_target_refusals": [
+    {
+      "argv": [
+        "python3",
+        "tools/test_esp_idf_scalar.py",
+        "--config-id",
+        "test-bad-policy",
+        "--defaults",
+        "build/config-fixtures/bad-policy.defaults",
+        "--output",
+        "build/esp-idf-config-bad-policy"
+      ],
+      "exit_code": 1,
+      "diagnostic": "incompatible configuration: CONFIG_ESP_DEBUG_OCDAWARE",
+      "status": "failed",
+      "manifest_published": false
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/test_esp_idf_scalar.py",
+        "--config-id",
+        "test-unknown",
+        "--defaults",
+        "build/config-fixtures/unknown.defaults",
+        "--output",
+        "build/esp-idf-config-unknown"
+      ],
+      "exit_code": 1,
+      "diagnostic": "Unknown Kconfig symbol in defaults; inspect configure log",
+      "status": "failed",
+      "manifest_published": false
+    }
+  ],
+  "supplementary_host_application_checks": [
+    {
+      "argv": [
+        "cc",
+        "-std=c11",
+        "-O0",
+        "-I",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-config-control/O0/firmware/esp-idf/goose_scalar",
+        "-I",
+        "/home/robert/Programare/goose-embedded/src/platform/esp_idf",
+        "-I",
+        "/home/robert/Programare/goose-embedded/tests/esp_idf/stubs",
+        "-I",
+        "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c",
+        "/home/robert/Programare/goose-embedded/tests/esp_idf/stack_samples_host.c",
+        "-o",
+        "/home/robert/Programare/goose-embedded/build/config-fixtures/post-review-host/app-O0"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/config-fixtures/post-review-host/app-O0",
+        "success"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/config-fixtures/post-review-host/app-O0",
+        "wrong-result"
+      ],
+      "exit_code": 1,
+      "expected": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "cc",
+        "-std=c11",
+        "-O2",
+        "-I",
+        "/home/robert/Programare/goose-embedded/build/esp-idf-config-control/O2/firmware/esp-idf/goose_scalar",
+        "-I",
+        "/home/robert/Programare/goose-embedded/src/platform/esp_idf",
+        "-I",
+        "/home/robert/Programare/goose-embedded/tests/esp_idf/stubs",
+        "-I",
+        "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "/home/robert/Programare/goose-embedded/examples/esp32s3_scalar/main/app_main.c",
+        "/home/robert/Programare/goose-embedded/tests/esp_idf/stack_samples_host.c",
+        "-o",
+        "/home/robert/Programare/goose-embedded/build/config-fixtures/post-review-host/app-O2"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/config-fixtures/post-review-host/app-O2",
+        "success"
+      ],
+      "exit_code": 0,
+      "expected": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/robert/Programare/goose-embedded/build/config-fixtures/post-review-host/app-O2",
+        "wrong-result"
+      ],
+      "exit_code": 1,
+      "expected": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

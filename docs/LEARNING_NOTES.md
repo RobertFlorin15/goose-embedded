@@ -200,3 +200,19 @@ report. Only the first three readings are printed; the fourth stays in a debugge
 record so reporting does not silently exclude its own cost. completed marks valid
 fields. The pinned API uses bytes and StackType_t is uint8_t; never assume the
 word units described by generic FreeRTOS documentation apply to this port.
+
+## Hash correlation is different from evidence authenticity
+
+The application now prints its full ELF hash from the SDK image descriptor.
+Our probe checks that the image contains the expected digest; the saved-run
+validator matches it to local ELF/config/image hashes and the capture record.
+This catches stale firmware selections and accidental edits. Someone can still
+edit a log and its hashes together, so consistency cannot prove physical
+execution, authorization or the actual module's identity. Synthetic tests stay
+labeled synthetic even when their fingerprints come from real target builds.
+
+Defaults files are requested settings; the generated sdkconfig records what the
+SDK actually selected. Copying ordered defaults and target-specific siblings
+prevents later file changes from silently altering the selected inputs. Inspect
+the effective config and referenced dependencies too; a defaults hash alone is
+not a complete, hermetic build recipe or a claim of board compatibility.

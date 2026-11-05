@@ -199,7 +199,7 @@ and compiles an arithmetic fixture as target C11. It verifies panic configuratio
 and C ABI assertions and runs Linux tests of the real panic adapter with a
 terminating SDK double, including ABI/panic-policy compile refusals. Logs and
 full results remain under the chosen output. research/ESP32S3_SCALAR.md records
-the historical 53-command integration gate. The instrumented version passes 73
+the historical 53-command integration gate. The stack-observation checkpoint passed 73
 commands (18 expected failures); research/STACK_MEASUREMENT.md and its reviewed
 JSON record the audit, host application sequencing tests and simulated wider
 stack-element rejection. Target-only ABI checks remain compiled. The example
@@ -208,3 +208,35 @@ debugger-only. No actual target readings exist yet. Supplementary ROM revision-0
 inspection does not establish the user's silicon revision.
 Physical execution, whole-task stack budget and per-board settings are separate
 gates; read docs/HARDWARE_VALIDATION.md. No claim that one image fits all modules.
+
+## Configuration overlays and offline saved logs
+
+Append reviewed ESP-IDF defaults with repeated --defaults, supplying --config-id:
+
+```sh
+python3 tools/test_esp_idf_scalar.py --config-id my-config --defaults /path/to/reviewed.defaults --output build/my-config
+python3 -m unittest discover -s tests -p test_scalar_tools.py -v
+```
+
+The base policy comes first. Input bytes and optional .esp32s3 siblings are
+snapshotted/hashed; each level has its own effective sdkconfig. Unknown Kconfig
+symbols and incompatible effective target/panic/LTO settings fail before build;
+existing C guards remain. Paths with CMake list/newline delimiters are rejected.
+After all probe checks pass, O0/run-manifest.json and O2/run-manifest.json record
+artifact/config hashes and configuration identity. Current probes pass 75 commands
+per configuration (18 expected failures); build-only control and 4 MB/4096-byte
+overlay fixtures both pass. These are not verified board definitions.
+
+The example prints full ELF identity and a completion marker around existing
+result/stack telemetry. To check an independently saved capture JSON and raw log:
+
+```sh
+python3 tools/validate_scalar_run.py --manifest build/my-config/O0/run-manifest.json --capture /path/to/capture.json
+```
+
+Exit 0 means supplied files are consistent; it never authenticates hardware
+execution or stack safety. All current automated captures are synthetic. The
+28 unittest cases need no SDK/hardware and cover mismatches, malformed/partial
+records, failed boots/panics, tampering and path boundaries. See
+[RUN_LOG_FORMAT.md](../docs/RUN_LOG_FORMAT.md) for schema/layout and
+[the verified report](../research/CONFIGURATION_LOG_VALIDATION.md) for evidence.

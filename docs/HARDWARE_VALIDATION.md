@@ -56,3 +56,9 @@ readings remain absent. Use [the run template](HARDWARE_RUN_TEMPLATE.md) and
 low-water samples and retains a fourth post-report sample for a debugger. Sample
 differences are not isolated Goose consumption, and fill-pattern scanning does
 not certify the full task budget. Normal samples do not measure a fatal workload.
+
+The probe supports explicit ordered defaults overlays and per-level run manifests.
+Use [RUN_LOG_FORMAT.md](RUN_LOG_FORMAT.md) to bind a saved capture to reviewed local
+artifacts. Its consistency result never authenticates physical execution or stack
+safety; all automated capture fixtures are synthetic. No verified board presets
+exist yet, including the build-only 4 MB configuration fixture.

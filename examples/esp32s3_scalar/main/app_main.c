@@ -6,6 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "stack_samples.h"
+#include "esp_app_desc.h"
 
 _Static_assert(GE_SCALAR_V0_ABI_VERSION == 1, "scalar runtime ABI 1 required");
 _Static_assert(INCLUDE_uxTaskGetStackHighWaterMark == 1, "stack sampling API required");
@@ -19,6 +20,17 @@ void app_main(void)
 {
     /* ESP-IDF calls app_main in its normal main task. No workers or ISR entry. */
     ge_stack_samples.completed = 0;
+    /* Full ELF digest from the SDK image descriptor, not its shortened log hash.
+     * Fixed storage; single normal-task caller and caches available. */
+    static char elf_hex[65];
+    static const char digits[] = "0123456789abcdef";
+    const esp_app_desc_t *description = esp_app_get_description();
+    for (unsigned int i = 0; i < 32; ++i) {
+        elf_hex[2 * i] = digits[description->app_elf_sha256[i] >> 4];
+        elf_hex[2 * i + 1] = digits[description->app_elf_sha256[i] & 15];
+    }
+    elf_hex[64] = 0;
+    esp_rom_printf("goose-embedded identity-v1: elf_sha256=%s\n", elf_hex);
     ge_stack_samples.before = uxTaskGetStackHighWaterMark(NULL);
     ge_stack_samples.completed = 1;
     goose_init(0, NULL);
@@ -40,5 +52,6 @@ void app_main(void)
      * record rather than recursively printing measurements of measurements. */
     ge_stack_samples.after_report = uxTaskGetStackHighWaterMark(NULL);
     ge_stack_samples.completed = 4;
+    esp_rom_printf("goose-embedded completed-v1\n");
     /* Returning lets ESP-IDF delete its main task. */
 }
