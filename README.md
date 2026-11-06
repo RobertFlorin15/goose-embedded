@@ -27,7 +27,17 @@ Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md
 
 Research references are attributed in [REFERENCES.md](research/REFERENCES.md);
 pinned compiler/SDK/toolchain license evidence is in
-[LICENSE_INVENTORY.md](research/LICENSE_INVENTORY.md) (inventory only, no clearance).
-Project license selection is pending dependency/distribution review; this is
-not yet a public release. Downloaded compiler sources and generated runtime
-code are not tracked here.
+[LICENSE_INVENTORY.md](research/LICENSE_INVENTORY.md) (inventory only, no clearance),
+and [FIRMWARE_LINK_SET.md](research/FIRMWARE_LINK_SET.md) records what reaches the image.
+This is not yet a public release. Downloaded compiler sources and generated
+runtime code are not tracked here.
+
+## License
+
+Original Goose Embedded work is under the [MIT License](LICENSE). Exception:
+everything in [patches/goose/](patches/goose/) modifies or extends Goose and stays
+under [Apache-2.0](patches/goose/LICENSE.upstream), including the scalar runtime it
+adds. Generated scalar C embeds that runtime, so it carries Apache-2.0 terms too.
+Goose, ESP-IDF and the toolchain are not distributed here and keep their own
+licenses; see the [inventory](research/LICENSE_INVENTORY.md) before distributing
+compiler binaries or firmware.

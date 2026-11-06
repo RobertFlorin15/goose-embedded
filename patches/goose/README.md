@@ -33,8 +33,9 @@ Upstream source: https://github.com/aardappel/goose at the pin above. Goose's ro
 license is Apache-2.0; its full unmodified text accompanies this derivative patch
 as LICENSE.upstream. Existing upstream comments/context remain in the diff.
 No root NOTICE file was present at this pin. Compiler third-party sources and
-binaries are not vendored/distributed here. This does not select a license for
-all original Goose Embedded project files or clear a future binary distribution.
+binaries are not vendored/distributed here. Unlike the repository's MIT-licensed
+original work, this whole directory stays under Apache-2.0, including the new
+files the patches add. This does not clear a future binary distribution.
 
 ## Scalar runtime patch (ABI 1)
 

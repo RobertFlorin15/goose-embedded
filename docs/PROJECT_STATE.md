@@ -1,6 +1,7 @@
 # Project state
 
 Updated 2026-11-06. Reconcile with Git/source. Current evidence:
+[FIRMWARE_LINK_SET.md](../research/FIRMWARE_LINK_SET.md),
 [LICENSE_INVENTORY.md](../research/LICENSE_INVENTORY.md),
 [FATAL_STACK_AUDIT.md](../research/FATAL_STACK_AUDIT.md),
 [fatal-stack-results.json](../research/fatal-stack-results.json).
@@ -9,13 +10,39 @@ Earlier fatal/config/normal/compiler reports retain their historical evidence.
 ## Current milestone and task
 
 M1 analysis and M2a scalar leaf cross-build/ABI gate complete. Latest result:
-**pinned license evidence inventory collected (static, no legal clearance)**.
+**project licensed (root MIT, patches/goose Apache-2.0) and firmware link set
+recorded from a fresh target build (static; no legal clearance)**.
 Prior technical result: fatal SDK/exception stack ownership and individual-frame
 audit (static; budget requirements explicitly unresolved).
 M2b physical execution is unverified and HAL blocked. No physical/simulator
 execution, actual stack sample, observed halt or complete stack bound exists.
-Next: resolve the exact firmware link set (fresh scalar build retaining map/
-project description) and let the user choose a project license.
+Next: M2b needs the user's exact board inventory and explicit hardware
+authorization; complete stack reasoning is the remaining offline gate.
+
+## Project license and firmware link set (2026-11-06)
+
+User asked for a recommendation and leaned toward MIT. Added root LICENSE (MIT,
+holder "Goose Embedded contributors"); patches/goose stays Apache-2.0 because it
+is Goose derivative work. Decision 013. Commits exist under two identities (Robert,
+Krookz13); the user should confirm both are the same person or get agreement.
+
+New tools/firmware_link_set.py + tests/test_firmware_link_set.py (15 cases). Fresh
+`tools/test_esp_idf_scalar.py --output build/esp-idf-scalar-license`: PASS, 83
+commands, ELF O0 439d815f..., O2 cb9befda.... Link set: PASS, repeat byte-identical,
+report research/FIRMWARE_LINK_SET.md, reviewed JSON sha256 719fd052...2be9. Raw
+output build/firmware-link-set.
+
+Findings: effective libc picolibc at both levels; application 196 objects with
+bytes (Apache-2.0 majority, MIT FreeRTOS/Xtensa, BSD-3 TLSF, picolibc); libgcc has
+zero image bytes; bootloader 31 objects all Apache-2.0 with no micro-ecc; about
+1.2 KB of dual-licensed mbedtls/PSA objects DO link, correcting the earlier
+inventory. No source evidence for picolibc libc.a, prebuilt libxt_hal.a (437
+bytes, license unconfirmed) and 3 tfpsacrypto objects. All 70 unit tests pass.
+No flash/monitor/debug. No compiler/runtime/firmware source changed.
+
+Machine note: this machine's .cache/esp-idf-v6.0.2, .cache/espressif and
+build/goose-scalar-runtime exist, unlike the earlier fresh clone. The pinned
+archive is at .cache/espressif/dist/, and .cache/esp-idf-v6.0.2-meta is absent.
 
 ## License inventory (2026-11-06)
 
@@ -130,28 +157,26 @@ task; first push is not a licensed release or hardware milestone.
 - No physical normal/fatal output, persistent halt or real watermark evidence.
   Exact module/flash/PSRAM/console inventory and explicit authorization required
   before any concrete hardware operation. User has multiple unspecified boards.
-- License evidence inventory done; exact firmware link set, effective libc and
-  project license selection remain open (see LICENSE_INVENTORY.md). Full upstream
-  compiler/LSP/sanitizer suites remain pending; implementations unchanged this task.
-  No SDK/tool/generated binary redistribution.
+- License, link set and effective libc are done for the control configuration;
+  libxt_hal.a's license is unconfirmed and other configurations need their own
+  run. Full upstream compiler/LSP/sanitizer suites remain pending; implementations
+  unchanged this task. No SDK/tool/generated binary redistribution.
 
 ## Files and Git
 
-This checkpoint adds tools/license_inventory.py, tests/test_license_inventory.py,
-research/LICENSE_INVENTORY.md and license-inventory-results.json, and updates
-README, REFERENCES, tools/README, state and handoff. No compiler/runtime/target/
-panic adapter source changes. Branch main; origin
+This checkpoint adds LICENSE, tools/firmware_link_set.py,
+tests/test_firmware_link_set.py, research/FIRMWARE_LINK_SET.md and
+firmware-link-set-results.json, and updates license references, state and handoff.
+No compiler/runtime/target/panic adapter source changes. Branch main; origin
 https://github.com/RobertFlorin15/goose-embedded.git. Prior explicit checkpoints:
-9713a8b (gitignore), b100cc1 (fatal audit). Current checkpoint is the commit
+89f5b06 (license inventory), 9713a8b (gitignore), b100cc1 (fatal audit). Current checkpoint is the commit
 containing this file (`git rev-parse HEAD`); verify status. .cache/ and build/
 remain ignored.
 
 ## Next action / model
 
-1. User decision: choose a project license (inventory informs, does not decide).
-2. Engineering: with the full SDK setup (tools/README.md), run a fresh scalar
-   build and retain the linker map/project_description.json and effective
-   sdkconfig to list the actual linked components/libc for firmware notices.
-Sol/medium suffices for both. Astra/high remains recommended for complete
-window/exception/ROM stack reasoning. No model switching assumed; no paid API,
-hardware or HAL action authorized.
+1. User: give the exact module/flash/PSRAM/console inventory of one board and
+   explicitly authorize a run, then follow docs/HARDWARE_VALIDATION.md (M2b).
+2. Offline meanwhile: complete window/exception/ROM stack reasoning. Astra/high
+   is recommended for it; open requirements are in research/FATAL_STACK_AUDIT.md.
+No model switching assumed; no paid API, hardware or HAL action authorized.

@@ -286,3 +286,17 @@ archive (sha256 checked; only `share/licenses/` members are read). No fetch,
 build, installation or hardware access. It classifies license-text openings
 only and records `unclassified` for manual review. It makes no legal or
 binary-membership claim. Fresh output required.
+
+### Firmware link set (offline, read-only)
+
+```sh
+python3 tools/firmware_link_set.py --build build/esp-idf-scalar-new --output build/firmware-link-set-new
+python3 -m unittest tests/test_firmware_link_set.py -v
+```
+
+Needs a passing test_esp_idf_scalar.py output and the clean SDK it was built from.
+Lists objects with bytes in the application and bootloader images at O0 and O2,
+the licenses their sources state, and whatever has no source evidence. It refuses
+a failed build, a tampered ELF or sdkconfig, a dirty or different SDK, and any
+image whose allocated bytes do not fully balance. No build or hardware access. See
+[the report](../research/FIRMWARE_LINK_SET.md) for results and limits.

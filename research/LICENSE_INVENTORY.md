@@ -82,14 +82,14 @@ libraries (bt lib_esp32/c3, ble_mesh, coex, phy, wifi, thread lib) and NimBLE;
 BSD-style for lwIP, OpenThread, protobuf-c, micro-ecc; MIT-style for CMock,
 Unity (x2), SPIFFS. Only `NOTICE` files exist for bt libs c2/c5/c6/h2 (NimBLE
 attribution text, unclassified). CMock's vendored c_exception has no root
-license file. None of BT, Wi-Fi, mbedtls, lwIP, OpenThread or SPIFFS are known
-to be linked into the current scalar app, but no linker map confirms it.
+license file. [FIRMWARE_LINK_SET.md](FIRMWARE_LINK_SET.md) now records linker
+evidence: about 1.2 KB of mbedtls/PSA objects do reach the scalar app, correcting
+this report's earlier statement that none were known to be linked.
 
 C library: [esp_libc Kconfig](https://github.com/espressif/esp-idf/blob/7101770dc6db2667b3c477cc31365dd1acd6db4e/components/esp_libc/Kconfig)
 defaults to **picolibc** with GCC (newlib only with Clang or explicit selection).
-The project's sdkconfig.defaults do not override this, so prior GCC builds
-presumably used picolibc. This follows from the Kconfig source; no saved effective sdkconfig
-on this machine confirms it.
+The project's sdkconfig.defaults do not override this. A fresh build's effective
+sdkconfig confirms picolibc at O0 and O2 ([link set](FIRMWARE_LINK_SET.md)).
 
 ## Xtensa toolchain esp-15.2.0_20251204
 
@@ -120,8 +120,8 @@ cmake BSD-3-Clause.
    patches/goose (Apache-2.0 Goose diff context with LICENSE.upstream and
    modified-file notices). No upstream tree, SDK, toolchain or binary is tracked.
    The tests/esp_idf/stubs are 26 lines of declarations naming ESP-IDF APIs,
-   written for host tests, not copied files. A project license is still needed
-   before others can reuse original work; that choice is open.
+   written for host tests, not copied files. Original work is MIT-licensed
+   (root LICENSE) and patches/goose stays Apache-2.0 ([decision 013](../docs/DECISIONS.md)).
 2. **Compiler binaries (not currently distributed).** A patched Goose binary
    statically contains LGPL-2.1 TinyCC and ships beside GPL-2.0+-with-exception
    libtcc1.a, plus Unlicense/zlib/public-domain helpers. Distributing one would
@@ -129,27 +129,19 @@ cmake BSD-3-Clause.
    review before any binary release. Users building their own compiler locally
    from upstream do not create a distribution by this project.
 3. **Generated C and firmware images.** Generated scalar C embeds the Goose-derived
-   runtime (Apache-2.0, header states provenance). A distributed firmware image
-   would also contain ESP-IDF Apache-2.0 code, MIT FreeRTOS/Xtensa files, BSD-3
-   TLSF, picolibc permissive code and libgcc under the runtime exception, plus
-   whatever else the linker map shows. Notices for these would need to accompany the
-   image or its documentation. No firmware is distributed today.
+   runtime (Apache-2.0, header states provenance). A distributed image of the
+   current scalar configuration would also contain the components listed in
+   [FIRMWARE_LINK_SET.md](FIRMWARE_LINK_SET.md). Notices for these would need to
+   accompany the image or its documentation. No firmware is distributed today.
 4. **Local development only.** GPL tools (GDB, OpenOCD, QEMU, binutils, GCC
    itself) run on the developer's machine and are installed by ESP-IDF's
    installer. Downloads stay ignored under .cache/.
 
 ## Unresolved
 
-- Exact linked object/component set per firmware: needs `build/*.map` and
-  project_description.json from a fresh scalar build (prior build outputs are
-  not on this machine). Until then, firmware notice lists are provisional.
-- Effective libc (picolibc expected) from a saved effective sdkconfig.
-- picolibc/libgcc archive membership versus their license manifests; GCC
-  Runtime Library Exception eligibility is plausible for an unmodified GCC
-  compile but is not asserted.
-- Bootloader micro-ecc linkage under the reviewed configuration.
+- Linked set, effective libc, libgcc and bootloader micro-ecc are answered for
+  the control configuration in [FIRMWARE_LINK_SET.md](FIRMWARE_LINK_SET.md), which
+  also lists what remains unattributed there. Other configurations need their own run.
 - Python lock package licenses (local tooling only; not distributed).
 - Contents of NOTICE-only bt libraries and c_exception's README license section
   (not expected in the scalar firmware).
-- Project license selection and any compatibility statement between it and
-  Goose patch/runtime provenance.

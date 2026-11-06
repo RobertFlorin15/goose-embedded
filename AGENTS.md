@@ -18,7 +18,7 @@ Determine whether aardappel/Goose can run on ESP32-S3, then progressively build 
 - .cache/ and build/: ignored downloaded sources and generated artifacts.
 
 ## Workflow and standards
-Investigate, define acceptance criteria, make the smallest reversible change, compile/test, inspect results, update memory, and commit coherent work. Use source permalinks and revision pins for upstream claims. Keep compiler adaptations separate from runtime, platforms, HAL, and drivers. Do not vendor external code without its license. Project license is pending dependency review.
+Investigate, define acceptance criteria, make the smallest reversible change, compile/test, inspect results, update memory, and commit coherent work. Use source permalinks and revision pins for upstream claims. Keep compiler adaptations separate from runtime, platforms, HAL, and drivers. Do not vendor external code without its license. Original work is MIT (LICENSE); patches/goose stays Apache-2.0 (docs/DECISIONS.md 013).
 
 Commands: `python3 tools/host_probe.py --compiler /path/to/pinned/goose`; read tools/README.md for pinned setup and experiment semantics. Pinned official ESP32-S3 control build: `python3 tools/esp_idf_baseline.py --output build/esp-idf-baseline-new` (requires SDK setup in tools/README.md and a fresh output). Scalar leaf cross-build/host bridge checks: `python3 tools/test_esp_idf_scalar.py --output build/esp-idf-scalar-new` (same pinned setup, fresh output). Physical execution and whole-task stack budget remain unverified; board variants need separate settings/evidence. Host probe success is host evidence only.
 

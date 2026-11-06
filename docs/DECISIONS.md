@@ -211,3 +211,25 @@ source facts, not observed hardware output. CPU halted text precedes the SDK fin
 halt call, so even matching text cannot prove persistent halt. Offline results
 keep execution/halt/stack proof false. Six builds and synthetic/host tests pass;
 M2b remains unverified. No hardware action is implied by this decision.
+
+## 013 — MIT for original work; Goose patches stay Apache-2.0 (2026-11-06)
+
+Problem: others cannot reuse the repository without a license (supersedes the
+deferral in 004). User preference: MIT. Alternatives: Apache-2.0 only (explicit
+patent grant, matches Goose and ESP-IDF, heavier notice duties); MIT OR Apache-2.0
+(the Rust Embedded convention, gives users both); copyleft (poor fit for code
+linked into firmware). Selected: root MIT, because it is the simplest terms for
+small original tools, tests, examples and the platform adapter, and it combines
+with the Apache-2.0 SDK and runtime.
+
+patches/goose/ cannot follow: it contains Goose diff context and derivative work,
+so it stays Apache-2.0 with LICENSE.upstream and modified-file notices. The added
+scalar_profile.h and runtime_scalar.h stay there too; the latter already states
+Apache-2.0 and adapts runtime.h rules. Generated scalar C embeds that runtime.
+
+Tradeoff: MIT has no explicit patent grant. If a later runtime or HAL becomes
+substantial, reconsider adding Apache-2.0 as a dual option; that needs agreement
+from every contributor, so it is cheapest while few people have contributed.
+Consequence: this licenses repository source only. Compiler binaries (LGPL-2.1
+TinyCC) and firmware images still need their own notices per LICENSE_INVENTORY.md.
+Project choice from recorded evidence, not legal advice.

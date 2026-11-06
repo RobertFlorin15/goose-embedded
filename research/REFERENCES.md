@@ -7,7 +7,7 @@ are architectural reference snapshots of moving branches, not pinned dependencie
 The tracked Goose validator patch now contains upstream diff context; its
 Apache-2.0 license is retained in patches/goose/LICENSE.upstream with modified-file
 notices and provenance. No complete upstream tree or binary is vendored. Re-audit exact files
-and transitive dependencies before selecting a project license or redistributing
+and transitive dependencies before redistributing
 compiler binaries/generated runtime code. This inventory is not a compatibility
 clearance for future code copying.
 
@@ -31,7 +31,8 @@ accidentally distributing them as this project's original implementation.
 Generated standalone C includes Goose runtime code; a future distributed artifact
 must account for that provenance even when users supply their own compiler.
 
-No project LICENSE chosen in this session. This is a foundation for a public
+Project license since 2026-11-06: root MIT for original work, Apache-2.0 for
+patches/goose ([decision 013](../docs/DECISIONS.md)). This is a foundation for a public
 open-source project, not yet a release with a completed distribution inventory.
 
 The second Goose patch adapts the checked i32 helper rules from runtime.h into
