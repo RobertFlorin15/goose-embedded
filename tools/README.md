@@ -271,3 +271,18 @@ indirect-call indicators. It reviews the current UART + secondary USB console
 selection; other console builds need a separate review. No target rebuild, SDK
 execution, hardware access or numerical whole-stack guarantee. See
 [audit report](../research/FATAL_STACK_AUDIT.md) for assumptions and open requirements.
+
+### License evidence inventory (offline, read-only)
+
+```sh
+python3 tools/license_inventory.py --sdk .cache/esp-idf-v6.0.2 --toolchain-archive /path/to/xtensa-esp-elf-15.2.0_20251204-x86_64-linux-gnu.tar.xz --output build/license-inventory-new
+python3 -m unittest tests/test_license_inventory.py -v
+```
+
+Needs the clean pinned Goose checkout, a clean ESP-IDF checkout at the pin with
+all 25 submodules (the full setup clone above or the lighter partial clone in
+[the report](../research/LICENSE_INVENTORY.md)), and the pinned toolchain
+archive (sha256 checked; only `share/licenses/` members are read). No fetch,
+build, installation or hardware access. It classifies license-text openings
+only and records `unclassified` for manual review. It makes no legal or
+binary-membership claim. Fresh output required.

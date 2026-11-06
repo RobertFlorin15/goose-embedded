@@ -25,7 +25,9 @@ sufficiency remain unverified.
 Agents should read [AGENTS.md](AGENTS.md), [project state](docs/PROJECT_STATE.md),
 [handoff](docs/HANDOFF.md), and the [project skill](.agents/skills/goose-embedded/SKILL.md).
 
-Research references are attributed in [REFERENCES.md](research/REFERENCES.md).
+Research references are attributed in [REFERENCES.md](research/REFERENCES.md);
+pinned compiler/SDK/toolchain license evidence is in
+[LICENSE_INVENTORY.md](research/LICENSE_INVENTORY.md) (inventory only, no clearance).
 Project license selection is pending dependency/distribution review; this is
 not yet a public release. Downloaded compiler sources and generated runtime
 code are not tracked here.

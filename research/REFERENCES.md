@@ -1,5 +1,7 @@
 # Reference and license inventory
 
+Detailed pinned license evidence (2026-11-06): [LICENSE_INVENTORY.md](LICENSE_INVENTORY.md).
+
 Read on 2026-11-04. Goose source is pinned in upstream.json. Other URLs below
 are architectural reference snapshots of moving branches, not pinned dependencies.
 The tracked Goose validator patch now contains upstream diff context; its
@@ -11,7 +13,7 @@ clearance for future code copying.
 
 | Project | Evidence inspected | Principle to retain | Constraint |
 |---|---|---|---|
-| [Goose](https://github.com/aardappel/goose/tree/335fddc13dc74666398ffe160ec8a8f2958329d0) | CMake, driver, parser/checker/codegen/runtime, CLI docs, LICENSE | Root/lifetime checking, C generation, explicit runtime boundary | Apache-2.0 at root; compiler third parties need separate review |
+| [Goose](https://github.com/aardappel/goose/tree/335fddc13dc74666398ffe160ec8a8f2958329d0) | CMake, driver, parser/checker/codegen/runtime, CLI docs, LICENSE | Root/lifetime checking, C generation, explicit runtime boundary | Apache-2.0 at root, no NOTICE; compiler also contains TinyCC (LGPL-2.1), subprocess.h (Unlicense), cute_spirv (zlib OR Unlicense)/ckit (public domain); see LICENSE_INVENTORY.md |
 | [embedded-hal](https://github.com/rust-embedded/embedded-hal) | [lib.rs](https://github.com/rust-embedded/embedded-hal/blob/master/embedded-hal/src/lib.rs), [crate manifest](https://github.com/rust-embedded/embedded-hal/blob/master/embedded-hal/Cargo.toml), LICENSE-MIT | Small no_std portable peripheral contracts separate from implementation | Manifest MIT OR Apache-2.0; do not assume Goose traits |
 | [esp-hal](https://github.com/esp-rs/esp-hal) | [README](https://github.com/esp-rs/esp-hal/blob/main/esp-hal/README.md), [manifest](https://github.com/esp-rs/esp-hal/blob/main/esp-hal/Cargo.toml) | Chip-specific implementations behind common contracts | Manifest MIT OR Apache-2.0; exact license files not retrieved successfully; per-file review pending |
 | [Embassy](https://github.com/embassy-rs/embassy) | README, embassy-executor/Cargo.toml, LICENSE-MIT, LICENSE-APACHE | Cooperative tasks depend on language state-machine lowering; keep executor separate from HAL | Executor manifest MIT OR Apache-2.0; Goose async equivalent not established |

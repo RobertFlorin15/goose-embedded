@@ -1,0 +1,1745 @@
+{
+ "esp_idf": {
+  "commit": "7101770dc6db2667b3c477cc31365dd1acd6db4e",
+  "in_tree_spdx_by_component": {
+   "README.md": {
+    "(none)": 1
+   },
+   "app_trace": {
+    "(none)": 11,
+    "Apache-2.0": 12,
+    "Apache-2.0 OR MIT": 5
+   },
+   "app_update": {
+    "(none)": 27,
+    "Apache-2.0": 9,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "bootloader": {
+    "(none)": 15,
+    "Apache-2.0": 28,
+    "BSD-2-Clause": 2
+   },
+   "bootloader_support": {
+    "(none)": 11,
+    "Apache-2.0": 131,
+    "CC0-1.0": 2
+   },
+   "bt": {
+    "(none)": 429,
+    "Apache-2.0": 603,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "cmock": {
+    "(none)": 1
+   },
+   "console": {
+    "(none)": 20,
+    "Apache-2.0": 12,
+    "BSD-3-Clause": 16,
+    "CC0-1.0": 2
+   },
+   "cxx": {
+    "(none)": 20,
+    "Apache-2.0": 7,
+    "CC0-1.0": 4
+   },
+   "driver": {
+    "(none)": 38,
+    "Apache-2.0": 35,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 8
+   },
+   "efuse": {
+    "(none)": 39,
+    "Apache-2.0": 128,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "esp-tls": {
+    "(none)": 10,
+    "Apache-2.0": 16,
+    "CC0-1.0": 1
+   },
+   "esp_adc": {
+    "(none)": 15,
+    "Apache-2.0": 51,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_app_format": {
+    "(none)": 7,
+    "Apache-2.0": 3,
+    "CC0-1.0": 1
+   },
+   "esp_blockdev": {
+    "(none)": 2,
+    "Apache-2.0": 1
+   },
+   "esp_blockdev_util": {
+    "(none)": 10,
+    "Apache-2.0": 6,
+    "CC0-1.0": 2
+   },
+   "esp_bootloader_format": {
+    "(none)": 7,
+    "Apache-2.0": 3,
+    "CC0-1.0": 1
+   },
+   "esp_coex": {
+    "(none)": 14,
+    "Apache-2.0": 19,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "esp_common": {
+    "(none)": 14,
+    "Apache-2.0": 14,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_driver_ana_cmpr": {
+    "(none)": 12,
+    "Apache-2.0": 12,
+    "CC0-1.0": 1
+   },
+   "esp_driver_bitscrambler": {
+    "(none)": 11,
+    "Apache-2.0": 10,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 6
+   },
+   "esp_driver_cam": {
+    "(none)": 32,
+    "Apache-2.0": 22,
+    "CC0-1.0": 6
+   },
+   "esp_driver_dac": {
+    "(none)": 10,
+    "Apache-2.0": 15,
+    "CC0-1.0": 1
+   },
+   "esp_driver_dma": {
+    "(none)": 24,
+    "Apache-2.0": 33,
+    "CC0-1.0": 2
+   },
+   "esp_driver_gpio": {
+    "(none)": 19,
+    "Apache-2.0": 24,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_driver_gptimer": {
+    "(none)": 14,
+    "Apache-2.0": 13,
+    "CC0-1.0": 1
+   },
+   "esp_driver_i2c": {
+    "(none)": 14,
+    "Apache-2.0": 9,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 8
+   },
+   "esp_driver_i2s": {
+    "(none)": 21,
+    "Apache-2.0": 34,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "esp_driver_i3c": {
+    "(none)": 10,
+    "Apache-2.0": 7,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "esp_driver_isp": {
+    "(none)": 10,
+    "Apache-2.0": 35,
+    "CC0-1.0": 2
+   },
+   "esp_driver_jpeg": {
+    "(none)": 12,
+    "Apache-2.0": 15,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "esp_driver_ledc": {
+    "(none)": 12,
+    "Apache-2.0": 9,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_driver_mcpwm": {
+    "(none)": 12,
+    "Apache-2.0": 35,
+    "CC0-1.0": 1
+   },
+   "esp_driver_parlio": {
+    "(none)": 14,
+    "Apache-2.0": 19,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 4
+   },
+   "esp_driver_pcnt": {
+    "(none)": 12,
+    "Apache-2.0": 8,
+    "CC0-1.0": 1
+   },
+   "esp_driver_ppa": {
+    "(none)": 10,
+    "Apache-2.0": 9,
+    "CC0-1.0": 1
+   },
+   "esp_driver_rmt": {
+    "(none)": 14,
+    "Apache-2.0": 26,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_driver_sd_intf": {
+    "(none)": 2,
+    "Apache-2.0": 4
+   },
+   "esp_driver_sdio": {
+    "(none)": 21,
+    "Apache-2.0": 5,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "esp_driver_sdm": {
+    "(none)": 11,
+    "Apache-2.0": 6,
+    "CC0-1.0": 1
+   },
+   "esp_driver_sdmmc": {
+    "(none)": 16,
+    "Apache-2.0": 32,
+    "CC0-1.0": 2
+   },
+   "esp_driver_sdspi": {
+    "(none)": 13,
+    "Apache-2.0": 15,
+    "CC0-1.0": 2
+   },
+   "esp_driver_spi": {
+    "(none)": 45,
+    "Apache-2.0": 30
+   },
+   "esp_driver_touch_sens": {
+    "(none)": 12,
+    "Apache-2.0": 12,
+    "CC0-1.0": 1
+   },
+   "esp_driver_tsens": {
+    "(none)": 9,
+    "Apache-2.0": 9,
+    "CC0-1.0": 1
+   },
+   "esp_driver_twai": {
+    "(none)": 12,
+    "Apache-2.0": 14
+   },
+   "esp_driver_uart": {
+    "(none)": 32,
+    "Apache-2.0": 22,
+    "CC0-1.0": 4,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "esp_driver_usb_serial_jtag": {
+    "(none)": 14,
+    "Apache-2.0": 10,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_eth": {
+    "(none)": 27,
+    "Apache-2.0": 25,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 7
+   },
+   "esp_event": {
+    "(none)": 21,
+    "Apache-2.0": 9,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "esp_gdbstub": {
+    "(none)": 11,
+    "Apache-2.0": 19,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_hal_ana_cmpr": {
+    "(none)": 2,
+    "Apache-2.0": 11
+   },
+   "esp_hal_ana_conv": {
+    "(none)": 2,
+    "Apache-2.0": 57
+   },
+   "esp_hal_cam": {
+    "(none)": 2,
+    "Apache-2.0": 24
+   },
+   "esp_hal_clock": {
+    "(none)": 2,
+    "Apache-2.0": 45
+   },
+   "esp_hal_dma": {
+    "(none)": 2,
+    "Apache-2.0": 64
+   },
+   "esp_hal_gpio": {
+    "(none)": 3,
+    "Apache-2.0": 151
+   },
+   "esp_hal_gpspi": {
+    "(none)": 2,
+    "Apache-2.0": 48
+   },
+   "esp_hal_i2c": {
+    "(none)": 8,
+    "Apache-2.0": 29,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "esp_hal_i2s": {
+    "(none)": 2,
+    "Apache-2.0": 27
+   },
+   "esp_hal_ieee802154": {
+    "(none)": 1,
+    "Apache-2.0": 8
+   },
+   "esp_hal_jpeg": {
+    "(none)": 2,
+    "Apache-2.0": 7
+   },
+   "esp_hal_lcd": {
+    "(none)": 2,
+    "Apache-2.0": 19
+   },
+   "esp_hal_ledc": {
+    "(none)": 2,
+    "Apache-2.0": 29
+   },
+   "esp_hal_mcpwm": {
+    "(none)": 2,
+    "Apache-2.0": 18
+   },
+   "esp_hal_mspi": {
+    "(none)": 4,
+    "Apache-2.0": 73
+   },
+   "esp_hal_parlio": {
+    "(none)": 2,
+    "Apache-2.0": 14
+   },
+   "esp_hal_pcnt": {
+    "(none)": 2,
+    "Apache-2.0": 22
+   },
+   "esp_hal_pmu": {
+    "(none)": 3,
+    "Apache-2.0": 67
+   },
+   "esp_hal_ppa": {
+    "(none)": 2,
+    "Apache-2.0": 4
+   },
+   "esp_hal_rmt": {
+    "(none)": 2,
+    "Apache-2.0": 24
+   },
+   "esp_hal_rtc_timer": {
+    "(none)": 2,
+    "Apache-2.0": 13
+   },
+   "esp_hal_sd": {
+    "(none)": 2,
+    "Apache-2.0": 29
+   },
+   "esp_hal_security": {
+    "(none)": 46,
+    "Apache-2.0": 141,
+    "CC0-1.0": 7,
+    "Unlicense OR CC0-1.0": 19
+   },
+   "esp_hal_timg": {
+    "(none)": 2,
+    "Apache-2.0": 41
+   },
+   "esp_hal_touch_sens": {
+    "(none)": 2,
+    "Apache-2.0": 21
+   },
+   "esp_hal_twai": {
+    "(none)": 2,
+    "Apache-2.0": 28
+   },
+   "esp_hal_uart": {
+    "(none)": 2,
+    "Apache-2.0": 41
+   },
+   "esp_hal_usb": {
+    "(none)": 2,
+    "Apache-2.0": 34
+   },
+   "esp_hal_wdt": {
+    "(none)": 4,
+    "Apache-2.0": 63
+   },
+   "esp_hid": {
+    "(none)": 14,
+    "Apache-2.0": 20,
+    "CC0-1.0": 1
+   },
+   "esp_http_client": {
+    "(none)": 7,
+    "Apache-2.0": 9,
+    "CC0-1.0": 1
+   },
+   "esp_http_server": {
+    "(none)": 6,
+    "Apache-2.0": 12,
+    "CC0-1.0": 1
+   },
+   "esp_https_ota": {
+    "(none)": 3,
+    "Apache-2.0": 2
+   },
+   "esp_https_server": {
+    "(none)": 2,
+    "Apache-2.0": 2
+   },
+   "esp_hw_support": {
+    "(none)": 187,
+    "Apache-2.0": 422,
+    "CC0-1.0": 9,
+    "Unlicense OR CC0-1.0": 9
+   },
+   "esp_lcd": {
+    "(none)": 67,
+    "Apache-2.0": 53,
+    "CC0-1.0": 16
+   },
+   "esp_libc": {
+    "(none)": 33,
+    "Apache-2.0": 59,
+    "BSD-2-Clause-FreeBSD AND Apache-2.0": 9,
+    "CC0-1.0": 2,
+    "MIT": 5,
+    "Unlicense OR CC0-1.0": 9
+   },
+   "esp_local_ctrl": {
+    "(none)": 14,
+    "Apache-2.0": 7
+   },
+   "esp_mm": {
+    "(none)": 24,
+    "Apache-2.0": 30,
+    "CC0-1.0": 2
+   },
+   "esp_netif": {
+    "(none)": 17,
+    "Apache-2.0": 26,
+    "BSD-3-Clause": 4,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 4
+   },
+   "esp_netif_stack": {
+    "(none)": 2
+   },
+   "esp_partition": {
+    "(none)": 21,
+    "Apache-2.0": 12,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "esp_phy": {
+    "(none)": 17,
+    "Apache-2.0": 45
+   },
+   "esp_pm": {
+    "(none)": 19,
+    "Apache-2.0": 17,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_psram": {
+    "(none)": 40,
+    "Apache-2.0": 22,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_ringbuf": {
+    "(none)": 10,
+    "Apache-2.0": 6,
+    "CC0-1.0": 1
+   },
+   "esp_rom": {
+    "(none)": 72,
+    "Apache-2.0": 466,
+    "BSD-3-Clause": 16,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 8
+   },
+   "esp_security": {
+    "(none)": 18,
+    "Apache-2.0": 34,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "esp_stdio": {
+    "(none)": 12,
+    "Apache-2.0": 6,
+    "CC0-1.0": 1
+   },
+   "esp_system": {
+    "(none)": 89,
+    "Apache-2.0": 178,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 7
+   },
+   "esp_tee": {
+    "(none)": 44,
+    "Apache-2.0": 101
+   },
+   "esp_timer": {
+    "(none)": 27,
+    "Apache-2.0": 16,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "esp_trace": {
+    "(none)": 4,
+    "Apache-2.0": 11
+   },
+   "esp_usb_cdc_rom_console": {
+    "(none)": 9,
+    "Apache-2.0": 6,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "esp_wifi": {
+    "(none)": 45,
+    "Apache-2.0": 48,
+    "Unlicense OR CC0-1.0": 15
+   },
+   "espcoredump": {
+    "(none)": 10,
+    "Apache-2.0": 19,
+    "CC0-1.0": 1
+   },
+   "esptool_py": {
+    "(none)": 9,
+    "Apache-2.0": 3
+   },
+   "fatfs": {
+    "(none)": 62,
+    "Apache-2.0": 36,
+    "CC0-1.0": 4,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "freertos": {
+    "(none)": 39,
+    "Apache-2.0": 81,
+    "MIT": 71
+   },
+   "hal": {
+    "(none)": 10,
+    "Apache-2.0": 248
+   },
+   "heap": {
+    "(none)": 35,
+    "Apache-2.0": 38,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 13
+   },
+   "http_parser": {
+    "(none)": 5
+   },
+   "idf_test": {
+    "(none)": 3,
+    "Apache-2.0": 12
+   },
+   "ieee802154": {
+    "(none)": 3,
+    "Apache-2.0": 20
+   },
+   "linux": {
+    "(none)": 6,
+    "Apache-2.0": 11,
+    "BSD-4-Clause-UC": 1,
+    "CC0-1.0": 1
+   },
+   "log": {
+    "(none)": 32,
+    "Apache-2.0": 46,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "lwip": {
+    "(none)": 11,
+    "Apache-2.0": 36,
+    "BSD-3-Clause": 8
+   },
+   "mbedtls": {
+    "(none)": 66,
+    "Apache-2.0": 119,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 11
+   },
+   "mqtt": {
+    "(none)": 2
+   },
+   "nvs_flash": {
+    "(none)": 67,
+    "Apache-2.0": 70,
+    "Unlicense OR CC0-1.0": 4
+   },
+   "nvs_sec_provider": {
+    "(none)": 2,
+    "Apache-2.0": 4
+   },
+   "openthread": {
+    "(none)": 5,
+    "Apache-2.0": 67
+   },
+   "partition_table": {
+    "(none)": 19,
+    "Apache-2.0": 8
+   },
+   "perfmon": {
+    "(none)": 6,
+    "Apache-2.0": 9,
+    "CC0-1.0": 1
+   },
+   "protobuf-c": {
+    "(none)": 1
+   },
+   "protocomm": {
+    "(none)": 31,
+    "Apache-2.0": 24,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "pthread": {
+    "(none)": 17,
+    "Apache-2.0": 9,
+    "CC0-1.0": 2,
+    "Unlicense OR CC0-1.0": 10
+   },
+   "riscv": {
+    "(none)": 4,
+    "Apache-2.0": 24
+   },
+   "rt": {
+    "(none)": 8,
+    "CC0-1.0": 1,
+    "MIT": 9,
+    "Unlicense OR CC0-1.0": 2
+   },
+   "sdmmc": {
+    "(none)": 15,
+    "Apache-2.0": 10,
+    "ISC": 2
+   },
+   "soc": {
+    "(none)": 39,
+    "Apache-2.0": 1915
+   },
+   "spi_flash": {
+    "(none)": 121,
+    "Apache-2.0": 81,
+    "Unlicense OR CC0-1.0": 9
+   },
+   "spiffs": {
+    "(none)": 21,
+    "Apache-2.0": 8,
+    "CC0-1.0": 1,
+    "MIT": 1,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "tcp_transport": {
+    "(none)": 16,
+    "Apache-2.0": 13,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 5
+   },
+   "ulp": {
+    "(none)": 37,
+    "Apache-2.0": 151,
+    "CC0-1.0": 4,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "unity": {
+    "(none)": 7,
+    "Apache-2.0": 17,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "vfs": {
+    "(none)": 16,
+    "Apache-2.0": 26,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 3
+   },
+   "wear_levelling": {
+    "(none)": 25,
+    "Apache-2.0": 23,
+    "CC0-1.0": 1,
+    "Unlicense OR CC0-1.0": 1
+   },
+   "wpa_supplicant": {
+    "(none)": 250,
+    "Apache-2.0": 50,
+    "CC0-1.0": 3,
+    "Unlicense OR CC0-1.0": 4
+   },
+   "xtensa": {
+    "(none)": 64,
+    "Apache-2.0": 14,
+    "Apache-2.0 OR MIT": 1,
+    "MIT": 12
+   }
+  },
+  "libc_kconfig_sha256": "262aa774a288e51bb7d6f8ed9fde1228562841a2909d54f5bfbb8c0713f865b1",
+  "release": "v6.0.2",
+  "root_license": {
+   "bytes": 11358,
+   "classification": "Apache-2.0 text",
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "sbom_files": {
+   "components/console/argtable3/sbom.yml": "9a419126a0f89bebec5ca92a75acbbf2edba8015b0514e0eed4a9d342bd655ee",
+   "components/esp_libc/sbom.yml": "89cc2c55d12d89a41af13224ee94a2cf1c8e0f578c7a9ecef5ffe6aa299ba0e2",
+   "components/esp_libc/sbom_newlibc.yml": "0bc379a96ee01f1f8ed3799b706bfa02963518a297505babea610b59446fc444",
+   "components/esp_libc/sbom_picolibc.yml": "3a4fa8d270d03cf0cca47607f30cf4380fea9e24da124317a53ed2bd82e51161",
+   "components/fatfs/sbom.yml": "c57080318ba8d12fc81af66c629d4c8a13f3341abb97c75a67911618b8d8db4a",
+   "components/freertos/FreeRTOS-Kernel/sbom.yml": "a666a5ed30becec801230c974faf3a0f9b780fdb76d3eaffa68815c344c0d876",
+   "components/http_parser/sbom.yml": "79c7f29b142f7308d905e23743e50a5368c74df33c972f6c3c069b5b4c78c6e7",
+   "components/openthread/sbom.yml": "d4e6c48c4cf08b203bea2a6086424fe3aa4aa664746a1af40d3b4c687bfba1be",
+   "components/openthread/sbom_openthread.yml": "2474858812b320838aea6a2c1149a187b2e32c30931ed5ec5612c19a85a75271",
+   "components/rt/sbom.yml": "540f34bc3502d9f9826bb52bb2b6fea6bcf456833b804edd4f6495c866f3df13",
+   "components/wpa_supplicant/sbom.yml": "54f39aca8ac9247f74e69ba8a11cd8a4479e1656ca120ef7ac4ff071f43085fd"
+  },
+  "submodules": [
+   {
+    "commit": "24c60e243580c7868f4334a1ba3123481fe1aa48",
+    "path": "components/bootloader/subproject/components/micro-ecc/micro-ecc",
+    "root_license_files": {
+     "LICENSE.txt": {
+      "bytes": 1300,
+      "classification": "BSD-style permission",
+      "sha256": "ffd8b033d2df7568c25a98866bd92b1656f7da82d7f813c0b2eb85ec36611193"
+     }
+    }
+   },
+   {
+    "commit": "b4b7c54b1eab6a844789b69e56322ef5736eddc8",
+    "path": "components/bt/controller/lib_esp32",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 11358,
+      "classification": "Apache-2.0 text",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+     }
+    }
+   },
+   {
+    "commit": "6a5c0b8bfca1a2e984e89431b8ebf9b521dad5ea",
+    "path": "components/bt/controller/lib_esp32c2/esp32c2-bt-lib",
+    "root_license_files": {
+     "NOTICE": {
+      "bytes": 320,
+      "classification": "unclassified",
+      "sha256": "9db49cb1e535c496d7655dd54d5481404e7634353dc3bc0817c7d07767acc6e8"
+     }
+    }
+   },
+   {
+    "commit": "0a08c4b32f3666003080b662a1a61794da24ff0f",
+    "path": "components/bt/controller/lib_esp32c3_family",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 11358,
+      "classification": "Apache-2.0 text",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+     }
+    }
+   },
+   {
+    "commit": "c328228f53fe167cc9fbd05b5bef37158f64956d",
+    "path": "components/bt/controller/lib_esp32c5/esp32c5-bt-lib",
+    "root_license_files": {
+     "NOTICE": {
+      "bytes": 320,
+      "classification": "unclassified",
+      "sha256": "ebd002217a1a76e3cce23cd89d0916477da6c7907a6a46c8a7f1fb209e3cb333"
+     }
+    }
+   },
+   {
+    "commit": "e7be018522c85e67c298effc8ffa7f5b84887a7b",
+    "path": "components/bt/controller/lib_esp32c6/esp32c6-bt-lib",
+    "root_license_files": {
+     "NOTICE": {
+      "bytes": 320,
+      "classification": "unclassified",
+      "sha256": "ebd002217a1a76e3cce23cd89d0916477da6c7907a6a46c8a7f1fb209e3cb333"
+     }
+    }
+   },
+   {
+    "commit": "b2b8fd009c31816497d55726af297761147beb07",
+    "path": "components/bt/controller/lib_esp32h2/esp32h2-bt-lib",
+    "root_license_files": {
+     "NOTICE": {
+      "bytes": 321,
+      "classification": "unclassified",
+      "sha256": "a1a74b78d60bf3feb4f493f058ac8ee4022e40387783085171670e34b001d8dd"
+     }
+    }
+   },
+   {
+    "commit": "e44762384ed104a0ebc78f134eeba5f3ab648ddc",
+    "path": "components/bt/esp_ble_mesh/lib/lib",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 11358,
+      "classification": "Apache-2.0 text",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+     }
+    }
+   },
+   {
+    "commit": "5d8b70207a6324f45d9f548ff57ec3b154afccdd",
+    "path": "components/bt/host/nimble/nimble",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 12514,
+      "classification": "Apache-2.0 text",
+      "sha256": "0deb15bc7df50b1d009c644b008f92e1062909e9521328d337c5fad3a5d4921c"
+     },
+     "NOTICE": {
+      "bytes": 321,
+      "classification": "unclassified",
+      "sha256": "b838c4733a5020cd8e2bafbe70842acd8c8dc7816012965b77d10c1f4c0727f6"
+     }
+    }
+   },
+   {
+    "commit": "eeecc49ce8af123cf8ad40efdb9673e37b56230f",
+    "path": "components/cmock/CMock",
+    "root_license_files": {
+     "LICENSE.txt": {
+      "bytes": 1092,
+      "classification": "MIT-style permission",
+      "sha256": "a228c2871b9a779a6542a49470c5b567f2806dddcbcf90af861bb4d39291626c"
+     }
+    }
+   },
+   {
+    "commit": "71b47be7c950f1bf5f7e5303779fa99a16224bb6",
+    "path": "components/cmock/CMock/vendor/c_exception",
+    "root_license_files": {}
+   },
+   {
+    "commit": "cf949f45ca6d172a177b00da21310607b97bc7a7",
+    "path": "components/cmock/CMock/vendor/unity",
+    "root_license_files": {
+     "LICENSE.txt": {
+      "bytes": 1123,
+      "classification": "MIT-style permission",
+      "sha256": "3ed9b51da86f52c729c96cc99fdde6444b2297c788a9cf4ad1d3649dc34c4985"
+     }
+    }
+   },
+   {
+    "commit": "79e618f033e926d134decc6d95bb1b1850bd032c",
+    "path": "components/esp_coex/lib",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 11358,
+      "classification": "Apache-2.0 text",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+     }
+    }
+   },
+   {
+    "commit": "59c1234e929212aec0fdda75769b759951235536",
+    "path": "components/esp_phy/lib",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 11358,
+      "classification": "Apache-2.0 text",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+     }
+    }
+   },
+   {
+    "commit": "bb69e7e609c9a9a909ddd1ed175f36df2bd13801",
+    "path": "components/esp_wifi/lib",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 11358,
+      "classification": "Apache-2.0 text",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+     }
+    }
+   },
+   {
+    "commit": "2867f6883a12920b1969ff9624c0ab0e4185c2ce",
+    "path": "components/heap/tlsf",
+    "root_license_files": {}
+   },
+   {
+    "commit": "fd432e4ee2cfb7f7f1c7eb7227e0173412e7b84e",
+    "path": "components/lwip/lwip",
+    "root_license_files": {
+     "COPYING": {
+      "bytes": 1425,
+      "classification": "BSD-style permission",
+      "sha256": "ef4aac92e05e87cd1cdc140870ed52206ba03d4a7fe46c1e11d7ffa6c87d252b"
+     }
+    }
+   },
+   {
+    "commit": "6cc42afad309e861f4c07e6f106e2ab14a9cb8e5",
+    "path": "components/mbedtls/mbedtls",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 29852,
+      "classification": "Apache-2.0 OR GPL-2.0-or-later",
+      "sha256": "9b405ef4c89342f5eae1dd828882f931747f71001cfba7d114801039b52ad09b"
+     }
+    }
+   },
+   {
+    "commit": "9467fb320782855dff84add294039bfa0bcbbf4b",
+    "path": "components/openthread/lib",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 11358,
+      "classification": "Apache-2.0 text",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+     }
+    }
+   },
+   {
+    "commit": "a98813b30ae58f9a95ece680b9cc46c3874de6ea",
+    "path": "components/openthread/openthread",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 1506,
+      "classification": "BSD-style permission",
+      "sha256": "e164182fc3e6378533ba706800087469a14dcd5913ee55e2e8ae3fb14f3cdbbb"
+     },
+     "NOTICE": {
+      "bytes": 1325,
+      "classification": "unclassified",
+      "sha256": "1b37f4fbb95506a0529a15c007aa53053e0e2bf03b1547fb244fdebacf49374f"
+     }
+    }
+   },
+   {
+    "commit": "e185d7fd85499c8ce5ca2a54f5cf8fe7dbe3f8df",
+    "path": "components/openthread/openthread/third_party/mbedtls/repo",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 29852,
+      "classification": "Apache-2.0 OR GPL-2.0-or-later",
+      "sha256": "9b405ef4c89342f5eae1dd828882f931747f71001cfba7d114801039b52ad09b"
+     }
+    }
+   },
+   {
+    "commit": "457996474728cb8e968ed21953b72f74d2f536b2",
+    "path": "components/openthread/openthread/third_party/mbedtls/repo/framework",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 29861,
+      "classification": "Apache-2.0 OR GPL-2.0-or-later",
+      "sha256": "11402351e38392230bb8934ba1095c0c0049a296c0f8821f76e4672dff54b490"
+     }
+    }
+   },
+   {
+    "commit": "abc67a11c6db271bedbb9f58be85d6f4e2ea8389",
+    "path": "components/protobuf-c/protobuf-c",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 1613,
+      "classification": "BSD-style permission",
+      "sha256": "b8999cb392cc5bbe8cd679de59584ad8d2f26033123e76f1d662fa14b9d4f287"
+     }
+    }
+   },
+   {
+    "commit": "ad902cadceb39d0825a97e25ecb5867641f606ba",
+    "path": "components/spiffs/spiffs",
+    "root_license_files": {
+     "LICENSE": {
+      "bytes": 1117,
+      "classification": "MIT-style permission",
+      "sha256": "d19257540156a51ed50c2378e7159066415d8bbbe147779f8deb0d3e73f1b0a7"
+     }
+    }
+   },
+   {
+    "commit": "bf560290f6020737eafaa8b5cbd2177c3956c03f",
+    "path": "components/unity/unity",
+    "root_license_files": {
+     "LICENSE.txt": {
+      "bytes": 1123,
+      "classification": "MIT-style permission",
+      "sha256": "7d710553eaf7174f383699ed4eebac67fe7cda7971cbe892f700cd0e087f860f"
+     }
+    }
+   }
+  ],
+  "tools_json_declared_licenses_esp32s3_or_all": [
+   {
+    "declared_license": "GPL-3.0-or-later",
+    "install": "always",
+    "name": "xtensa-esp-elf-gdb",
+    "recommended": [
+     "17.1_20260402"
+    ]
+   },
+   {
+    "declared_license": "GPL-3.0-with-GCC-exception",
+    "install": "always",
+    "name": "xtensa-esp-elf",
+    "recommended": [
+     "esp-15.2.0_20251204"
+    ]
+   },
+   {
+    "declared_license": "Apache-2.0",
+    "install": "on_request",
+    "name": "esp-clang",
+    "recommended": [
+     "esp-20.1.1_20250829"
+    ]
+   },
+   {
+    "declared_license": "Apache-2.0",
+    "install": "on_request",
+    "name": "esp-clang-libs",
+    "recommended": [
+     "esp-20.1.1_20250829"
+    ]
+   },
+   {
+    "declared_license": "GPL-3.0-with-GCC-exception",
+    "install": "always",
+    "name": "riscv32-esp-elf",
+    "recommended": [
+     "esp-15.2.0_20251204"
+    ]
+   },
+   {
+    "declared_license": "GPL-3.0-or-later",
+    "install": "always",
+    "name": "esp32ulp-elf",
+    "recommended": [
+     "2.38_20240113"
+    ]
+   },
+   {
+    "declared_license": "BSD-3-Clause",
+    "install": "on_request",
+    "name": "cmake",
+    "recommended": [
+     "4.0.3"
+    ]
+   },
+   {
+    "declared_license": "GPL-2.0-only",
+    "install": "always",
+    "name": "openocd-esp32",
+    "recommended": [
+     "v0.12.0-esp32-20260424"
+    ]
+   },
+   {
+    "declared_license": "Apache-2.0",
+    "install": "on_request",
+    "name": "ninja",
+    "recommended": [
+     "1.12.1"
+    ]
+   },
+   {
+    "declared_license": "Apache-2.0",
+    "install": "never",
+    "name": "idf-exe",
+    "recommended": [
+     "1.0.3"
+    ]
+   },
+   {
+    "declared_license": "GPL-3.0-or-later",
+    "install": "never",
+    "name": "ccache",
+    "recommended": [
+     "4.12.1"
+    ]
+   },
+   {
+    "declared_license": "GPL-2.0-only",
+    "install": "never",
+    "name": "dfu-util",
+    "recommended": [
+     "0.11"
+    ]
+   },
+   {
+    "declared_license": "Apache-2.0",
+    "install": "always",
+    "name": "esp-rom-elfs",
+    "recommended": [
+     "20241011"
+    ]
+   },
+   {
+    "declared_license": "GPL-2.0-only",
+    "install": "on_request",
+    "name": "qemu-xtensa",
+    "recommended": [
+     "esp_develop_9.2.2_20250817"
+    ]
+   }
+  ],
+  "tools_json_sha256": "b403c25dc0c841dece4ac45abfa0a131f55ccae72db6be86ee36e3e69557f0e4"
+ },
+ "goose": {
+  "build_sources": {
+   "CMakeLists.txt": {
+    "bytes": 9277,
+    "classification": "unclassified",
+    "sha256": "4ef30a031c1ae0a0ed287fd7dc9f51a2a116186853e1394b3a33905099d7a7d9"
+   },
+   "cmake/libtcc.cmake": {
+    "bytes": 8763,
+    "classification": "unclassified",
+    "sha256": "4e11f9ec5089ae6b547028e73c2c994f88c8e1c369d96412e3e34fb9d696b1e4"
+   }
+  },
+  "commit": "335fddc13dc74666398ffe160ec8a8f2958329d0",
+  "license_files": {
+   "LICENSE": {
+    "bytes": 11358,
+    "classification": "Apache-2.0 text",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+   },
+   "third_party/tinycc/COPYING": {
+    "bytes": 26428,
+    "classification": "LGPL-2.1 text",
+    "sha256": "512d2d21b6b3384ba64781abb0208a1b87740bc31e2df48e2b206ddb7e4d5779"
+   },
+   "third_party/tinycc/RELICENSING": {
+    "bytes": 3016,
+    "classification": "partial relicensing statement (listed authors only)",
+    "sha256": "21fa846203e6f05a65e503a79f8b8b8e53de1898888a0c48d4a0c077529222ff"
+   },
+   "vscode/LICENSE": {
+    "bytes": 11358,
+    "classification": "Apache-2.0 text",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+   }
+  },
+  "third_party_dirs": [
+   "cute_spirv",
+   "subprocess",
+   "tinycc"
+  ],
+  "third_party_readmes": {
+   "third_party/cute_spirv/README.md": {
+    "bytes": 756,
+    "classification": "unclassified",
+    "sha256": "84654cf1e7306f310ec67b4fb94f8918d2a8f8db0d7f8a3862a80252f064f578"
+   },
+   "third_party/subprocess/README.md": {
+    "bytes": 670,
+    "classification": "unclassified",
+    "sha256": "86561553253636c76383ac8975dd6ecb1bb248ee4252ef1a9664e333a7a42623"
+   },
+   "third_party/tinycc/README": {
+    "bytes": 2843,
+    "classification": "unclassified",
+    "sha256": "6a832f34fe90e5bac8dce6f8dd8f0dd21ae8ef8002ac306fb1f53da86998985c"
+   },
+   "third_party/tinycc/README.md": {
+    "bytes": 2074,
+    "classification": "unclassified",
+    "sha256": "5ad47ea6314c9c1bb067440542385775a398c52bf30388b6cbfb3d72306b55db"
+   }
+  }
+ },
+ "project_upstream_notices": {
+  "patches/goose/LICENSE.upstream": {
+   "bytes": 11358,
+   "classification": "Apache-2.0 text",
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  }
+ },
+ "python_lock": {
+  "licenses": "not inspected",
+  "packages": 58,
+  "sha256": "2375856b5d2e02a63abfd959b3d79ab694d190cbdf62cc308bcbb4942544e08f"
+ },
+ "scope": "license text evidence only; no legal conclusion or binary membership claim",
+ "status": "inventory-collected",
+ "xtensa_toolchain": {
+  "archive_sha256": "3d50f5cd5f173acfd524e07c1cd69bc99585731a415ca2e5bce879997fe602b8",
+  "license_files": {
+   "automake/COPYING": {
+    "bytes": 17987,
+    "classification": "GPL-2.0 text",
+    "sha256": "ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6"
+   },
+   "automake/lib/COPYING": {
+    "bytes": 35149,
+    "classification": "GPL-3.0 text",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+   },
+   "binutils/COPYING": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "binutils/COPYING.LIB": {
+    "bytes": 25291,
+    "classification": "LGPL-2.0 text",
+    "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d"
+   },
+   "binutils/COPYING.LIBGLOSS": {
+    "bytes": 17076,
+    "classification": "BSD-style permission",
+    "sha256": "fd3190e942375b5a15d5a3f34759361921cac05afb33f90b79d0cb132971676e"
+   },
+   "binutils/COPYING.NEWLIB": {
+    "bytes": 46316,
+    "classification": "BSD-style permission",
+    "sha256": "19a3d496c944575951ca048e1fc0c974f030618586059732fa9def2281873f88"
+   },
+   "binutils/COPYING3": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "binutils/COPYING3.LIB": {
+    "bytes": 7639,
+    "classification": "LGPL-3.0 text",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+   },
+   "binutils/bfd/COPYING": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "binutils/gas/COPYING": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "binutils/gdb/COPYING": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "binutils/include/COPYING": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "binutils/include/COPYING3": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "binutils/libiberty/COPYING.LIB": {
+    "bytes": 26440,
+    "classification": "LGPL-2.1 text",
+    "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+   },
+   "binutils/readline/readline/COPYING": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "binutils/sim/COPYING": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "binutils/zlib/LICENSE": {
+    "bytes": 1002,
+    "classification": "zlib-style permission",
+    "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243"
+   },
+   "binutils/zlib/contrib/dotzlib/LICENSE_1_0.txt": {
+    "bytes": 1359,
+    "classification": "MIT-style permission",
+    "sha256": "36266a8fd073568394cb81cdb2b124f7fdae2c64c1a7ed09db34b4d22efa2951"
+   },
+   "crosstool-ng/COPYING": {
+    "bytes": 2517,
+    "classification": "unclassified",
+    "sha256": "07bc0ccd386469c748c4cf6c8faca5667fbf8c4400386714287fa233acfd68ba"
+   },
+   "crosstool-ng/licenses.d/by-sa/deed.en": {
+    "bytes": 9295,
+    "classification": "unclassified",
+    "sha256": "0eeca8b6b28b9cce130bde0cff92574d5e74875f9bc98b866a8cca058a217ae4"
+   },
+   "crosstool-ng/licenses.d/by-sa/deed_files/deed.gif": {
+    "bytes": 811,
+    "classification": "unclassified",
+    "sha256": "4f4176da2ba423d9b68036fe047fd0d1869e5d35e7a0da64567ed59c30585fbf"
+   },
+   "crosstool-ng/licenses.d/by-sa/deed_files/deed_002.gif": {
+    "bytes": 830,
+    "classification": "unclassified",
+    "sha256": "efec4aa70f9dc2628cfe7462edf291c9758e9c3122a0106496547d1571f48bed"
+   },
+   "crosstool-ng/licenses.d/by-sa/deed_files/deeds.css": {
+    "bytes": 1022,
+    "classification": "unclassified",
+    "sha256": "b330b5ce4586b07092d40991ea08445f1890f63d535c91e24c821bdd20b44aeb"
+   },
+   "crosstool-ng/licenses.d/by-sa/deed_files/logo_deed.gif": {
+    "bytes": 3486,
+    "classification": "unclassified",
+    "sha256": "d793bc990687ab2681370b30a501322fdec8d8840750c8dd9bb3e256aca6fa41"
+   },
+   "crosstool-ng/licenses.d/by-sa/deed_files/popup.gif": {
+    "bytes": 74,
+    "classification": "unclassified",
+    "sha256": "bd5602e489f1b73527238101785fb2372a8f9f7300a438cee8148f6708fc6860"
+   },
+   "crosstool-ng/licenses.d/by-sa/legalcode": {
+    "bytes": 16098,
+    "classification": "unclassified",
+    "sha256": "d62d84b64993fac727272f19c2bbf8f55bd31788d04560250364394541784021"
+   },
+   "crosstool-ng/licenses.d/by-sa/legalcode_files/deeds.css": {
+    "bytes": 1022,
+    "classification": "unclassified",
+    "sha256": "b330b5ce4586b07092d40991ea08445f1890f63d535c91e24c821bdd20b44aeb"
+   },
+   "crosstool-ng/licenses.d/by-sa/legalcode_files/logo_code.gif": {
+    "bytes": 3263,
+    "classification": "unclassified",
+    "sha256": "d0859912422b9dd9afcfb1e00fb2cfc2a7d3ad263cd2d4f381ddd377e4f8fcc2"
+   },
+   "crosstool-ng/licenses.d/gpl.txt": {
+    "bytes": 17987,
+    "classification": "GPL-2.0 text",
+    "sha256": "ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6"
+   },
+   "crosstool-ng/licenses.d/lgpl.txt": {
+    "bytes": 26436,
+    "classification": "LGPL-2.1 text",
+    "sha256": "5df07007198989c622f5d41de8d703e7bef3d0e79d62e24332ee739a452af62a"
+   },
+   "gcc/COPYING": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "gcc/COPYING.LIB": {
+    "bytes": 26527,
+    "classification": "LGPL-2.1 text",
+    "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861"
+   },
+   "gcc/COPYING.RUNTIME": {
+    "bytes": 3324,
+    "classification": "GCC-exception-3.1 text",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+   },
+   "gcc/COPYING3": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "gcc/COPYING3.LIB": {
+    "bytes": 7639,
+    "classification": "LGPL-3.0 text",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+   },
+   "gcc/gcc/COPYING": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "gcc/gcc/COPYING.LIB": {
+    "bytes": 26440,
+    "classification": "LGPL-2.1 text",
+    "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+   },
+   "gcc/gcc/COPYING3": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "gcc/gcc/COPYING3.LIB": {
+    "bytes": 7639,
+    "classification": "LGPL-3.0 text",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+   },
+   "gcc/gcc/go/gofrontend/LICENSE": {
+    "bytes": 1479,
+    "classification": "BSD-style permission",
+    "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067"
+   },
+   "gcc/gcc/m2/COPYING.FDL": {
+    "bytes": 20355,
+    "classification": "unclassified",
+    "sha256": "2ef8d66a88441327f071f98bc92ec1c7aec02e983c19fb49f6fb21d624fcaaf2"
+   },
+   "gcc/gcc/m2/COPYING.RUNTIME": {
+    "bytes": 3329,
+    "classification": "GCC-exception-3.1 text",
+    "sha256": "86c57afef00e0462173a19ab20387dec082f10b6dc59b7eda74d3da76b3142c2"
+   },
+   "gcc/gcc/m2/COPYING3": {
+    "bytes": 35148,
+    "classification": "GPL-3.0 text",
+    "sha256": "0ae0485a5bd37a63e63603596417e4eb0e653334fa6c7f932ca3a0e85d4af227"
+   },
+   "gcc/gcc/m2/COPYING3.LIB": {
+    "bytes": 7639,
+    "classification": "LGPL-3.0 text",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+   },
+   "gcc/gcc/m2/images/LICENSE.IMG": {
+    "bytes": 762,
+    "classification": "GPL-3.0 text",
+    "sha256": "abf1864372fc6dd8331f40970442e6578c7956d0a95103fc054c986e45279a8b"
+   },
+   "gcc/gcc/rust/checks/errors/borrowck/ffi-polonius/vendor/datafrog/LICENSE-APACHE": {
+    "bytes": 10847,
+    "classification": "Apache-2.0 text",
+    "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+   },
+   "gcc/gcc/rust/checks/errors/borrowck/ffi-polonius/vendor/datafrog/LICENSE-MIT": {
+    "bytes": 1023,
+    "classification": "MIT-style permission",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+   },
+   "gcc/gcc/rust/checks/errors/borrowck/ffi-polonius/vendor/log/LICENSE-APACHE": {
+    "bytes": 10847,
+    "classification": "Apache-2.0 text",
+    "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+   },
+   "gcc/gcc/rust/checks/errors/borrowck/ffi-polonius/vendor/log/LICENSE-MIT": {
+    "bytes": 1071,
+    "classification": "MIT-style permission",
+    "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+   },
+   "gcc/gcc/rust/checks/errors/borrowck/ffi-polonius/vendor/rustc-hash/LICENSE-APACHE": {
+    "bytes": 10847,
+    "classification": "Apache-2.0 text",
+    "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+   },
+   "gcc/gcc/rust/checks/errors/borrowck/ffi-polonius/vendor/rustc-hash/LICENSE-MIT": {
+    "bytes": 1023,
+    "classification": "MIT-style permission",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+   },
+   "gcc/gcc/testsuite/gcc.dg/params/LICENSE": {
+    "bytes": 1901,
+    "classification": "BSD-style permission",
+    "sha256": "4919cfb14a73cd64fcef67b107613970cf1659a09aa675dba31314f373bc7204"
+   },
+   "gcc/include/COPYING": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "gcc/include/COPYING3": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "gcc/libcody/LICENSE": {
+    "bytes": 11357,
+    "classification": "Apache-2.0 text",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+   },
+   "gcc/libffi/LICENSE": {
+    "bytes": 1132,
+    "classification": "MIT-style permission",
+    "sha256": "a61d06e8f7be57928e71e800eb9273b05cb8868c484108afe41e4305bb320dde"
+   },
+   "gcc/libffi/LICENSE-BUILDTOOLS": {
+    "bytes": 18698,
+    "classification": "GPL-2.0 text",
+    "sha256": "e67978cd18816c0cb7d29aaaacde7b7447402c2fb321a051698890a8eaedda94"
+   },
+   "gcc/libgcobol/LICENSE": {
+    "bytes": 1478,
+    "classification": "BSD-style permission",
+    "sha256": "e928a2c9b73e5548dddb9e74f83dc5bb58e8856fc6e8c21b7107f9b5098bcff7"
+   },
+   "gcc/libgo/LICENSE": {
+    "bytes": 1479,
+    "classification": "BSD-style permission",
+    "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067"
+   },
+   "gcc/libgo/go/golang.org/x/mod/LICENSE": {
+    "bytes": 1479,
+    "classification": "BSD-style permission",
+    "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067"
+   },
+   "gcc/libgo/go/golang.org/x/sync/LICENSE": {
+    "bytes": 1479,
+    "classification": "BSD-style permission",
+    "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067"
+   },
+   "gcc/libgo/go/golang.org/x/tools/LICENSE": {
+    "bytes": 1479,
+    "classification": "BSD-style permission",
+    "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067"
+   },
+   "gcc/libgo/go/golang.org/x/xerrors/LICENSE": {
+    "bytes": 1479,
+    "classification": "BSD-style permission",
+    "sha256": "84d554e7a5d139b7c7b5d6ef0670ae556c4cdcfa354eaad72a1c07c08012c96f"
+   },
+   "gcc/libgrust/libformat_parser/vendor/libc/LICENSE-APACHE": {
+    "bytes": 9723,
+    "classification": "Apache-2.0 text",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+   },
+   "gcc/libgrust/libformat_parser/vendor/libc/LICENSE-MIT": {
+    "bytes": 1076,
+    "classification": "MIT-style permission",
+    "sha256": "a8d47ff51ca256f56a8932dba07660672dbfe3004257ca8de708aac1415937a1"
+   },
+   "gcc/libgrust/libformat_parser/vendor/unicode-xid/COPYRIGHT": {
+    "bytes": 321,
+    "classification": "Apache-2.0 text",
+    "sha256": "23860c2a7b5d96b21569afedf033469bab9fe14a1b24a35068b8641c578ce24d"
+   },
+   "gcc/libgrust/libformat_parser/vendor/unicode-xid/LICENSE-APACHE": {
+    "bytes": 10847,
+    "classification": "Apache-2.0 text",
+    "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+   },
+   "gcc/libgrust/libformat_parser/vendor/unicode-xid/LICENSE-MIT": {
+    "bytes": 1071,
+    "classification": "MIT-style permission",
+    "sha256": "7b63ecd5f1902af1b63729947373683c32745c16a10e8e6292e2e2dcd7e90ae0"
+   },
+   "gcc/libiberty/COPYING.LIB": {
+    "bytes": 26440,
+    "classification": "LGPL-2.1 text",
+    "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+   },
+   "gcc/libphobos/libdruntime/LICENSE.txt": {
+    "bytes": 1338,
+    "classification": "MIT-style permission",
+    "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+   },
+   "gcc/libphobos/src/LICENSE_1_0.txt": {
+    "bytes": 1338,
+    "classification": "MIT-style permission",
+    "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+   },
+   "gcc/libquadmath/COPYING.LIB": {
+    "bytes": 26440,
+    "classification": "LGPL-2.1 text",
+    "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+   },
+   "gcc/libsanitizer/LICENSE.TXT": {
+    "bytes": 4506,
+    "classification": "MIT-style permission",
+    "sha256": "74c2b24539a53c34abddb559266d89cb653b0198cd2faf9c04763d3223db7f6d"
+   },
+   "gcc/libstdc++-v3/include/pstl/LICENSE.txt": {
+    "bytes": 16700,
+    "classification": "Apache-2.0 text",
+    "sha256": "0ca8cbe9219a841f9bc8fbb1f8ecdf5e39b1b0e23ee10fb6b0c090d8987dd1eb"
+   },
+   "gcc/zlib/LICENSE": {
+    "bytes": 1002,
+    "classification": "zlib-style permission",
+    "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243"
+   },
+   "gcc/zlib/contrib/dotzlib/LICENSE_1_0.txt": {
+    "bytes": 1359,
+    "classification": "MIT-style permission",
+    "sha256": "36266a8fd073568394cb81cdb2b124f7fdae2c64c1a7ed09db34b4d22efa2951"
+   },
+   "gmp/COPYING": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "gmp/COPYING.LESSERv3": {
+    "bytes": 7639,
+    "classification": "LGPL-3.0 text",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+   },
+   "gmp/COPYINGv2": {
+    "bytes": 18092,
+    "classification": "GPL-2.0 text",
+    "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+   },
+   "gmp/COPYINGv3": {
+    "bytes": 35150,
+    "classification": "GPL-3.0 text",
+    "sha256": "e6037104443f9a7829b2aa7c5370d0789a7bda3ca65a0b904cdc0c2e285d9195"
+   },
+   "isl/LICENSE": {
+    "bytes": 1042,
+    "classification": "MIT-style permission",
+    "sha256": "3a2c398103f6bca0f50a9a9465deca9230b370b0212af5fdf31ed88a36215c30"
+   },
+   "mpc/COPYING.LESSER": {
+    "bytes": 7651,
+    "classification": "LGPL-3.0 text",
+    "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+   },
+   "mpfr/COPYING": {
+    "bytes": 35149,
+    "classification": "GPL-3.0 text",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+   },
+   "mpfr/COPYING.LESSER": {
+    "bytes": 7652,
+    "classification": "LGPL-3.0 text",
+    "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+   },
+   "newlib/COPYING": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "newlib/COPYING.LIB": {
+    "bytes": 26527,
+    "classification": "LGPL-2.1 text",
+    "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861"
+   },
+   "newlib/COPYING.LIBGLOSS": {
+    "bytes": 24242,
+    "classification": "BSD-style permission",
+    "sha256": "bdaffd5fff30cb5fc7a239a4fa0b95f703590f7b3813ca7f4e76ff46437aeb81"
+   },
+   "newlib/COPYING.NEWLIB": {
+    "bytes": 78261,
+    "classification": "BSD-style permission",
+    "sha256": "fcfb5ec69b6ab52676dcc4dab7cf4338c8000ef97812dadd35b8592a640a8419"
+   },
+   "newlib/COPYING3": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "newlib/COPYING3.LIB": {
+    "bytes": 7639,
+    "classification": "LGPL-3.0 text",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+   },
+   "newlib/include/COPYING": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "newlib/include/COPYING3": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "newlib/newlib/libc/posix/COPYRIGHT": {
+    "bytes": 2657,
+    "classification": "BSD-style permission",
+    "sha256": "b4f217294d6910b752eb4d85c1bf1540c475911efaf4b6f86227149d2bc69efe"
+   },
+   "newlib/winsup/COPYING": {
+    "bytes": 35147,
+    "classification": "GPL-3.0 text",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+   },
+   "newlib/winsup/COPYING.LIB": {
+    "bytes": 7651,
+    "classification": "LGPL-3.0 text",
+    "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+   },
+   "newlib/winsup/cygwin/regex/COPYRIGHT": {
+    "bytes": 2894,
+    "classification": "BSD-style permission",
+    "sha256": "3be175b44ed4ee963d61a34296b3ec8517d82322e9ee77bf365d29d454a497d4"
+   },
+   "newlib/winsup/utils/COPYING.dumper": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "picolibc/COPYING.GPL2": {
+    "bytes": 18002,
+    "classification": "LGPL-2.0 text",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+   },
+   "picolibc/COPYING.NEWLIB": {
+    "bytes": 78261,
+    "classification": "BSD-style permission",
+    "sha256": "fcfb5ec69b6ab52676dcc4dab7cf4338c8000ef97812dadd35b8592a640a8419"
+   },
+   "picolibc/COPYING.picolibc": {
+    "bytes": 237194,
+    "classification": "multi-license manifest (Debian copyright format)",
+    "sha256": "1e427387b690483dad761268beb0f09a824ecba6132c4dfee78d1fb21a6e75b5"
+   },
+   "zlib/LICENSE": {
+    "bytes": 1002,
+    "classification": "zlib-style permission",
+    "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243"
+   },
+   "zlib/contrib/dotzlib/LICENSE_1_0.txt": {
+    "bytes": 1359,
+    "classification": "MIT-style permission",
+    "sha256": "36266a8fd073568394cb81cdb2b124f7fdae2c64c1a7ed09db34b4d22efa2951"
+   },
+   "zstd/COPYING": {
+    "bytes": 18091,
+    "classification": "GPL-2.0 text",
+    "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505"
+   },
+   "zstd/LICENSE": {
+    "bytes": 1549,
+    "classification": "BSD-style permission",
+    "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8"
+   },
+   "zstd/build/LICENSE": {
+    "bytes": 0,
+    "classification": "unclassified",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  "license_packages": [
+   "automake",
+   "binutils",
+   "crosstool-ng",
+   "gcc",
+   "gmp",
+   "isl",
+   "mpc",
+   "mpfr",
+   "newlib",
+   "picolibc",
+   "zlib",
+   "zstd"
+  ],
+  "picolibc_copyleft_stanzas": {
+   "AGPL3-1": [
+    "scripts/GeneratePicolibcCrossFile.sh"
+   ],
+   "GPL2-1": [
+    "test/printf-tests.c",
+    "test/testcases.c"
+   ]
+  },
+  "picolibc_license_stanza_count": 85,
+  "version": "esp-15.2.0_20251204"
+ }
+}

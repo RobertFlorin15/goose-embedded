@@ -1,19 +1,46 @@
 # Project state
 
 Updated 2026-11-06. Reconcile with Git/source. Current evidence:
+[LICENSE_INVENTORY.md](../research/LICENSE_INVENTORY.md),
 [FATAL_STACK_AUDIT.md](../research/FATAL_STACK_AUDIT.md),
 [fatal-stack-results.json](../research/fatal-stack-results.json).
 Earlier fatal/config/normal/compiler reports retain their historical evidence.
 
 ## Current milestone and task
 
-M1 analysis and M2a scalar leaf cross-build/ABI gate complete. Latest technical result:
-**fatal SDK/exception stack ownership and individual-frame audit complete as
-static analysis, with remaining budget requirements explicitly unresolved**.
+M1 analysis and M2a scalar leaf cross-build/ABI gate complete. Latest result:
+**pinned license evidence inventory collected (static, no legal clearance)**.
+Prior technical result: fatal SDK/exception stack ownership and individual-frame
+audit (static; budget requirements explicitly unresolved).
 M2b physical execution is unverified and HAL blocked. No physical/simulator
 execution, actual stack sample, observed halt or complete stack bound exists.
-Next independent task: inventory pinned compiler/SDK/tool licenses and potential
-distribution obligations before selecting a project license.
+Next: resolve the exact firmware link set (fresh scalar build retaining map/
+project description) and let the user choose a project license.
+
+## License inventory (2026-11-06)
+
+New tools/license_inventory.py (offline, read-only) + tests/test_license_inventory.py
+(8 cases). Report research/LICENSE_INVENTORY.md; reviewed JSON
+research/license-inventory-results.json (sha256 156071f3...209d). Inputs fetched
+this session into ignored .cache/: Goose clean at pin; ESP-IDF partial clone
+.cache/esp-idf-v6.0.2-meta at 7101770 (tag object b0d7ee87 matches) with 25
+submodules matching recorded scalar evidence; pinned Xtensa archive (sha256
+matches pin) in .cache/dist, license dir also extracted to .cache/toolchain-licenses.
+No SDK tools installed, no build, no hardware.
+
+Findings: Goose Apache-2.0, no NOTICE; compiler statically links LGPL-2.1
+TinyCC (RELICENSING partial with NO/? entries); libtcc1.c GPL-2.0+ with linking
+exception; subprocess.h Unlicense; cute_spirv zlib OR Unlicense, ckit public
+domain (latter two previously unlisted). ESP-IDF root Apache-2.0; FreeRTOS/
+Xtensa MIT, TLSF BSD-3 (no root license file), mbedtls Apache-2.0 OR GPL-2.0+,
+lwIP/OpenThread/protobuf-c/micro-ecc BSD-style. esp_libc Kconfig defaults to
+picolibc with GCC; project defaults do not override. Toolchain: libgcc GPL-3 +
+Runtime Library Exception text; picolibc per-file manifest, copyleft stanzas
+name only test/script files. Python lock licenses not inspected.
+
+Verification: 8 new + 47 existing unit tests pass; inventory run PASS; refusal
+checks (non-pinned archive, dirty Goose) exit 1 without output. Raw output
+build/license-inventory. Unresolved items listed in the report.
 
 ## First GitHub push preparation (2026-11-06)
 
@@ -103,30 +130,28 @@ task; first push is not a licensed release or hardware milestone.
 - No physical normal/fatal output, persistent halt or real watermark evidence.
   Exact module/flash/PSRAM/console inventory and explicit authorization required
   before any concrete hardware operation. User has multiple unspecified boards.
-- Dependency/distribution inventory and project license pending. Full upstream
+- License evidence inventory done; exact firmware link set, effective libc and
+  project license selection remain open (see LICENSE_INVENTORY.md). Full upstream
   compiler/LSP/sanitizer suites remain pending; implementations unchanged this task.
   No SDK/tool/generated binary redistribution.
 
 ## Files and Git
 
-This checkpoint changes .gitignore and the state/handoff only. The following
-implementation files describe the prior technical checkpoint.
-
-New audit tool/unit tests/report/JSON summary; updated fatal validator/rejection
-test, protocol, README/tools docs, architecture/roadmap/learning and state/handoff.
-No target/compiler/runtime/panic adapter source modifications.
-Branch main; origin configured as above. Prior verified technical checkpoint:
-b100cc1 (resolve full hash with git rev-parse b100cc1).
-Current checkpoint is the commit containing this file (`git rev-parse HEAD`);
-verify status. Related changes intended to be committed together. Unrelated
-local .vscode/ preserved/ignored. Raw audit/test artifacts ignored under build/.
+This checkpoint adds tools/license_inventory.py, tests/test_license_inventory.py,
+research/LICENSE_INVENTORY.md and license-inventory-results.json, and updates
+README, REFERENCES, tools/README, state and handoff. No compiler/runtime/target/
+panic adapter source changes. Branch main; origin
+https://github.com/RobertFlorin15/goose-embedded.git. Prior explicit checkpoints:
+9713a8b (gitignore), b100cc1 (fatal audit). Current checkpoint is the commit
+containing this file (`git rev-parse HEAD`); verify status. .cache/ and build/
+remain ignored.
 
 ## Next action / model
 
-Inventory exact license files/notices for pinned Goose and its compiler
-third parties, ESP-IDF/submodules and installed tool packages. Distinguish local
-use, linking/generated output and redistribution; record unknown obligations and
-required follow-up without guessing compatibility or selecting a license yet.
-Sol/medium for the bounded inventory. Astra/high remains recommended for complete
+1. User decision: choose a project license (inventory informs, does not decide).
+2. Engineering: with the full SDK setup (tools/README.md), run a fresh scalar
+   build and retain the linker map/project_description.json and effective
+   sdkconfig to list the actual linked components/libc for firmware notices.
+Sol/medium suffices for both. Astra/high remains recommended for complete
 window/exception/ROM stack reasoning. No model switching assumed; no paid API,
-hardware or HAL action authorized by this checkpoint.
+hardware or HAL action authorized.
