@@ -1,19 +1,36 @@
 # Project state
 
-Updated 2026-11-05. Reconcile with Git/source. Current evidence:
+Updated 2026-11-06. Reconcile with Git/source. Current evidence:
 [FATAL_STACK_AUDIT.md](../research/FATAL_STACK_AUDIT.md),
 [fatal-stack-results.json](../research/fatal-stack-results.json).
 Earlier fatal/config/normal/compiler reports retain their historical evidence.
 
 ## Current milestone and task
 
-M1 analysis and M2a scalar leaf cross-build/ABI gate complete. Current task:
+M1 analysis and M2a scalar leaf cross-build/ABI gate complete. Latest technical result:
 **fatal SDK/exception stack ownership and individual-frame audit complete as
 static analysis, with remaining budget requirements explicitly unresolved**.
 M2b physical execution is unverified and HAL blocked. No physical/simulator
 execution, actual stack sample, observed halt or complete stack bound exists.
 Next independent task: inventory pinned compiler/SDK/tool licenses and potential
 distribution obligations before selecting a project license.
+
+## First GitHub push preparation (2026-11-06)
+
+Completed .gitignore for downloaded/build output, Python environments/caches,
+local editors/OS files, dotenv/private-key containers, CMake/native products and
+application-local ESP-IDF config/downloads. Keep defaults, lockfiles, test stubs,
+agent memory, patches and reviewed JSON/log evidence eligible. Existing .vscode/
+content preserved and now ignored. Verification:24 excluded paths +17 eligible
+paths pass git check-ignore --no-index; no tracked files match ignore rules;
+git diff --check passes. No firmware or code change, so no compiler/build rerun.
+
+Reconciled actual Git configuration: origin is
+https://github.com/RobertFlorin15/goose-embedded.git; prior "no remote" statement
+was stale. No main upstream tracking branch configured at inspection. This task
+does not push or establish remote contents. After this checkpoint, user can run
+`git push -u origin main`. Project license inventory remains the next engineering
+task; first push is not a licensed release or hardware milestone.
 
 ## Completed tasks
 
@@ -92,13 +109,17 @@ distribution obligations before selecting a project license.
 
 ## Files and Git
 
+This checkpoint changes .gitignore and the state/handoff only. The following
+implementation files describe the prior technical checkpoint.
+
 New audit tool/unit tests/report/JSON summary; updated fatal validator/rejection
 test, protocol, README/tools docs, architecture/roadmap/learning and state/handoff.
 No target/compiler/runtime/panic adapter source modifications.
-Branch main; no remote. Prior verified checkpoint 4352678ac2b2d580e40eee218c82ef7d42be09a2.
+Branch main; origin configured as above. Prior verified technical checkpoint:
+b100cc1 (resolve full hash with git rev-parse b100cc1).
 Current checkpoint is the commit containing this file (`git rev-parse HEAD`);
 verify status. Related changes intended to be committed together. Unrelated
-untracked .vscode/ preserved/excluded. Raw audit/test artifacts ignored under build/.
+local .vscode/ preserved/ignored. Raw audit/test artifacts ignored under build/.
 
 ## Next action / model
 

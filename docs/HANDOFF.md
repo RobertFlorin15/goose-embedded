@@ -1,15 +1,25 @@
 # Handoff
 
-2026-11-05. **Fatal stack ownership/frames audited statically. Whole-task stack,
+2026-11-06. **Fatal stack ownership/frames audited statically. Whole-task stack,
 physical execution and halt remain unverified. M2b and HAL are still blocked.**
 
 Recover AGENTS.md -> PROJECT_STATE.md -> skill -> Git/source/evidence.
-Branch main; no remote. Prior checkpoint 4352678ac2b2d580e40eee218c82ef7d42be09a2.
+Branch main; origin=https://github.com/RobertFlorin15/goose-embedded.git.
+Prior verified technical checkpoint b100cc1. Earlier no-remote statement corrected.
 Current checkpoint is the commit containing this file (`git rev-parse HEAD`).
-Task changes committed together; verify status. Unrelated untracked .vscode/
-preserved/excluded. No compiler/runtime/target app/SDK/panic-adapter changes.
+Task changes committed together; verify status. Local .vscode/ preserved/ignored. No compiler/runtime/target app/SDK/panic-adapter changes.
 
-New tools/audit_scalar_fatal.py checks existing passing fatal builds against pinned
+Latest task: .gitignore completed for local editor/OS/Python/env/secret files,
+CMake/native artifacts and app-local ESP-IDF sdkconfig/managed_components. Keep
+reviewed defaults/lockfiles/stubs/agent memory/patches/JSON/log evidence eligible.
+24 ignore +17 inclusion checks pass; no tracked ignored files; whitespace passes.
+No target change or build rerun. GitHub remote exists; main has no configured
+upstream at inspection. No push performed and remote contents not inspected.
+User's next Git command: `git push -u origin main` after reviewing this commit.
+License inventory is next engineering task; Sol/medium sufficient. Astra/high
+reserved for deeper complete ABI/window/exception/ROM stack analysis.
+
+Previous technical checkpoint: tools/audit_scalar_fatal.py checks existing passing fatal builds against pinned
 SDK, recorded current source, manifests and artifact hashes; retains four full
 linked disassemblies and 140 symbol records. Frames without ordinary entry are
 null, never zero. It records manual pre-trap paths, direct/indirect indicators and

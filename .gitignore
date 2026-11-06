@@ -1,4 +1,70 @@
+# Downloaded upstream sources, SDKs, tools and generated build/probe output.
 .cache/
 build/
+cmake-build-*/
+
+# Python environments, bytecode and local analysis/test caches.
+.venv/
+venv/
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local editor/workspace and operating-system files.
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Local secrets. Sanitized environment templates can be reviewed and tracked.
+.env
+.env.*
+!.env.example
+!.env.template
+*.key
+*.p12
+*.pfx
+/secrets/
+
+# CMake output from accidental in-source configurations; keep authored CMake files.
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+compile_commands.json
+CMakeUserPresets.json
+
+# Native/firmware compilation products (source and reviewed patches stay tracked).
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.elf
+*.bin
+*.hex
+*.uf2
+*.map
+*.su
+
+# ESP-IDF local configuration/dependency downloads in application trees.
+# sdkconfig.defaults, target-specific defaults, stubs and dependency lockfiles
+# remain eligible for version control.
+/examples/**/sdkconfig
+/examples/**/sdkconfig.old
+/examples/**/managed_components/
+
+# Do not blanket-ignore *.json, *.log, *.patch or agent instructions:
+# reviewed research evidence, pins, tests, patches and project memory are sources.
